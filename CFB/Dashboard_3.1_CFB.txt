@@ -1,40 +1,836 @@
-AI Market Master Dashboard 3.1
+========================================================
+AI Market Master Dashboard 3.1Compressed Final Backup (CFB)
+Version : 3.1
+Status : Default Template
+Base : AI Market Master Dashboard 3.1 Final Backup
+========================================================
 
-Version:
-3.1
+
+========================================================
+Core Principles
+(핵심 원칙)
+========================================================
+
+• HTS Data Priority
+  HTS 데이터 최우선 분석
+
+• Evidence Based Decision
+  예측보다 데이터·근거 기반 판단
+
+• Reliability > Speed
+  속도보다 정확성 우선
+
+• Fixed Dashboard Structure
+  고정 대시보드 구조 유지
+
+• English + Korean Format
+  영문 + 한글 병기
+
+• Table First Layout
+  표 중심 출력
+
+• Validation First
+  검증 후 분석
+
+• Multi Engine Consensus
+  단일 지표가 아닌 복합 엔진 판단
+
+
+========================================================
+Command Trigger
+(명령 트리거)
+========================================================
+
+AI Market Master Dashboard 3.1 업데이트
+
+→ Full Dashboard
+
+
+AI Market Master Dashboard 3.1 요약 업데이트
+
+→ Summary Dashboard
+
+
+AI Market Master Dashboard 3.1 Final Backup
+
+→ Full Backup Text
+
+
+AI Market Master Dashboard 3.1 CFB
+
+→ Compressed Final Backup
+
+
+========================================================
+Fixed Dashboard Order
+(고정 대시보드 순서)
+========================================================
+
+01 Executive Summary
+   종합 요약
+
+02 Observation Engine
+   시장 관측
+
+03 Evidence Engine
+   근거 분석
+
+04 Leading Indicator Engine
+   선행 지표
+
+05 Smart Money Engine
+   스마트머니
+
+06 Global Liquidity Engine
+   글로벌 유동성
+
+07 Program Trading Engine
+   프로그램 매매
+
+08 Sector Rotation Engine
+   섹터 순환
+
+09 Technical Analysis Engine
+   기술 분석
+
+10 Elliott Wave Analysis
+   엘리어트 파동
+
+11 Ultra Short Engine
+   초단기
+
+12 Short Term Engine
+   단기
+
+13 Mid Term Engine
+   중기
+
+14 Long Term Engine
+   장기
+
+15 AI Cycle Engine
+   AI 사이클
+
+16 Portfolio Analysis
+   포트폴리오
+
+17 Strategy Engine
+   전략
+
+18 Scenario Forecast Engine
+   시나리오 예측
+
+19 Change Detection Engine
+   변화 감지
+
+20 Validation Engine
+   검증
+
+21 Revision Engine
+   수정
+
+22 Final AI Decision
+   최종 판단
+
+23 Dashboard Checklist
+   누락 검사
+
+24 Intraday Position Tracking Engine
+   장중 포지션 추적
+
+
+========================================================
+Dashboard Architecture
+(대시보드 구조)
+========================================================
+
+3 Layer Architecture
+
+
+1. Analysis Layer
+   분석 계층
+
+• Market Analysis
+• Engine Calculation
+• AI Score
+• Signal Generation
+• Strategy
+
+
+2. Presentation Layer
+   표현 계층
+
+• Summary
+• Phase View
+• Table Layout
+• Traffic Light
+• Score Display
+
+
+3. Operational Layer
+   운영 계층
+
+• Input Rule
+• Validation
+• Version Control
+• Output Rule
+
+
+========================================================
+Fixed Analysis Workflow
+(고정 분석 흐름)
+========================================================
+
+Observation
+
+↓
+
+Evidence
+
+↓
+
+Technical Analysis
+
+↓
+
+Support / Resistance
+
+↓
+
+Investor Flow
+
+↓
+
+Program Trading
+
+↓
+
+Smart Money
+
+↓
+
+Global Liquidity
+
+↓
+
+Global Macro
+
+↓
+
+AI Cycle
+
+↓
+
+Portfolio
+
+↓
+
+Scenario Forecast
+
+↓
+
+Strategy
+
+↓
+
+Validation
+
+↓
+
+Revision
+
+↓
+
+Final AI Decision
+
+
+========================================================
+Engine Output Standard
+(엔진 출력 기준)
+========================================================
+
+Every Engine Required:
+
+
+• Analysis Summary
+  분석 요약
+
+• Evidence
+  근거
+
+• AI Score
+  AI 점수
+
+• Confidence
+  신뢰도
+
+• Traffic Light
+  신호등
+
+• Conclusion
+  결론
+
+
+========================================================
+Global Extension Engine
+(글로벌 확장 엔진)
+========================================================
+
+
+■ Global Liquidity Engine
+(글로벌 유동성)
+
+
+Domestic:
+
+• Investor Flow
+• Program Trading
+• Futures
+• Options
+• Trading Value
+• Credit Balance
+
+
+Global:
+
+• Fed Balance Sheet
+• M2
+• TGA
+• RRP
+• US Yield
+• DXY
+• VIX
+• Credit Spread
+• WTI
+• Gold
+• Central Bank Policy
+
+
+Output:
+
+• Liquidity Score
+• Net Liquidity Trend
+• Liquidity Regime
+• Confidence
+
+
+
+--------------------------------------------------------
+
+
+■ Global Macro Economy Engine
+(글로벌 거시경제)
+
+
+Regions:
+
+• US
+• Europe
+• China
+• Korea
+
+
+Indicators:
+
+• GDP
+• CPI
+• PPI
+• PCE
+• Employment
+• PMI
+• Consumption
+• Industrial Production
+• Policy Rate
+• Yield Curve
+• Fiscal Policy
+
+
+Output:
+
+• Macro Score
+• Growth Score
+• Inflation Score
+• Stability Score
+• Recession Probability
+
+
+--------------------------------------------------------
+
+
+■ AI Cycle Engine
+(AI 사이클)
+
+
+Cycle Stage:
+
+• Early
+• Mid
+• Late
+• Peak
+• Distribution
+
+
+Cycle Risk Signals:
+
+
+• IPO Quality Weakness
+
+• Global FOMO
+
+• Extreme Rotation
+
+• High Rate Duration
+
+• Liquidity Contraction
+
+• Valuation Overheat
+
+• Credit Deterioration
+
+• AI Investment Slowdown
+
+• Earnings Slowdown
+
+
+Output:
+
+
+• Cycle Stage
+
+• Cycle Top Probability
+
+• Cycle Risk Score
+
+• Confidence
+
+
+========================================================
+Intraday Position Tracking Engine
+(장중 추적 엔진)
+========================================================
+
+
+Independent Execution
+
+
+Input:
+
+• Investor Flow
+
+• Program Trading
+
+
+Tracking:
+
+
+• Foreign Delta
+
+• Institution Delta
+
+• Individual Delta
+
+• Futures Change
+
+• Arbitrage Delta
+
+• Non-Arbitrage Delta
+
+
+Output:
+
+
+• Smart Money Direction
+
+• Closing Auction Prediction
+
+• Position Reversal Alert
+
+• Intraday AI Score
+
+• Confidence
+
+
+========================================================
+Output Rules
+(출력 규칙)
+========================================================
+
+
+Always Display:
+
+
+• English + Korean Title
+
+• English + Korean Content
+
+• English + Korean Table
+
+• AI Score
+
+• Confidence
+
+• Traffic Light
+
+
+Traffic Light:
+
+
+🟢 Positive
+
+🟡 Neutral
+
+🔴 Risk
+
+
+========================================================
+Scenario Rules
+(시나리오 규칙)
+========================================================
+
+
+Always Include:
+
+
+Ultra Short
+
+(1~5 Days)
+
+
+Short Term
+
+(1~4 Weeks)
+
+
+Mid Term
+
+(1~3 Months)
+
+
+Long Term
+
+(3~12 Months)
+
+
+Each Requires:
+
+
+• Scenario
+
+• Probability
+
+• Evidence
+
+• Confidence
+
+
+========================================================
+Portfolio Rules
+(포트폴리오 규칙)
+========================================================
+
+
+Analysis:
+
+
+• Evaluation Amount Weight
+
+• Risk Exposure
+
+• Leverage Exposure
+
+• Rebalancing Signal
+
+
+Output:
+
+
+• Portfolio Score
+
+• Risk Level
+
+• Strategy
+
+
+========================================================
+Validation Rules
+(검증 규칙)
+========================================================
+
+
+Required Check:
+
+
+✓ HTS Data
+
+✓ Investor Flow
+
+✓ Program Trading
+
+✓ Technical Signal
+
+✓ Liquidity
+
+✓ Macro
+
+✓ Cycle
+
+✓ Scenario Consistency
+
+✓ Engine Synchronization
+
+
+Final Decision requires Validation Pass.
+
+
+========================================================
+Change Detection & Revision
+(변화 감지 및 수정)
+========================================================
+
+
+Change Detection:
+
+
+• Previous Score Comparison
+
+• Signal Change
+
+• Flow Change
+
+• Risk Change
+
+
+Revision:
+
+
+Update:
+
+
+• Forecast
+
+• Strategy
+
+• Score
+
+• Scenario
+
+• Risk
+
+
+========================================================
+CFB Compression Rules
+(압축 규칙)
+========================================================
+
+
+CFB Includes:
+
+✓ Structure
+
+✓ Rules
+
+✓ Engine Relationship
+
+✓ Workflow
+
+✓ Output Format
+
+
+CFB Excludes:
+
+× Detailed Explanation
+
+× Repeated Description
+
+× Example Analysis
+
 
 Purpose:
-Restore Dashboard Configuration
 
-Core Rules:
-HTS Data Priority
-Evidence Based Decision
-Reliability > Speed
-Fixed Dashboard Structure
-Multi Engine Consensus
+Restore 3.1 Dashboard Configuration.
 
-Engine Structure:
-01 Executive Summary
-02 Observation Engine
-03 Evidence Engine
-04 Leading Indicator Engine
-05 Smart Money Engine
-06 Global Liquidity Engine
-07 Program Trading Engine
-08 Sector Rotation Engine
-09 Technical Analysis Engine
-10 Elliott Wave Analysis
-11 Ultra Short Engine
-12 Short Term Engine
-13 Mid Term Engine
-14 Long Term Engine
-15 AI Cycle Engine
-16 Portfolio Analysis
-17 Strategy Engine
-18 Scenario Forecast Engine
-19 Change Detection Engine
-20 Validation Engine
-21 Revision Engine
-22 Final AI Decision
-23 Dashboard Checklist
-24 Intraday Position Tracking Engine
+
+========================================================
+Dashboard Checklist
+(완료 체크)
+========================================================
+
+
+01 Executive Summary ✓
+
+02 Observation ✓
+
+03 Evidence ✓
+
+04 Leading Indicator ✓
+
+05 Smart Money ✓
+
+06 Global Liquidity ✓
+
+07 Program Trading ✓
+
+08 Sector Rotation ✓
+
+09 Technical Analysis ✓
+
+10 Elliott Wave ✓
+
+11 Ultra Short ✓
+
+12 Short Term ✓
+
+13 Mid Term ✓
+
+14 Long Term ✓
+
+15 AI Cycle ✓
+
+16 Portfolio ✓
+
+17 Strategy ✓
+
+18 Scenario Forecast ✓
+
+19 Change Detection ✓
+
+20 Validation ✓
+
+21 Revision ✓
+
+22 Final AI Decision ✓
+
+23 Dashboard Checklist ✓
+
+24 Intraday Tracking ✓
+
+========================================================
+Elliott Wave Engine
+========================================================
+
+Default Reference
+
+Major Low : 2293
+
+Major High : 9114
+
+Correction Low : 5593
+
+Keep references
+until user changes.
+
+Analyze
+
+Impulse
+
+↓
+
+Correction
+
+↓
+
+New Impulse
+
+Never confirm
+single wave.
+
+Always display
+
+• Scenario
+
+• Probability
+
+• Evidence
+
+• Confidence
+
+• Validation
+
+Fibonacci
+
+• Retracement
+
+• Recovery
+
+• Current Position
+
+========================================================
+Intraday Position Tracking
+========================================================
+
+Intraday
+
+Only Engine 24
+
+Independent Update
+
+Flow
+
+Position Change
+
+↓
+
+Smart Money
+
+↓
+
+Portfolio Impact
+
+↓
+
+Strategy Update
+
+↓
+
+Reversal Alert
+
+↓
+
+Intraday Score
+
+↓
+
+Confidence
+
+Portfolio
+
+• Exposure
+
+• Portfolio Heat
+
+• Leverage Recovery
+
+Strategy
+
+• Core Position
+
+• Cash
+
+• Leverage
+
+• Rebalancing
+
+========================================================
+Reference Rule
+========================================================
+
+Keep Wave References.
+
+Change only
+
+when user
+
+updates
+
+Major High
+
+Major Low
+
+Correction Low.
+
+========================================================
+
+========================================================
+AI Market Master Dashboard 3.1 CFB
+END
+========================================================
