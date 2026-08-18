@@ -1,5 +1,6 @@
 ========================================================
-AI Market Master Dashboard 3.1Compressed Final Backup (CFB)
+AI Market Master Dashboard 3.1
+Compressed Final Backup (CFB)
 Version : 3.1
 Status : Default Template
 Base : AI Market Master Dashboard 3.1 Final Backup
@@ -314,7 +315,6 @@ Output:
 • Confidence
 
 
-
 --------------------------------------------------------
 
 
@@ -405,56 +405,655 @@ Output:
 
 
 ========================================================
+16 Portfolio Analysis Engine
+(포트폴리오 분석 엔진)
+========================================================
+
+Purpose:
+
+포트폴리오 상태를 간결하게 진단하고
+감축 우선순위를 결정
+
+
+--------------------------------------------------------
+Analysis
+--------------------------------------------------------
+
+• Evaluation Amount
+• Evaluation Weight
+• Core Position
+• Leverage Exposure
+• Portfolio Heat
+• Risk Exposure
+• Asset Strength / Weakness
+• Rebalancing
+
+
+--------------------------------------------------------
+Portfolio Priority
+(포트폴리오 우선순위)
+--------------------------------------------------------
+
+1. Core Spot
+   핵심 현물
+
+   → 최대한 유지
+
+
+2. Profit Leverage
+   수익 레버리지
+
+   → 상승 구간 이익실현 우선
+
+
+3. Relative Weakness Leverage
+   상대적 약세 레버리지
+
+   → 감축 우선
+
+
+4. Loss Leverage
+   손실 레버리지
+
+   → 반등 이용 손실축소
+
+
+5. Other Risk Assets
+   기타 위험자산
+
+   → 상승 시 일부 감축
+
+
+--------------------------------------------------------
+Output
+--------------------------------------------------------
+
+• Portfolio Score
+• Risk Level
+• Core
+• Reduce
+• Rebalance
+• Current Action
+
+
+--------------------------------------------------------
+Core Rule
+--------------------------------------------------------
+
+Core 현물은 최대한 유지하고
+
+Leverage부터 줄여
+
+Portfolio Heat를 낮춘다.
+
+
+========================================================
+17 Strategy Engine
+(전략 엔진)
+========================================================
+
+Purpose:
+
+KOSPI Dynamic Zone
++
+Smart Money
++
+Portfolio Condition
+
+을 결합하여
+
+실제 분할매도 시점과
+매도 강도를 결정
+
+
+========================================================
+① Dynamic KOSPI Zone
+(동적 KOSPI 구간)
+========================================================
+
+KOSPI 가격구간을 고정값으로 사용하지 않는다.
+
+
+Every Update:
+
+
+• Elliott Wave
+• Fibonacci
+• Moving Average
+• VWAP
+• Recent High / Low
+• Support / Resistance
+• Resistance Cluster
+• Smart Money
+
+
+를 종합하여
+
+KOSPI Strategy Zone을
+동적으로 재산출한다.
+
+
+--------------------------------------------------------
+Zone
+--------------------------------------------------------
+
+• Current / Normal Zone
+  → 보유
+
+• 1st Distribution Zone
+  → 1차 분할매도
+
+• 2nd Distribution Zone
+  → 핵심 분할매도
+
+• 3rd Distribution Zone
+  → 적극 현금화
+
+• Overheat Zone
+  → 추가 현금화
+
+• Risk Zone
+  → Leverage 우선 축소
+
+
+--------------------------------------------------------
+Dynamic Zone Rule
+--------------------------------------------------------
+
+※ 가격구간은 고정하지 않는다.
+
+※ 최신 HTS 데이터를 기준으로 매번 재계산한다.
+
+※ 기술적 기준이 변경되면
+  이전 매도구간도 자동 수정한다.
+
+※ 단일 지표로 구간을 결정하지 않는다.
+
+※ Resistance Cluster를 우선적으로 반영한다.
+
+
+========================================================
+② Smart Money Adjustment
+(스마트머니 수급 보정)
+========================================================
+
+Primary Smart Money:
+
+
+• Foreign KOSPI Flow
+• Foreign Futures
+• Program Non-Arbitrage
+• Program Arbitrage
+• Institution Flow
+
+
+--------------------------------------------------------
+Strong Smart Money
+--------------------------------------------------------
+
+KOSPI ↑
+
++
+
+Foreign Spot ↑
+
++
+
+Foreign Futures ↑
+
++
+
+Non-Arbitrage ↑
+
+
+→ 🟢 HOLD
+
+→ 매도 지연
+
+
+--------------------------------------------------------
+Smart Money Slowdown
+--------------------------------------------------------
+
+KOSPI ↑
+
++
+
+Foreign / Futures 매수 둔화
+
++
+
+Program 둔화
+
+
+→ 🟡
+
+→ Leverage 5~10% 분할매도
+
+
+--------------------------------------------------------
+Smart Money Weakening
+--------------------------------------------------------
+
+KOSPI ↑
+
++
+
+Foreign Spot / Futures 매도 전환
+
+
+→ 🟠
+
+→ Leverage 10~20% 매도
+
+
+--------------------------------------------------------
+Distribution Confirmation
+--------------------------------------------------------
+
+High Zone
+
++
+
+Foreign Spot ↓
+
++
+
+Foreign Futures ↓
+
++
+
+Program ↓
+
+
+→ 🔴
+
+→ 20~30% 추가 현금화
+
+
+--------------------------------------------------------
+Risk-Off
+--------------------------------------------------------
+
+KOSPI ↓
+
++
+
+Foreign Spot / Futures ↓
+
++
+
+Program ↓
+
+
+→ 🔴
+
+→ Leverage 우선 방어
+
+
+========================================================
+③ Portfolio Sell Priority
+(포트폴리오 매도 우선순위)
+========================================================
+
+1. Profit Leverage
+   → 이익실현
+
+2. Relative Weakness Leverage
+   → 우선 감축
+
+3. Loss Leverage
+   → 반등 이용 손실축소
+
+4. Other Risk Assets
+   → 상승 시 일부 감축
+
+5. Core Spot
+   → 마지막까지 유지
+
+
+========================================================
+④ Strategy Decision Matrix
+(전략 판단 매트릭스)
+========================================================
+
+KOSPI ↑ + Smart Money Strong
+
+→ 🟢 HOLD
+
+
+KOSPI ↑ + Smart Money Slowdown
+
+→ 🟡 Partial Sell
+
+
+KOSPI ↑ + Smart Money Weakening
+
+→ 🟠 Increase Sell
+
+
+High Zone + Smart Money Distribution
+
+→ 🔴 Active Cash Conversion
+
+
+KOSPI ↓ + Smart Money Strong
+
+→ 🟢 Sell Stop / Hold
+
+
+KOSPI ↓ + Smart Money Weak
+
+→ 🔴 Leverage Risk-Off
+
+
+========================================================
+⑤ Output Format
+(출력 형식)
+========================================================
+
+17 Strategy Engine은 항상 다음 순서로 출력한다.
+
+
+1. Current KOSPI
+   현재 지수
+
+2. Dynamic KOSPI Zones
+   동적 지수구간
+
+3. Smart Money Status
+   스마트머니 상태
+
+4. Zone × Smart Money Strategy
+   구간별 매도 강도
+
+5. Portfolio Sell Priority
+   종목별 매도 우선순위
+
+6. Current Action
+   현재 행동
+
+7. Strategy Score
+   전략 점수
+
+8. Confidence
+   신뢰도
+
+
+========================================================
+⑥ Final Strategy Rule
+(최종 전략 규칙)
+========================================================
+
+지수 상승만으로 매도하지 않는다.
+
+
+KOSPI 상승
++
+Smart Money 강세
+
+→ 보유
+
+
+KOSPI 상승
++
+Smart Money 둔화
+
+→ 분할매도
+
+
+KOSPI 상승
++
+Smart Money 매도
+
+→ 매도 확대
+
+
+고점권
++
+Foreign Spot/Futures 동시 매도
++
+Program 매도
+
+→ 적극 현금화
+
+
+Core Principle:
+
+"지수는 동적으로 계산하고,
+Smart Money로 매도 강도를 조절한다."
+
+
+========================================================
+16 → 17 Engine Relationship
+========================================================
+
+Engine 16
+
+Portfolio Condition
+
+↓
+
+Core / Reduce / Risk
+
+↓
+
+Engine 17
+
+Strategy
+
+↓
+
+Dynamic KOSPI Zone
+
++
+
+Smart Money
+
+↓
+
+Sell Timing
+
+↓
+
+Sell Intensity
+
+↓
+
+Current Action
+
+
+========================================================
+Intraday Output Integration
+(장중 출력 연계 규칙)
+========================================================
+
+When Intraday HTS Data is Input:
+
+
+Engine 24
+
+Intraday Position Tracking
+
+↓
+
+Smart Money / Position Change
+
+↓
+
+Engine 16
+
+Portfolio Impact
+
+↓
+
+Engine 17
+
+Strategy Adjustment
+
+
+--------------------------------------------------------
+Intraday Output Sequence
+(장중 출력 순서)
+--------------------------------------------------------
+
+24. Intraday Position Tracking
+    장중 수급·포지션 분석
+
+↓
+
+16. Portfolio Analysis
+    포트폴리오 영향 및 감축 우선순위
+
+↓
+
+17. Strategy Engine
+    동적 KOSPI 구간 및 분할매도 전략
+
+
+Therefore:
+
+
+Intraday HTS Data
+
+→ Engine 24
+
+→ Engine 16
+
+→ Engine 17
+
+→ Sequential Output
+
+
+--------------------------------------------------------
+Intraday Output Rule
+--------------------------------------------------------
+
+장중 HTS 데이터 입력 시
+
+24번 엔진을 먼저 분석한다.
+
+24번 결과의 Smart Money
+및 Position Change를
+
+16번 포트폴리오 분석에 반영한다.
+
+16번 결과를
+
+17번 전략 엔진에 반영한다.
+
+
+따라서 장중 데이터 분석 결과는
+
+24 + 16 + 17
+
+을 함께 출력한다.
+
+
+--------------------------------------------------------
+Full Dashboard Restriction
+--------------------------------------------------------
+
+장중 HTS 데이터만 입력된 경우
+
+01~15
+
+18~23
+
+전체 엔진을 자동 실행하지 않는다.
+
+
+기본 장중 출력:
+
+24 → 16 → 17
+
+
+단,
+
+사용자가
+
+"AI Market Master Dashboard 3.1 업데이트"
+
+또는
+
+Full Dashboard
+
+를 명시하면
+
+01~24 전체 대시보드를 실행한다.
+
+
+========================================================
 Intraday Position Tracking Engine
 (장중 추적 엔진)
 ========================================================
 
-
-Independent Execution
+Independent Primary Execution
 
 
 Input:
 
 • Investor Flow
-
 • Program Trading
 
 
 Tracking:
 
-
 • Foreign Delta
-
 • Institution Delta
-
 • Individual Delta
-
 • Futures Change
-
 • Arbitrage Delta
-
 • Non-Arbitrage Delta
 
 
 Output:
 
-
 • Smart Money Direction
-
 • Closing Auction Prediction
-
 • Position Reversal Alert
-
 • Intraday AI Score
-
 • Confidence
+
+
+--------------------------------------------------------
+Intraday Core Rule
+--------------------------------------------------------
+
+Engine 24는
+
+장중 수급 변화의
+
+Primary Intraday Engine이다.
+
+
+24번 엔진은 독립적으로
+
+• Foreign Delta
+• Institution Delta
+• Individual Delta
+• Futures Change
+• Arbitrage Delta
+• Non-Arbitrage Delta
+
+를 추적한다.
+
+
+그 결과를
+
+Engine 16
+
+및
+
+Engine 17
+
+에 전달한다.
 
 
 ========================================================
 Output Rules
 (출력 규칙)
 ========================================================
-
 
 Always Display:
 
@@ -482,11 +1081,32 @@ Traffic Light:
 🔴 Risk
 
 
+--------------------------------------------------------
+Intraday Output Exception
+--------------------------------------------------------
+
+장중 24 + 16 + 17 출력 시에도
+
+• English + Korean
+• Table First
+• AI Score
+• Confidence
+• Traffic Light
+
+원칙을 유지한다.
+
+
+단,
+
+불필요한 전체 대시보드 설명은 생략하고
+
+핵심 Action 중심으로 출력한다.
+
+
 ========================================================
 Scenario Rules
 (시나리오 규칙)
 ========================================================
-
 
 Always Include:
 
@@ -515,11 +1135,8 @@ Each Requires:
 
 
 • Scenario
-
 • Probability
-
 • Evidence
-
 • Confidence
 
 
@@ -528,16 +1145,12 @@ Portfolio Rules
 (포트폴리오 규칙)
 ========================================================
 
-
 Analysis:
 
 
 • Evaluation Amount Weight
-
 • Risk Exposure
-
 • Leverage Exposure
-
 • Rebalancing Signal
 
 
@@ -545,17 +1158,24 @@ Output:
 
 
 • Portfolio Score
-
 • Risk Level
-
 • Strategy
+
+
+Additional 16·17 Rules:
+
+
+• Core 유지 우선
+• Leverage 감축 우선
+• Dynamic KOSPI Zone
+• Smart Money Adjustment
+• Portfolio Heat Control
 
 
 ========================================================
 Validation Rules
 (검증 규칙)
 ========================================================
-
 
 Required Check:
 
@@ -579,6 +1199,28 @@ Required Check:
 ✓ Engine Synchronization
 
 
+--------------------------------------------------------
+Intraday Validation
+--------------------------------------------------------
+
+장중 24 + 16 + 17 분석 시
+
+
+✓ HTS Data
+
+✓ Investor Flow
+
+✓ Program Trading
+
+✓ Smart Money
+
+✓ Portfolio Impact
+
+✓ Dynamic KOSPI Zone
+
+✓ Strategy Consistency
+
+
 Final Decision requires Validation Pass.
 
 
@@ -587,16 +1229,12 @@ Change Detection & Revision
 (변화 감지 및 수정)
 ========================================================
 
-
 Change Detection:
 
 
 • Previous Score Comparison
-
 • Signal Change
-
 • Flow Change
-
 • Risk Change
 
 
@@ -607,14 +1245,49 @@ Update:
 
 
 • Forecast
-
 • Strategy
-
 • Score
-
 • Scenario
-
 • Risk
+
+
+Additional Strategy Revision:
+
+
+• Dynamic KOSPI Zone Change
+• Smart Money Change
+• Sell Intensity Change
+• Portfolio Rebalancing Change
+
+
+--------------------------------------------------------
+Intraday Revision
+--------------------------------------------------------
+
+Engine 24에서
+
+Smart Money 변화 또는
+
+Position Reversal이 발생하면
+
+
+↓
+
+Engine 16
+
+Portfolio Impact 재계산
+
+
+↓
+
+Engine 17
+
+Strategy 재계산
+
+
+↓
+
+Current Action 수정
 
 
 ========================================================
@@ -622,8 +1295,8 @@ CFB Compression Rules
 (압축 규칙)
 ========================================================
 
-
 CFB Includes:
+
 
 ✓ Structure
 
@@ -638,6 +1311,7 @@ CFB Includes:
 
 CFB Excludes:
 
+
 × Detailed Explanation
 
 × Repeated Description
@@ -647,6 +1321,7 @@ CFB Excludes:
 
 Purpose:
 
+
 Restore 3.1 Dashboard Configuration.
 
 
@@ -654,7 +1329,6 @@ Restore 3.1 Dashboard Configuration.
 Dashboard Checklist
 (완료 체크)
 ========================================================
-
 
 01 Executive Summary ✓
 
@@ -704,11 +1378,13 @@ Dashboard Checklist
 
 24 Intraday Tracking ✓
 
+
 ========================================================
 Elliott Wave Engine
 ========================================================
 
 Default Reference
+
 
 Major Low : 2293
 
@@ -716,10 +1392,13 @@ Major High : 9114
 
 Correction Low : 5593
 
+
 Keep references
 until user changes.
 
-Analyze
+
+Analyze:
+
 
 Impulse
 
@@ -731,28 +1410,28 @@ Correction
 
 New Impulse
 
+
 Never confirm
 single wave.
 
-Always display
+
+Always display:
+
 
 • Scenario
-
 • Probability
-
 • Evidence
-
 • Confidence
-
 • Validation
 
-Fibonacci
+
+Fibonacci:
+
 
 • Retracement
-
 • Recovery
-
 • Current Position
+
 
 ========================================================
 Intraday Position Tracking
@@ -760,11 +1439,15 @@ Intraday Position Tracking
 
 Intraday
 
+
 Only Engine 24
 
-Independent Update
+Independent Primary Update
+
 
 Flow
+
+↓
 
 Position Change
 
@@ -778,7 +1461,15 @@ Portfolio Impact
 
 ↓
 
+Engine 16
+
+↓
+
 Strategy Update
+
+↓
+
+Engine 17
 
 ↓
 
@@ -792,29 +1483,59 @@ Intraday Score
 
 Confidence
 
-Portfolio
+
+Portfolio:
+
 
 • Exposure
-
 • Portfolio Heat
-
 • Leverage Recovery
 
-Strategy
+
+Strategy:
+
 
 • Core Position
-
 • Cash
-
 • Leverage
-
 • Rebalancing
+
+
+--------------------------------------------------------
+Intraday Final Output
+--------------------------------------------------------
+
+24
+
+↓
+
+16
+
+↓
+
+17
+
+
+24:
+Smart Money / Position Change
+
+
+16:
+Portfolio Impact / Reduce Priority
+
+
+17:
+Dynamic KOSPI Zone /
+Sell Timing / Sell Intensity /
+Current Action
+
 
 ========================================================
 Reference Rule
 ========================================================
 
 Keep Wave References.
+
 
 Change only
 
@@ -828,9 +1549,78 @@ Major Low
 
 Correction Low.
 
+
 ========================================================
+16·17 Final Core Rule
+========================================================
+
+16 Portfolio Analysis:
+
+"무엇을 줄일 것인가"
+
+
+17 Strategy:
+
+"언제, 얼마나 줄일 것인가"
+
+
+KOSPI Zone:
+
+"최신 HTS 데이터로 동적 산출"
+
+
+Smart Money:
+
+"매도 강도를 결정"
+
+
+Engine 24:
+
+"장중 Smart Money 변화를 추적"
+
+
+Intraday:
+
+
+"24 → 16 → 17"
+
+
+Full Dashboard:
+
+
+"01 → 24"
+
+
+unless user specifies otherwise.
+
+
+Final Logic:
+
+
+Portfolio Condition
+
+↓
+
+Dynamic KOSPI Zone
+
+↓
+
+Smart Money
+
+↓
+
+Sell Priority
+
+↓
+
+Sell Intensity
+
+↓
+
+Current Action
+
 
 ========================================================
 AI Market Master Dashboard 3.1 CFB
-END
+FINAL
 ========================================================
