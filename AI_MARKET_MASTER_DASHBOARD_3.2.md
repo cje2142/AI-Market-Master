@@ -5,7 +5,7 @@
 - AI Market Master Dashboard 3.1 is preserved unchanged as the previous stable version.
 - Version 3.2 is a structural redesign based on 3.1.
 - 3.2 does not delete analytical functions from 3.1; it consolidates overlapping engines into 8 functional categories.
-- 3.2 is the test/operational candidate until the user explicitly confirms it as the new stable version.
+- 3.2 is the **Official Stable / Current Version**. It is the approved operational structure.
 - When updating or testing 3.2, never overwrite 3.1.
 
 ## 2. Core Principles — MUST NOT CHANGE
@@ -105,6 +105,36 @@ Required detailed output:
 - Breakout/breakdown confirmation conditions
 
 Elliott/Fibonacci must use the fixed reference values in Section 3 unless the user explicitly changes them.
+
+### Official Elliott & Fibonacci Integration — Mandatory in Every Full TECHNICAL Output
+
+**Fixed references (do not change unless the user explicitly changes them):** Major Low **2,293**, Major High **9,114**, Correction Low **5,593**. The prior 6,516 correction reference is retired. These are closing-value references.
+
+#### Axis A — Long-Term Fibonacci (reverse / downside-depth)
+
+- **2,293 = 100%; 9,114 = 0%**.
+- Formula: `(9,114 − current KOSPI) / (9,114 − 2,293) × 100`.
+- Levels: 0% 9,114; 23.6% 7,505; 38.2% 6,509; 50.0% 5,704; 61.8% 4,898; 78.6% 3,902; 100% 2,293.
+- This measures how far the full 2,293 → 9,114 rise has retraced; it is not a recovery-progress axis.
+
+#### Axis B — Recent-Rebound Fibonacci (recovery-progress)
+
+- **5,593 = 0%; 9,114 = 100%**.
+- Formula: `(current KOSPI − 5,593) / (9,114 − 5,593) × 100`.
+- Levels: 0% 5,593; 23.6% 6,424; 38.2% 6,938; 50.0% 7,354; 61.8% 7,770; 78.6% 8,359; 100% 9,114.
+- This measures rebound progress since the fixed Correction Low; it is not a long-term retracement axis.
+
+#### Dual-Axis / Elliott Decision Protocol
+
+Every full execution must show: (1) current percentage and next level on both axes, (2) nearby overlapping levels as a Confluence Zone, (3) whether each level is support or resistance, (4) preferred Elliott count plus an alternative count where evidence warrants it, and (5) explicit confirmation and invalidation triggers.
+
+- Fibonacci is a reference, not a standalone trading trigger. A confluence is **reference only** with one factor, **potential** with two independent factors, and **high-confluence** with three or more. Confirm using Elliott structure, MA, VWAP, RSI/MACD divergence, ADX, volume, prior swing structure, HTS foreign/institution/program flow, futures/options positioning, and material GLOBAL LEADING signals.
+- A Dynamic Swing Fibonacci may be added only from confirmed swings, must be separately labelled, and never replaces the fixed axes. An unconfirmed swing is labelled Observation Swing.
+- Elliott reporting distinguishes Confirmed, Preferred, Alternative, and Insufficient-evidence counts. It may not automatically label the 5,593 recovery as a new impulse without higher highs/lows, momentum, volume, HTS flow, MA/VWAP, and breakout/rejection evidence.
+- **If KOSPI closes below 5,593:** flag **Recent Rebound Structure Failure / Elliott Recount Required**; invalidate the prior recovery interpretation; recalculate Fibonacci scenarios using the fixed long-term axis and newly confirmed structure. Keep 5,593 as the fixed Correction Low reference unless the user changes it.
+
+The dashboard must connect this output to SCENARIO and PORTFOLIO: identify hold, leverage-reduction, staged re-entry, or wait conditions only after the combined technical, HTS-flow, and global-leading evidence validates them.
+
 
 ### Category 4 — AI CYCLE
 Purpose: Determine whether the AI/semiconductor growth cycle remains structurally intact.
@@ -263,6 +293,40 @@ Validation rules:
 - If evidence is insufficient, lower confidence and state what must be confirmed.
 - Never manufacture a numeric score from an undefined formula. If the official scoring formula is not available in the rules, label the score as qualitative or provisional rather than pretending it is an official quantitative score.
 
+
+### 3.2 Coverage Map — All 24 Legacy Engines
+
+The 24 engines are retained as functions, not repeated as separate output blocks. Each has one primary owner; shared evidence is passed between categories rather than duplicated.
+
+| Legacy engine | Primary 3.2 category | Retained responsibility |
+|---|---|---|
+| 01 Executive Summary | MARKET | Market regime overview |
+| 02 Observation | MARKET | Session observations and changes |
+| 03 Evidence | MARKET | Evidence ledger and market context |
+| 04 Leading Indicator | GLOBAL LEADING | Global/Korea leading evidence |
+| 05 Smart Money | FLOW | Institutional-quality flow interpretation |
+| 06 Global Liquidity | MARKET | Macro liquidity, rates and risk backdrop |
+| 07 Program Trading | FLOW | Program/arbitrage flow |
+| 08 Sector Rotation | MARKET / AI CYCLE | Relative strength and AI-semiconductor rotation |
+| 09 Technical Analysis | TECHNICAL | Price, trend and momentum |
+| 10 Elliott Wave Analysis | TECHNICAL | Preferred/alternative wave counts |
+| 11 Ultra Short | TECHNICAL | Intraday tactical structure |
+| 12 Short Term | TECHNICAL | Short-horizon structure |
+| 13 Mid Term | TECHNICAL | Medium-horizon structure |
+| 14 Long Term | TECHNICAL | Long-horizon structure and fixed Fibonacci axis |
+| 15 AI Cycle | AI CYCLE | Memory, supply/demand and AI infrastructure |
+| 16 Portfolio Analysis | PORTFOLIO | Holdings, exposure and rebalancing |
+| 17 Strategy | STRATEGY & VALIDATION | Action selection |
+| 18 Scenario Forecast | SCENARIO | Bull/base/bear paths |
+| 19 Change Detection | STRATEGY & VALIDATION | Material-change detection |
+| 20 Validation | STRATEGY & VALIDATION | Evidence consistency checks |
+| 21 Revision | STRATEGY & VALIDATION | Controlled thesis revision |
+| 22 Final AI Decision | STRATEGY & VALIDATION | Final validated conclusion |
+| 23 Dashboard Checklist | STRATEGY & VALIDATION | Completion/quality checklist |
+| 24 Intraday Position Tracking | FLOW / PORTFOLIO | HTS intraday flow and position tracking |
+
+De-duplication rule: MARKET owns regime facts; FLOW owns participant/derivative flow; TECHNICAL owns price structure; GLOBAL LEADING supplies only material global leading signals; STRATEGY & VALIDATION produces the sole final decision. A fact is displayed once in its owner category and referenced elsewhere only when it changes the decision.
+
 ## 5. Intraday Data Rule
 
 If the user provides intraday HTS data without an explicit trigger:
@@ -357,9 +421,9 @@ Final principle:
 
 Current Version: AI Market Master Dashboard 3.2
 
-Status: Structural test / candidate operational version
+Status: **Official Stable / Current Version**
 
-Previous Stable Version: AI Market Master Dashboard 3.1 — preserved unchanged
+Previous Stable / Legacy Version: AI Market Master Dashboard 3.1 — preserved unchanged
 
 Binance Global Futures Layer: Fixed Watchlist v1.0 — retained from 3.1
 
