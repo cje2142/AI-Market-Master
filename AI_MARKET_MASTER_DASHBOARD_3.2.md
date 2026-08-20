@@ -212,6 +212,50 @@ Output rule:
 - Show only the signals that materially affect the relevant category.
 - If a required symbol/data field is unavailable, omit it rather than estimate it.
 
+## GLOBAL LEADING Mandatory Execution Rule
+
+AI Market Master Dashboard 3.2 Full Execution 시
+GLOBAL LEADING 분석은 필수 실행 항목이다.
+
+Binance Public Read-only Layer를 반드시 확인한다.
+
+### Fixed Binance Watchlist
+
+- EWYUSDT
+- SAMSUNGUSDT
+- SKHYNIXUSDT
+- SOXLUSDT
+- QQQUSDT
+- SPYUSDT
+- TMFUSDT
+- BTCUSDT
+
+### Required Validation Data
+
+- Price Change
+- OHLCV
+- Volume
+- Open Interest
+- Funding Rate
+- Long/Short Ratio
+- Mark Price / Index Price Premium
+
+### Execution Rules
+
+1. GLOBAL LEADING 단계는 Dashboard 실행 시 생략할 수 없다.
+2. Binance 데이터는 글로벌 선행 및 보조 신호 레이어로 사용한다.
+3. 단독 매매 판단 기준으로 사용하지 않는다.
+4. HTS/KRX 데이터와 교차 검증한다.
+5. 데이터 확보 실패 시 임의 추정 데이터를 생성하지 않는다.
+
+### Data Failure Handling
+
+Binance 데이터 확보 불가 시:
+
+GLOBAL LEADING DATA UNAVAILABLE
+
+을 표시한다.
+
 ### Category 6 — PORTFOLIO
 Purpose: Translate market evidence into the user's actual portfolio risk and allocation decisions.
 
