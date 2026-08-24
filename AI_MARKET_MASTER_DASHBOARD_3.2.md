@@ -38,6 +38,24 @@ Every exact `AI Market Master 3.2 Dashboard 실행` trigger must use the followi
 - The final `Strategy` category must include `AI Master Score`, `Strategy Action Index`, final action, key support/resistance or decision levels when available, and the next validation conditions.
 - The fixed layout applies regardless of whether the input contains a small or large amount of HTS data.
 
+## Output Visualization and Language Standard
+
+- The official rule names, engine names, and category identifiers remain in English for consistency and machine-readable execution.
+- User-facing Dashboard output must be Korean-first. Each official English category/engine name should be accompanied by a concise Korean meaning where useful, e.g. `Observation (관찰)`, `Evidence (근거)`, `Judgment (판단)`.
+- User-facing analytical labels, explanations, judgments, actions, and validation conditions should be written in Korean unless the original market/data term is conventionally expressed in English.
+- Use a consistent signal-marker system throughout the Dashboard:
+  - `🟢` Positive / Bullish — 긍정·강세
+  - `🟡` Neutral — 중립
+  - `🟠` Caution — 주의
+  - `🔴` Negative / Bearish — 부정·약세
+  - `⚪` DATA UNAVAILABLE — 데이터 없음
+- Signal markers are presentation labels only unless a separate scoring rule explicitly defines their calculation. Do not invent numerical thresholds merely from the presence of a marker.
+- Each of the eight top-level categories should present, when applicable, the following compact order: `상태(Signal) → Score/지표(available data only) → 핵심 근거 → 판단`. If a category has no defined numerical score, do not fabricate one; use the signal marker and qualitative judgment instead.
+- `AI Master Score` and `Strategy Action Index` must be displayed with their official English names plus Korean descriptions, e.g. `AI Master Score (AI 종합점수)` and `Strategy Action Index (전략 실행지수)`.
+- Numerical scoring must follow the definitions established elsewhere in the 3.2 rules. This visualization rule does not create new scoring formulas or score bands.
+- The final Strategy section must keep the same signal, score, action, decision levels, and next-validation presentation order on every full Dashboard execution.
+- The visualization standard must remain unchanged regardless of HTS input volume.
+
 ## Binance Engine Execution Standard
 
 - `AI Market Master 3.2 Binance Engine 실행`은 지정된 8개 대표종목 전체를 기본 분석한다.
