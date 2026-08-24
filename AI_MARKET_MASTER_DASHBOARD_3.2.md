@@ -1,5 +1,20 @@
 # AI Market Master Dashboard 3.2
 
+## Command Trigger Standard
+
+### Full Dashboard Trigger
+
+- Exact command: `AI Market Master 3.2 Dashboard 실행`
+- This exact command is the official trigger for the full AI Market Master Dashboard 3.2 workflow.
+- The full workflow must apply the 3.2 fixed dashboard layout, HTS Data Priority, Validation First, and Multi Engine Consensus rules.
+- Similar or abbreviated phrases must not be treated as an exact trigger and must not silently execute the full Dashboard workflow.
+
+### Binance Engine Trigger
+
+- Exact command: `AI Market Master 3.2 Binance Engine 실행`
+- This exact command is the official trigger for the Binance Engine workflow defined below.
+- Similar or abbreviated phrases must not be treated as an exact trigger and must not silently execute the Binance Engine workflow.
+
 ## Binance Engine Execution Standard
 
 - `AI Market Master 3.2 Binance Engine 실행`은 지정된 8개 대표종목 전체를 기본 분석한다.
