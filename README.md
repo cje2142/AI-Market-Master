@@ -1,7 +1,12 @@
-# AI Market Master Dashboard 3.1
+# AI Market Master Dashboard 3.2
 
 ## Purpose
 AI based market analysis dashboard.
+
+## Current Stable Version
+**AI Market Master Dashboard 3.2**
+
+Dashboard 3.2 is the official stable version. Dashboard 3.1 is preserved as the previous-version backup/reference.
 
 ## Core Principle
 
@@ -101,7 +106,7 @@ BTCUSDT를 24시간 글로벌 고베타 위험선호 및 유동성 보조지표�
 Price + Volume + OI + Funding + Premium + Mark/Index Price + Long/Short + Order Book/Trades를 결합해 포지션 유입, 청산, 과열 및 단기 수급 변화를 판단한다.
 
 ### Signal Flow
-Binance Global Futures Layer → Global Risk / Semiconductor / Korea Leading / Rates-Liquidity / Crypto Risk / Futures Positioning → 기존 3.1 Engines → KRX HTS 교차검증 → AI Master Score / Strategy Action Index → Portfolio Strategy.
+Binance Global Futures Layer → Global Risk / Semiconductor / Korea Leading / Rates-Liquidity / Crypto Risk / Futures Positioning → 기존 3.2 Engines → KRX HTS 교차검증 → AI Master Score / Strategy Action Index → Portfolio Strategy.
 
 ### Engine Integration
 Binance Global Futures Layer의 결과는 다음 엔진을 중심으로 보조 입력한다.
@@ -152,7 +157,13 @@ KRX HTS = 최종 확인.
 
 ## Version
 Current Version:
-AI Market Master Dashboard 3.1
+**AI Market Master Dashboard 3.2 — Official Stable**
+
+Previous Version:
+AI Market Master Dashboard 3.1 — Preserved Backup/Reference
 
 Binance Global Futures Layer:
 Fixed Watchlist v1.0 — 2026-08-19
+
+Latest 3.2 Binance Engine execution standard:
+2026-08-23
