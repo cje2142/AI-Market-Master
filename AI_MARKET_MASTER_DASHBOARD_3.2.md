@@ -15,6 +15,29 @@
 - This exact command is the official trigger for the Binance Engine workflow defined below.
 - Similar or abbreviated phrases must not be treated as an exact trigger and must not silently execute the Binance Engine workflow.
 
+## Fixed Dashboard Output Layout
+
+Every exact `AI Market Master 3.2 Dashboard 실행` trigger must use the following eight categories, in exactly this order:
+
+1. `Observation` — Market observation
+2. `Evidence` — Key evidence
+3. `Judgment` — Integrated market judgment
+4. `AI Cycle` — AI/semiconductor cycle
+5. `Smart Money` — Foreign/institutional/individual/program/derivatives flow
+6. `Liquidity` — Liquidity, leverage and funding conditions
+7. `Technical` — Technical analysis
+8. `Strategy` — Strategy and execution
+
+### Fixed Layout Rules
+
+- The eight categories must never be omitted, merged, reordered, or replaced by ad-hoc sections during a full Dashboard execution.
+- HTS input volume must not change the output structure. When HTS data is large, summarize and prioritize within the eight categories rather than dropping or restructuring categories.
+- When a required data item is unavailable, keep the relevant category and mark the item `DATA UNAVAILABLE`; never invent or infer unavailable data as if it were observed.
+- `Sector Rotation`, `Portfolio Analysis`, `Risk Assessment`, `Forecast`, `Elliott Wave`, `Fibonacci`, `Ichimoku`, and other sub-engines are subordinate analyses and must be placed inside the eight fixed categories rather than becoming additional top-level categories.
+- Binance Engine results must also be mapped into the eight fixed categories. Do not create a separate ninth Binance category in the full Dashboard output.
+- The final `Strategy` category must include `AI Master Score`, `Strategy Action Index`, final action, key support/resistance or decision levels when available, and the next validation conditions.
+- The fixed layout applies regardless of whether the input contains a small or large amount of HTS data.
+
 ## Binance Engine Execution Standard
 
 - `AI Market Master 3.2 Binance Engine 실행`은 지정된 8개 대표종목 전체를 기본 분석한다.
