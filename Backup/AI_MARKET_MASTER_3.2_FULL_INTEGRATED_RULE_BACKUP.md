@@ -25,36 +25,39 @@ AI Market Master 3.2 consists of three layers.
 
 ## Layer 2: Analysis Engine Layer (24 Engines)
 
-1. Executive Summary Engine
-2. Observation Engine
-3. Evidence Engine
-4. Leading Indicator Engine
-5. Smart Money Engine
-6. Global Liquidity Engine
-7. Program Trading Engine
-8. Sector Rotation Engine
-9. Technical Analysis Engine
-10. Elliott Wave Engine
-11. Ultra Short Term Engine
-12. Short Term Engine
-13. Mid Term Engine
-14. Long Term Engine
-15. AI Cycle Engine
-16. Portfolio Engine
-17. Strategy Engine
-18. Scenario Forecast Engine
-19. Change Detection Engine
-20. Validation Engine
-21. Revision Engine
-22. Final AI Decision Engine
-23. Dashboard Checklist Engine
-24. Intraday Position Tracking Engine
+1. Executive Summary Engine - Overall market summary
+2. Observation Engine - Market observation
+3. Evidence Engine - Data verification
+4. Leading Indicator Engine - Leading signals
+5. Smart Money Engine - Foreign/institution/program flow
+6. Global Liquidity Engine - Rates, dollar, liquidity
+7. Program Trading Engine - Arbitrage/non-arbitrage flow
+8. Sector Rotation Engine - Capital rotation
+9. Technical Analysis Engine - Technical indicators
+10. Elliott Wave Engine - Wave analysis
+11. Ultra Short Term Engine - Intraday short trend
+12. Short Term Engine - Short trend
+13. Mid Term Engine - Medium trend
+14. Long Term Engine - Long investment cycle
+15. AI Cycle Engine - AI semiconductor cycle
+16. Portfolio Engine - Holdings analysis
+17. Strategy Engine - Investment action
+18. Scenario Forecast Engine - Bull/Base/Bear scenarios
+19. Change Detection Engine - Market change detection
+20. Validation Engine - Decision validation
+21. Revision Engine - Rule/data revision
+22. Final AI Decision Engine - Final judgment
+23. Dashboard Checklist Engine - Rule compliance
+24. Intraday Position Tracking Engine - Intraday tracking
 
 ## Layer 3: Specialized Extension Layer
 
-Binance Global Proxy Engine
+## Binance Global Proxy Engine
 
-Tracked Proxy Products:
+Purpose:
+Use Binance USDT perpetual products as global proxy data when direct index/futures data is unavailable. Binance data never replaces HTS priority data.
+
+Tracked Products:
 - BTCUSDT
 - EWYUSDT
 - SAMSUNGUSDT
@@ -64,10 +67,20 @@ Tracked Proxy Products:
 - SOXLUSDT
 - TMFUSDT
 
-## Standard Output
+Connection:
+- BTCUSDT: Crypto risk/liquidity
+- EWYUSDT: Korea market proxy
+- SAMSUNGUSDT: Samsung proxy
+- SKHYNIXUSDT: HBM/AI semiconductor proxy
+- SPYUSDT: S&P500 proxy
+- QQQUSDT: Nasdaq/AI growth proxy
+- SOXLUSDT: Semiconductor cycle proxy
+- TMFUSDT: Treasury/liquidity proxy
+
+# Standard Output
 Table + Signal Light + Score + Evidence + Judgment + Action
 
-## Technical Rule
+# Technical Rule
 Elliott Wave and Fibonacci are detailed analysis engines.
 
 Reference:
@@ -75,6 +88,6 @@ Reference:
 - Major High: 9114
 - Correction Low: 5593
 
-## Trigger
+# Trigger
 AI Market Master 3.2 Dashboard 실행
 AI Market Master 3.2 Binance Engine 실행
