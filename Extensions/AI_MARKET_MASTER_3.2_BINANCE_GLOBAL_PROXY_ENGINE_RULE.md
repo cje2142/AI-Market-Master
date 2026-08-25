@@ -3,7 +3,7 @@
 Version: 3.2 Integrated Expansion
 
 ## Purpose
-Binance Futures data is used as a global market proxy layer when official market data is unavailable or requires additional validation.
+Binance Futures data is used as a Global Proxy Layer when official market data is unavailable or requires additional validation.
 
 ## Data Priority
 1. HTS / Official Market Data
@@ -12,7 +12,21 @@ Binance Futures data is used as a global market proxy layer when official market
 
 Binance data does not replace HTS data.
 
+# Engine Architecture Connection
+
+Binance Global Proxy Engine connects with the 24 Analysis Engine Layer.
+
+## Connected Engines
+
+- Global Liquidity Engine
+- Risk Assessment Layer
+- AI Cycle Engine
+- Sector Rotation Engine
+- Portfolio Engine
+- Final AI Decision Engine
+
 ## Tracked USDT Products
+
 - BTCUSDT
 - EWYUSDT
 - SAMSUNGUSDT
@@ -22,15 +36,16 @@ Binance data does not replace HTS data.
 - SOXLUSDT
 - TMFUSDT
 
-## Engine Connections
-- BTCUSDT: Crypto, Liquidity, Risk Assessment
-- SPYUSDT: Global Market
-- QQQUSDT: AI Cycle, Growth Risk
+## Proxy Mapping
+
+- BTCUSDT: Crypto Risk / Liquidity
+- SPYUSDT: S&P500 Global Market Proxy
+- QQQUSDT: Nasdaq100 / AI Growth Proxy
 - EWYUSDT: Korea Market Proxy
-- SAMSUNGUSDT: Portfolio, Semiconductor
-- SKHYNIXUSDT: HBM, AI Cycle
-- SOXLUSDT: Semiconductor Cycle
-- TMFUSDT: Liquidity, Interest Rate Risk
+- SAMSUNGUSDT: Samsung Electronics Proxy
+- SKHYNIXUSDT: HBM / AI Semiconductor Proxy
+- SOXLUSDT: Semiconductor Cycle Proxy
+- TMFUSDT: US Treasury / Liquidity Proxy
 
 ## Decision Rule
 Binance Proxy signals must be combined with HTS Data, Smart Money, Technical Analysis, AI Cycle and Risk Assessment before final action.
