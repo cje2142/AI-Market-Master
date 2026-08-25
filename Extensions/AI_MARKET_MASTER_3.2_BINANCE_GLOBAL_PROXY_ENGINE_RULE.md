@@ -14,15 +14,17 @@ Binance data does not replace HTS data.
 
 # Engine Architecture Connection
 
-Binance Global Proxy Engine connects with the 24 Analysis Engine Layer.
+Binance Global Proxy Engine is a Specialized Extension Layer connected to the 24 Analysis Engine Layer.
 
-## Connected Engines
+## Connected Analysis Engines
 
 - Global Liquidity Engine
-- Risk Assessment Layer
+- Risk Assessment Engine
 - AI Cycle Engine
 - Sector Rotation Engine
 - Portfolio Engine
+- Technical Analysis Engine
+- Smart Money Engine
 - Final AI Decision Engine
 
 ## Tracked USDT Products
@@ -38,7 +40,7 @@ Binance Global Proxy Engine connects with the 24 Analysis Engine Layer.
 
 ## Proxy Mapping
 
-- BTCUSDT: Crypto Risk / Liquidity
+- BTCUSDT: Crypto Risk / Liquidity Proxy
 - SPYUSDT: S&P500 Global Market Proxy
 - QQQUSDT: Nasdaq100 / AI Growth Proxy
 - EWYUSDT: Korea Market Proxy
