@@ -94,6 +94,20 @@ CASH:
 ## Action Evidence Rule
 Every final Action must include supporting evidence.
 
+## Execution Integrity Patch
+`AI_MARKET_MASTER_3.2_EXECUTION_INTEGRITY_PATCH_v1.0.md` is an extension/patch layer for execution safety.
+
+It adds mandatory:
+- Preflight validation before full Dashboard generation.
+- Full Binance 8-symbol completion checks when Binance is required.
+- Engine completion validation.
+- AI Master Score anti-hallucination/calculation gate.
+- Strategy Action Index anti-hallucination/calculation gate.
+- Explicit `VERIFIED`, `PARTIAL`, `UNAVAILABLE`, `PARTIAL CONSENSUS`, and `EXECUTION BLOCKED` states.
+- Final completion declaration validation.
+
+The patch does not create or alter scoring formulas. Numeric scores may only be shown when their official 3.2 definitions and validated inputs permit calculation.
+
 ## Priority Rule
 Existing AI Market Master 3.2 Stable rules have priority.
-This file extends presentation and strategy layers without replacing original rules.
+This file extends presentation, strategy, and execution-integrity layers without replacing original rules.
