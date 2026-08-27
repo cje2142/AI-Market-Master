@@ -66,3 +66,51 @@ Every exact `AI Market Master 3.2 Dashboard 실행` trigger must use the followi
 - 데이터가 없는 항목은 추정하지 않고 `DATA UNAVAILABLE`로 표시한다.
 - 일부 종목만 조회된 경우 `PARTIAL CONSENSUS`로 명시한다.
 - 최종 판단은 AI Master Score와 Strategy Action Index에 반영한다.
+
+## Execution Integrity Patch v1.0
+
+The full Dashboard workflow is additionally governed by `AI_MARKET_MASTER_3.2_EXECUTION_INTEGRITY_PATCH_v1.0.md` (Patch ID: `3.2-EIP-v1.0`).
+
+### Mandatory Preflight Gate
+
+Before generating a full Dashboard, validate the exact trigger, HTS input, mandatory engines, Binance Engine when required, scoring inputs, and each required component status. Use `VERIFIED`, `PARTIAL`, or `UNAVAILABLE` status. If a mandatory preflight check fails, do not claim normal completion; use `EXECUTION BLOCKED` or the applicable partial status.
+
+### Binance Mandatory Gate
+
+For a full Dashboard using the Binance Global Futures Layer, all eight fixed watchlist symbols must be checked: `EWYUSDT / SAMSUNGUSDT / SKHYNIXUSDT / SOXLUSDT / QQQUSDT / SPYUSDT / TMFUSDT / BTCUSDT`.
+
+- 8/8 successfully queried at the required minimum level → `BINANCE ENGINE VERIFIED`
+- 1–7/8 successfully queried → `PARTIAL CONSENSUS` and list missing symbols
+- 0/8 successfully queried → `BINANCE DATA UNAVAILABLE`
+
+A single successfully queried symbol never constitutes full Binance Engine completion.
+
+### Engine Completion Gate
+
+Eight output categories alone do not establish completion. Before declaring completion, validate required engine execution, evidence, cross-engine consensus inputs, Binance status when required, scoring inputs, and final validation status.
+
+### AI Master Score Anti-Hallucination Gate
+
+Numeric `AI Master Score` output is permitted only when the official 3.2 scoring definition applies, all mandatory inputs are available or explicitly allowed as partial, the calculation is actually performed, and the result passes validation. Otherwise output `AI Master Score: DATA UNAVAILABLE` or an explicitly permitted partial status. Never substitute an analyst-created percentage.
+
+### Strategy Action Index Gate
+
+`Strategy Action Index` follows the same validation requirement. If its official calculation cannot be performed from validated inputs, output `Strategy Action Index: DATA UNAVAILABLE`. Qualitative strategy may continue only where existing 3.2 rules permit it; qualitative judgment must never be converted into an invented numeric index.
+
+### Completion Declaration Rule
+
+The assistant may state `AI Market Master 3.2 Dashboard 실행 완료` only after the eight categories, required HTS data, required engines, Binance status when required, AI Master Score status, Strategy Action Index status, unavailable/partial inputs, and evidence-backed final Action have all passed final validation.
+
+Otherwise use `EXECUTION BLOCKED`, `PARTIAL DATA`, or `PARTIAL CONSENSUS` as applicable.
+
+### Regression Protection
+
+Minimum regression checks for every future 3.2 Dashboard execution:
+1. HTS-only input with Binance required → no full completion without Binance validation.
+2. One Binance symbol available → `PARTIAL CONSENSUS`, never full Binance completion.
+3. Incomplete score inputs → numeric AI Master Score prohibited.
+4. Incomplete strategy-index inputs → numeric Strategy Action Index prohibited.
+5. Missing data → `DATA UNAVAILABLE`, never invented values.
+6. Complete validated inputs → normal Dashboard completion permitted.
+
+This patch changes execution integrity only; the fixed eight-category output layout remains unchanged.
