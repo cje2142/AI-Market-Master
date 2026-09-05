@@ -1,5 +1,18 @@
 # AI Market Master Dashboard 3.2
 
+## Rule Authority / Single Source of Truth
+
+The Dashboard file is the authoritative source for **exact command triggers and fixed user-facing presentation layout** only.
+
+- `AI_MARKET_MASTER_3.2_FINAL_INTEGRATED_RULE.md` is the master integration and interpretation layer.
+- Stable / engine-specific rules remain authoritative for their own formulas, thresholds, indicator definitions, and technical calculations.
+- `AI_MARKET_MASTER_3.2_EXECUTION_INTEGRITY_PATCH_v1.0.md` is authoritative for execution-safety gates and completion validation within its defined scope.
+- This Dashboard file must not create, replace, or infer market-scoring formulas.
+- If a conflict exists, resolve it by functional authority; never silently override another rule or invent a new rule.
+
+Future rule verification should follow:
+`Trigger → Preflight → Applicable Engine/Formula Rules → Binance Validation → Evidence → Cross-Engine Consensus → Score → Strategy → Final Validation → Completion`
+
 ## Command Trigger Standard
 
 ### Full Dashboard Trigger
@@ -43,16 +56,23 @@ Every exact `AI Market Master 3.2 Dashboard 실행` trigger must use the followi
 - The official rule names, engine names, and category identifiers remain in English for consistency and machine-readable execution.
 - User-facing Dashboard output must be Korean-first. Each official English category/engine name should be accompanied by a concise Korean meaning where useful, e.g. `Observation (관찰)`, `Evidence (근거)`, `Judgment (판단)`.
 - User-facing analytical labels, explanations, judgments, actions, and validation conditions should be written in Korean unless the original market/data term is conventionally expressed in English.
-- Use a consistent signal-marker system throughout the Dashboard:
-  - `🟢` Positive / Bullish — 긍정·강세
-  - `🟡` Neutral — 중립
-  - `🟠` Caution — 주의
-  - `🔴` Negative / Bearish — 부정·약세
-  - `⚪` DATA UNAVAILABLE — 데이터 없음
-- Signal markers are presentation labels only unless a separate scoring rule explicitly defines their calculation. Do not invent numerical thresholds merely from the presence of a marker.
+
+### Canonical Signal Presentation
+
+Use the canonical 3.2 signal system defined by the Final Integrated Rule:
+- `🟢 Strong Bull / Positive` — 강한 긍정·강세
+- `🔵 Bull` — 긍정·강세
+- `🟡 Neutral` — 중립
+- `🟠 Warning / Caution` — 경고·주의
+- `🔴 Bear / Negative` — 부정·약세
+- `⚫ Extreme Risk` — 극단적 위험
+- `⚪ DATA UNAVAILABLE` — 데이터 없음
+
+Legacy or engine-specific signal labels must be normalized to this canonical presentation system. Signal markers are presentation labels only unless a separate scoring rule explicitly defines their calculation. Do not invent numerical thresholds merely from the presence of a marker.
+
 - Each of the eight top-level categories should present, when applicable, the following compact order: `상태(Signal) → Score/지표(available data only) → 핵심 근거 → 판단`. If a category has no defined numerical score, do not fabricate one; use the signal marker and qualitative judgment instead.
 - `AI Master Score` and `Strategy Action Index` must be displayed with their official English names plus Korean descriptions, e.g. `AI Master Score (AI 종합점수)` and `Strategy Action Index (전략 실행지수)`.
-- Numerical scoring must follow the definitions established elsewhere in the 3.2 rules. This visualization rule does not create new scoring formulas or score bands.
+- Numerical scoring must follow the applicable Stable/engine-specific 3.2 scoring definitions. This Dashboard visualization rule does not create new scoring formulas or score bands.
 - The final Strategy section must keep the same signal, score, action, decision levels, and next-validation presentation order on every full Dashboard execution.
 - The visualization standard must remain unchanged regardless of HTS input volume.
 
@@ -67,9 +87,11 @@ Every exact `AI Market Master 3.2 Dashboard 실행` trigger must use the followi
 - 일부 종목만 조회된 경우 `PARTIAL CONSENSUS`로 명시한다.
 - 최종 판단은 AI Master Score와 Strategy Action Index에 반영한다.
 
-## Execution Integrity Patch v1.0
+## Execution Integrity Patch Reference
 
 The full Dashboard workflow is additionally governed by `AI_MARKET_MASTER_3.2_EXECUTION_INTEGRITY_PATCH_v1.0.md` (Patch ID: `3.2-EIP-v1.0`).
+
+The patch supplies mandatory preflight, Binance completion, engine completion, score/index anti-hallucination, and final completion validation. Its execution-safety gates must be applied without changing the fixed eight-category layout.
 
 ### Mandatory Preflight Gate
 
