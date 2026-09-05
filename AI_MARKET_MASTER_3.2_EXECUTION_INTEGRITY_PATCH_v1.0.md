@@ -4,14 +4,27 @@ Version: 3.2 Execution Integrity Patch v1.0
 Status: Extension / Patch Layer
 Purpose: Prevent rule-compliant-looking Dashboard outputs from being produced when required data, engines, or scoring inputs have not been validated.
 
-## 1. Patch Priority and Compatibility
+## 1. Rule Authority / Scope
+
+This file is authoritative for **execution-safety gates, validation states, and completion declaration checks** only.
+
+- `AI_MARKET_MASTER_3.2_FINAL_INTEGRATED_RULE.md` is the master integration and interpretation layer.
+- Stable / engine-specific rules remain authoritative for their own formulas, thresholds, indicator definitions, and technical calculations.
+- `AI_MARKET_MASTER_DASHBOARD_3.2.md` is authoritative for exact command triggers and the fixed eight-category presentation layout.
+- This patch may block, downgrade, or qualify execution status when validation requirements are not met, but it must not create, replace, or alter market-scoring formulas.
+- If a conflict exists, apply the functional authority of the conflicting rule and explicitly identify the conflict; never silently override or invent a rule.
+
+The standard execution chain is:
+`Trigger → Preflight → Applicable Engine/Formula Rules → Binance Validation → Evidence → Cross-Engine Consensus → Score → Strategy → Final Validation → Completion`
+
+## 2. Patch Priority and Compatibility
 
 - This patch extends AI Market Master 3.2 Stable/Final Integrated rules.
 - Existing Stable rules are not deleted, replaced, or weakened.
-- If a conflict appears, the existing Stable Rule has priority unless this patch explicitly defines an execution-safety gate.
-- This patch adds execution gates, not new market-scoring formulas.
+- This patch has execution-safety authority only within its defined scope.
+- It adds execution gates, not new market-scoring formulas.
 
-## 2. Mandatory Preflight Gate
+## 3. Mandatory Preflight Gate
 
 Every exact `AI Market Master 3.2 Dashboard 실행` must pass a Preflight Gate before analytical output is generated.
 
@@ -25,7 +38,7 @@ Required checks:
 
 If a mandatory preflight check fails, the workflow must not claim normal completion. Use `EXECUTION BLOCKED` or `PARTIAL DATA` as applicable.
 
-## 3. Binance Mandatory Gate
+## 4. Binance Mandatory Gate
 
 For a full Dashboard that uses the Binance Global Futures Layer, the fixed watchlist must be checked:
 
@@ -40,7 +53,7 @@ A single successfully queried symbol must never be treated as completion of the 
 
 Symbol-level unavailable fields remain `DATA UNAVAILABLE`; they must not be inferred.
 
-## 4. Binance Data Sufficiency Gate
+## 5. Binance Data Sufficiency Gate
 
 The Binance Engine must distinguish symbol availability from field availability.
 
@@ -51,7 +64,7 @@ For each available symbol, record at minimum:
 
 The engine may continue with partial fields only when the existing rule permits it, but the final status must disclose the limitation.
 
-## 5. Engine Completion Gate
+## 6. Engine Completion Gate
 
 A Dashboard must not be marked `COMPLETE` merely because the eight presentation categories were written.
 
@@ -65,7 +78,7 @@ Before completion, validate:
 
 If any mandatory component is missing, the output must explicitly state `PARTIAL`, `DATA UNAVAILABLE`, or `EXECUTION BLOCKED`.
 
-## 6. AI Master Score Anti-Hallucination Gate
+## 7. AI Master Score Anti-Hallucination Gate
 
 `AI Master Score` may be displayed as a numeric value only when:
 1. The official 3.2 scoring definition exists and is applicable.
@@ -80,7 +93,7 @@ If any condition fails:
 
 A qualitative signal such as `🟢` does not authorize creation of a numerical score.
 
-## 7. Strategy Action Index Gate
+## 8. Strategy Action Index Gate
 
 `Strategy Action Index` follows the same anti-hallucination requirements as `AI Master Score`.
 
@@ -91,7 +104,7 @@ If calculation is not possible:
 - Continue qualitative strategy only if the underlying 3.2 rules permit qualitative output.
 - Never convert a qualitative judgment into an invented numeric index.
 
-## 8. Dashboard Completion Declaration
+## 9. Dashboard Completion Declaration
 
 The assistant may state `AI Market Master 3.2 Dashboard 실행 완료` only after final validation confirms:
 - Eight fixed categories are present and correctly ordered.
@@ -107,7 +120,7 @@ Otherwise use:
 - `EXECUTION BLOCKED` when a mandatory gate prevents reliable execution.
 - `PARTIAL DATA` / `PARTIAL CONSENSUS` when execution can continue under an existing partial-data rule.
 
-## 9. Output Integrity Rule
+## 10. Output Integrity Rule
 
 The eight fixed Dashboard categories remain unchanged.
 
@@ -115,7 +128,7 @@ Execution status is a validation layer and does not become a ninth Dashboard cat
 
 The Strategy section must report the validated status of `AI Master Score` and `Strategy Action Index` rather than fabricating values.
 
-## 10. Regression Prevention
+## 11. Regression Prevention
 
 Any future 3.2 Dashboard execution must be checked against this patch before completion.
 
@@ -127,8 +140,8 @@ Minimum regression tests:
 5. Missing data → `DATA UNAVAILABLE`, never invented values.
 6. Complete inputs and successful validation → normal Dashboard completion permitted.
 
-## 11. Patch Identification
+## 12. Patch Identification
 
 Patch ID: `3.2-EIP-v1.0`
 Applied to: `AI Market Master Dashboard 3.2`
-Date: 2026-08-27
+Date: 2026-09-05
