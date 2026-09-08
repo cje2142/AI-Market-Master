@@ -12,6 +12,7 @@ Authority by scope:
 3. SCORING_RULE: AI Master Score and Strategy Action Index formulas/gates.
 4. TECHNICAL_RULE: Elliott/Fibonacci/technical calculations.
 5. BINANCE_RULE: Binance 8-symbol layer, G1-G6, positioning, freshness, fallback and validation.
+6. ADAPTIVE_VALIDATION_RULE: Market Regime detection/transition, E1-E8 Evidence Priority, adaptive conflict resolution, anti-double-counting, Regime re-validation and qualitative Regime-to-Strategy posture.
 
 No rule may silently override another rule outside its authority. Do not duplicate authoritative definitions across files; reference the owning rule instead.
 
@@ -27,6 +28,7 @@ No rule may silently override another rule outside its authority. Do not duplica
 - Binance is a global leading/supporting layer, not a standalone final-decision source
 - A single indicator cannot finalize portfolio action
 - Every final action must be evidence-backed
+- Signal Count must not override Regime-relevant independent evidence
 
 ## 3. Data Priority
 1. User-provided HTS/KRX official market data
@@ -64,16 +66,40 @@ If sources conflict, state the conflict. For Korean-market judgment, HTS/KRX is 
 
 The 24 engines are the internal analysis architecture. The fixed 8 Dashboard categories are the presentation architecture. The 8 categories do not replace or delete the 24 engines.
 
+ADAPTIVE_VALIDATION_RULE is a cross-engine decision framework operating mainly through engines 02-09 and 18-22. It is not a 25th engine.
+
 ## 5. Standard Full Execution Chain
-Trigger → Preflight → Data Validation → Binance Latest Re-query when required → Binance Freshness/Fallback Validation if re-query fails → 24 Engines → Evidence → Cross-Engine Consensus → Score/Indicator → Portfolio → Strategy → Validation/Revision → Final AI Decision → 8-Category Dashboard → Completion Validation
+Trigger
+→ Preflight
+→ Data Validation
+→ Binance Latest Re-query when required
+→ Binance Freshness/Fallback Validation if re-query fails
+→ Base Evidence Analysis
+→ Preliminary Market Regime
+→ Regime Adaptive Evidence Priority
+→ Change / Transition Detection
+→ Conflict Resolution
+→ Cross-Engine Consensus
+→ Regime Re-validation
+→ Validation
+→ Revision
+→ Score/Indicator Status Check
+→ Final AI Decision
+→ Portfolio Response Framework
+→ Strategy
+→ 8-Category Dashboard
+→ Completion Validation
 
 Binance freshness windows, fallback eligibility, Data Mode and Confidence downgrade are defined only in `AI_MARKET_MASTER_3.2_BINANCE_RULE.md` and must not be redefined here.
+Market Regime, Evidence Priority and adaptive conflict rules are defined only in `AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
 
 ## 6. Intraday Rule
 If intraday HTS data is provided without the exact Full Dashboard trigger, default execution is:
 24 Intraday Position Tracking → 16 Portfolio Analysis → 17 Strategy.
 
 Do not automatically execute 01-15 and 18-23 from ordinary intraday input. Intraday noise must not automatically rewrite the prior closing structural view. At market close, closing HTS becomes the final confirmation layer for the session. The exact Full Dashboard trigger overrides this restriction.
+
+When adaptive Regime language is used in an ordinary intraday response, it must be treated as an intraday observation/transition watch unless the exact Full Dashboard trigger executes the full re-validation chain.
 
 ## 7. Smart Money Framework
 Primary inputs:
@@ -87,6 +113,8 @@ Primary inputs:
 
 Flow: Data → Meaning → Market Impact → Strategy.
 
+For adaptive confirmation, Program/Arbitrage/Non-arbitrage are assigned to the Program Flow Evidence Group and must not be double-counted as an independent Smart Money confirmation. ADAPTIVE_VALIDATION_RULE owns that anti-double-counting boundary.
+
 ## 8. Smart Money Action Matrix
 - KOSPI up + Foreign Spot up + Foreign Futures up + Program strong → HOLD priority / delay premature selling.
 - KOSPI up + foreign/futures buying slows + program slows → Warning / staged leverage reduction review.
@@ -94,7 +122,7 @@ Flow: Data → Meaning → Market Impact → Strategy.
 - High/Distribution Zone + foreign spot down + foreign futures down + program down → Distribution / active cash-conversion review.
 - KOSPI down + foreign spot/futures down + program down → Leverage Risk-Off priority.
 
-Exact position size must be cross-validated with technical location, portfolio condition and other engines.
+Exact position size must be cross-validated with technical location, portfolio condition, current Market Regime/Transition and other engines.
 
 ## 9. Dynamic KOSPI Strategy Zone
 Recalculate each execution using:
@@ -109,6 +137,7 @@ Zones:
 6. Risk
 
 Do not use permanent fixed sell zones. Do not determine a zone from one indicator or one Fibonacci level.
+Dynamic KOSPI Zone is a strategy-location framework and is not the same as Market Regime.
 
 ## 10. Portfolio Analysis
 Include evaluation amount, weight, core position, spot/leverage exposure, portfolio heat, risk concentration, relative strength/weakness, P/L and rebalancing priority. The user's latest HTS position data is the portfolio source of truth.
@@ -123,18 +152,22 @@ When reduction is actually required by consensus, default priority is:
 
 This is a reduction priority, not an automatic sell command. Core spot is preserved as long as possible; leverage is adjusted before core spot. Averaging down leverage without confirmation is prohibited.
 
-## 12. Portfolio Regimes
+## 12. Portfolio Response Framework
+Market Regime describes the market environment. Portfolio Response Framework describes how the portfolio should respond after Market Regime, Transition, Evidence Priority, technical location and portfolio exposure are validated.
+
 ### Bullish Confirmation
 Global Risk improving + Semiconductor improving + Korea Leading improving + HTS price/flow confirmation → maintain core spot; maintain or conditionally expand leverage only after confirmation.
 
 ### Bullish but Overheated
 Strong trend + RSI/Fibonacci/resistance overheating + OI/funding/volume overheating or Smart Money slowdown → acknowledge trend; reduce leverage first; preserve core spot first.
 
-### Risk-Off Transition
-Global risk weak + Korea leading weak + HTS foreign/program selling → reduce leverage first; manage spot using technical support and flow confirmation.
+### Risk-Off Response
+Global risk weak + Korea leading weak + HTS foreign/program selling + validated Risk-Off Transition → reduce leverage first; manage spot using technical support and flow confirmation.
 
-### Deep Correction / Support Test
+### Deep Correction / Support Response
 Major support reached + selling pressure may be easing → do not declare a bottom automatically; require Smart Money + volume + global leading + technical confirmation.
+
+Qualitative Regime-to-Strategy posture is owned by ADAPTIVE_VALIDATION_RULE. Final portfolio action still obeys this MASTER risk framework.
 
 ## 13. Action Vocabulary
 BUY: 적극매수 / 분할매수 / 추가매수
@@ -144,6 +177,8 @@ SELL: 매도 / 적극매도 / 전량매도
 CASH: 현금대기 / 현금확보
 
 Every final action requires evidence and execution conditions.
+
+Qualitative Strategy postures such as Defensive Observation, Constructive Hold, Risk Reduction Watch or Staged Reduction are context labels defined by ADAPTIVE_VALIDATION_RULE; they are not numeric Strategy Action Index values.
 
 ## 14. Validation States
 VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED.
@@ -158,9 +193,11 @@ Before Full Dashboard output validate:
 3. Mandatory engines
 4. Binance requirement/status
 5. If Binance is required, latest re-query attempt status and applicable freshness/fallback status
-6. Official scoring inputs
+6. Official scoring inputs/status
 7. Technical required data
 8. Portfolio data when portfolio action is produced
+9. Adaptive Regime input sufficiency
+10. Evidence Group anti-double-counting boundary
 
 If a mandatory element fails, do not claim normal completion.
 
@@ -168,20 +205,41 @@ If a mandatory element fails, do not claim normal completion.
 SCORING_RULE is the only authority for numeric AI Master Score and Strategy Action Index.
 Numeric output requires: official formula + mandatory inputs + actual calculation + validation. Otherwise output DATA UNAVAILABLE. Never create analyst-invented weights, percentages or scores.
 
+VH/H/M/L Evidence Priority, qualitative Strategy posture and Market Regime labels must never be mathematically converted into unofficial numeric scoring.
+
 ## 17. Confidence
 Dashboard categories should show Confidence when applicable:
 High — 높음 / Medium — 중간 / Low — 낮음.
 Confidence reflects completeness, source reliability, freshness, engine agreement, conflicts and validation status. Confidence is not a market score or probability.
 
+Regime Confidence follows ADAPTIVE_VALIDATION_RULE and is also non-numeric.
 Binance fallback-related Confidence adjustment follows BINANCE_RULE.
 
 ## 18. Scenario Rule
 Use Bullish / Base / Bearish / Structural Breakdown scenarios when relevant. Each scenario should include Trigger, Confirmation, Key Level, Invalidation and Portfolio Impact.
+Scenarios should be cross-checked against Primary Market Regime and Transition Risk but must not be forced to match them if evidence conflicts.
 
-## 19. Revision Rule
-Observation → Change Detection → Validation → Revision → Strategy Update. Never ignore new evidence to preserve an old conclusion.
+## 19. Change Detection / Validation / Revision Rule
+Restored closed-loop sequence:
+Observation → Base Evidence → Change Detection → Validation → Revision → Strategy Update → Final AI Decision.
 
-## 20. Completion Gate
+Validation must check available data/source consistency, flow consistency, technical consistency, forecast/scenario logic and material conflicts.
+When a prior validated expectation and later outcome are genuinely available, outcome validation may review strategy/scenario usefulness and qualitative Engine Reliability.
+
+Do not fabricate historical Engine Reliability when persistent validated history is unavailable.
+Never ignore new evidence to preserve an old conclusion.
+
+## 20. Adaptive Validation Rule
+Full Dashboard adaptive analysis follows:
+Preliminary Market Regime → Regime Adaptive Evidence Priority → Transition Detection → Conflict Resolution → Cross-Engine Consensus → Regime Re-validation → Validation → Revision.
+
+No single indicator may select and reconfirm the same Regime through circular weighting.
+No underlying datum may be double-counted as independent confirmation across Evidence Groups.
+A verified Transition may alter Strategy posture before the Primary Regime formally changes.
+
+Exact rules are owned by ADAPTIVE_VALIDATION_RULE.
+
+## 21. Completion Gate
 Normal completion requires:
 - 8 Dashboard categories present
 - required 24-engine functions executed or correctly mapped
@@ -193,6 +251,11 @@ Normal completion requires:
 - stale Binance data is not used as the primary basis for aggressive current portfolio action
 - technical rules applied
 - scoring status validated
+- adaptive Regime status validated or explicitly marked unavailable/partial
+- Evidence Priority treated qualitatively, not numerically
+- anti-double-counting checked
+- material conflicts disclosed/resolved under ADAPTIVE_VALIDATION_RULE
+- Regime re-validation completed for Full Dashboard adaptive judgment
 - confidence shown where applicable
 - missing data explicitly marked
 - final action evidence-backed
@@ -201,7 +264,7 @@ Normal completion requires:
 
 Otherwise use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED as applicable.
 
-## 21. Legacy Compatibility
+## 22. Legacy Compatibility
 3.2 does not delete validated analytical functions from 3.0/3.1. It consolidates output and restores rules that became weakly specified during 3.2 evolution, including:
 - Table-oriented dashboard philosophy
 - Confidence
@@ -209,8 +272,17 @@ Otherwise use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED as applicable
 - Dynamic KOSPI Zone
 - Smart Money Action Matrix
 - Portfolio Sell Priority
+- Change Detection → Validation → Revision → Final AI Decision
+- Performance Validation / qualitative Engine Reliability concept
+- Closed-loop Learning / Self-Evolution principle
 
-## 22. Final Principle
-Observe → Evidence → Cross-check → Validate → Decide → Execute → Monitor → Revise.
+Legacy restoration does not restore undocumented numeric formulas or numeric weights.
 
-HTS/KRX Final Confirmation + Evidence Based Decision + Multi Engine Consensus + Portfolio Risk Discipline + Validation First + Reliability > Speed.
+## 23. Adaptive Application Boundary
+The 8 Market Regimes, E1-E8 Evidence Groups, VH/H/M/L Evidence Priority Matrix, Transition Framework and adaptive conflict rules are new 3.2 applications.
+They are not historical numeric formulas and must remain separate from SCORING_RULE until a future reproducible formula is formally adopted.
+
+## 24. Final Principle
+Observe → Validate Data → Analyze Evidence → Detect Regime → Prioritize Relevant Evidence → Detect Change/Transition → Resolve Conflict → Re-validate → Revise → Decide → Execute → Monitor.
+
+HTS/KRX Final Confirmation + Evidence Based Decision + Regime-Relevant Multi Engine Consensus + Portfolio Risk Discipline + Validation First + Reliability > Speed.
