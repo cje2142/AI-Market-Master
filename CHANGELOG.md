@@ -1,5 +1,26 @@
 # AI Market Master Change Log
 
+## 2026-09-08 — Binance Latest Re-query & Fallback Policy
+
+### Added
+- Full Dashboard now requires a fresh Binance 8-symbol re-query attempt before any prior Binance result may be reused.
+- Added Binance Data Mode: `LIVE / FALLBACK / STALE`, kept separate from official Validation Status.
+- Added fallback freshness windows:
+  - Intraday: prior validated Binance data may be reused for up to 60 minutes.
+  - Post-close structural analysis: prior validated Binance data may be reused for up to 2 hours.
+- FALLBACK requires a known prior query time, known prior Validation Status and preserved symbol/field-depth status.
+- FALLBACK lowers Binance-related Confidence by at least one level.
+- STALE data is historical/context-only and cannot be the primary basis for current aggressive portfolio action, leverage expansion or numeric score inputs.
+- Dashboard now discloses Binance Data Mode, data age, prior query time/status, symbol availability, field depth and Confidence when applicable.
+- MASTER Completion Gate now verifies latest re-query attempt, fallback freshness, Confidence downgrade and stale-data restrictions.
+
+### Compatibility / No structural change
+- Official five-rule architecture remains unchanged.
+- No new ninth Dashboard category was created.
+- Existing Validation States remain: `VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED`.
+- `SCORING_RULE` and `TECHNICAL_RULE` were not changed.
+- HTS/KRX remains the final Korean-market confirmation layer.
+
 ## 2026-09-07 — 3.2 Unified Stable
 
 ### Rule architecture optimized
