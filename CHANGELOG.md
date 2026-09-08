@@ -2,6 +2,11 @@
 
 ## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
 
+### Final backup checkpoint
+- Created `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`.
+- The checkpoint records the final six-authority rule snapshot, supporting restore/design backups, integration safeguards, scoring firewall and verification state.
+- The checkpoint is non-authoritative and is intended for recovery/regression comparison only.
+
 ### Legacy restore
 - Restored explicit closed-loop logic: `Change Detection → Validation → Revision → Final AI Decision`.
 - Restored legacy Performance Validation / Engine Reliability concept as qualitative validation intent.
