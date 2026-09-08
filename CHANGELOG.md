@@ -1,5 +1,58 @@
 # AI Market Master Change Log
 
+## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
+
+### Legacy restore
+- Restored explicit closed-loop logic: `Change Detection → Validation → Revision → Final AI Decision`.
+- Restored legacy Performance Validation / Engine Reliability concept as qualitative validation intent.
+- Restored outcome-review principle when prior validated expectations and later results are actually available.
+- Restored Closed-loop Learning / Self-Evolution principle without inventing undocumented historical numeric formulas.
+- Added non-authoritative restore reference: `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md`.
+
+### New 3.2 adaptive application
+- Added official `Rules/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
+- Added 8 Market Regimes:
+  - Broad Risk-On
+  - Concentrated Leadership Bull
+  - Rotation
+  - Distribution
+  - Risk-Off Transition
+  - Panic / High Volatility
+  - Deep Correction / Support Test
+  - Recovery / Accumulation
+- Added Primary Regime + Transition Regime / Risk + Regime Confidence.
+- Added E1-E8 Evidence Groups and qualitative `VH / H / M / L` Regime Adaptive Evidence Priority Matrix.
+- Added Conditional Evidence Escalation, anti-double-counting, adaptive conflict resolution and Regime re-validation.
+- Added qualitative Strategy postures without numeric A1-A8 labels.
+- Added non-authoritative design reference: `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md`.
+
+### Integration safeguards
+- Adaptive Validation is a cross-engine framework, not a 25th engine.
+- Fixed 24-engine architecture remains unchanged.
+- Fixed 8 Dashboard categories remain unchanged; no ninth adaptive category was created.
+- `Market Regime` is separated from the `Portfolio Response Framework` to avoid naming collisions.
+- Program/Non-arbitrage and Breadth/ADL adaptive evidence receive explicit anti-double-counting boundaries.
+- Full adaptive execution uses `Preliminary Regime → Adaptive Evidence Priority → Transition/Conflict → Cross-Engine Consensus → Regime Re-validation → Validation/Revision → Final AI Decision` to prevent circular reasoning.
+- Signal Count cannot override higher-quality Regime-relevant independent evidence.
+- HTS/KRX remains final Korean-market confirmation.
+- Binance remains a global leading/supporting layer under existing LIVE/FALLBACK/STALE rules.
+
+### Scoring firewall
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- VH/H/M/L are qualitative Evidence Priority labels only, not numeric weights.
+- Prohibited conversion includes VH/H/M/L → 4/3/2/1, percentages, hidden weights or unofficial scores.
+- Market Regime / Transition / qualitative Strategy posture cannot be converted into numeric scoring without future formal SCORING_RULE adoption.
+
+### Authority architecture
+Official authority is now split across six files:
+1. `Rules/AI_MARKET_MASTER_3.2_MASTER_RULE.md`
+2. `Rules/AI_MARKET_MASTER_3.2_DASHBOARD_RULE.md`
+3. `Rules/AI_MARKET_MASTER_3.2_SCORING_RULE.md`
+4. `Rules/AI_MARKET_MASTER_3.2_TECHNICAL_RULE.md`
+5. `Rules/AI_MARKET_MASTER_3.2_BINANCE_RULE.md`
+6. `Rules/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`
+
 ## 2026-09-08 — Binance Latest Re-query & Fallback Policy
 
 ### Added
@@ -15,16 +68,16 @@
 - MASTER Completion Gate now verifies latest re-query attempt, fallback freshness, Confidence downgrade and stale-data restrictions.
 
 ### Compatibility / No structural change
-- Official five-rule architecture remains unchanged.
+- Official five-rule architecture remained unchanged at the time of this patch; it was later expanded to six authorities by the Adaptive Validation integration above.
 - No new ninth Dashboard category was created.
 - Existing Validation States remain: `VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED`.
-- `SCORING_RULE` and `TECHNICAL_RULE` were not changed.
+- `SCORING_RULE` and `TECHNICAL_RULE` were not changed by this Binance patch.
 - HTS/KRX remains the final Korean-market confirmation layer.
 
 ## 2026-09-07 — 3.2 Unified Stable
 
 ### Rule architecture optimized
-- Consolidated active rule authority into five files under `Rules/`.
+- Consolidated active rule authority into five files under `Rules/` at initial Unified Stable creation.
 - Removed duplicate/overlapping 3.2 authority from root, Extensions and old execution-flow files.
 - Added `Legacy/3.2-history/INDEX.md` with exact historical blob SHAs for recovery.
 
@@ -51,8 +104,8 @@
 ### Scoring correction
 No complete reproducible legacy formula for `AI Master Score` or `Strategy Action Index` has yet been verified. Numeric scoring remains disabled and must output `DATA UNAVAILABLE` until a formal formula is verified and adopted in `SCORING_RULE`.
 
-### Authority
-Current authoritative files:
+### Initial Authority
+Initial Unified Stable authoritative files were:
 1. `Rules/AI_MARKET_MASTER_3.2_MASTER_RULE.md`
 2. `Rules/AI_MARKET_MASTER_3.2_DASHBOARD_RULE.md`
 3. `Rules/AI_MARKET_MASTER_3.2_SCORING_RULE.md`
