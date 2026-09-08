@@ -64,6 +64,12 @@ Non-authoritative backup references:
 - `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md` — legacy restore evidence boundary
 - `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md` — new 3.2 adaptive design boundary
 
+## Final Backup Checkpoint
+Verified final checkpoint for this integration:
+- `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`
+
+The checkpoint records the six official authority blob SHAs, restore/design references, integration boundaries, scoring firewall and cross-validation status. It is non-authoritative and exists for recovery/regression verification.
+
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
 The original 3.1 CFB remains preserved unchanged for reference and regression verification.
