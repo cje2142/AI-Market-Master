@@ -76,15 +76,18 @@ Key commits produced during this integration:
 - SCORING firewall integration: `9d7cc0e022657b5ce33c4e5ed983a30b451335e4`
 - VERSION_STATUS integration: `9365282572717538a9ba7c11bed9d2ecc0fcf655`
 - CHANGELOG integration: `8bc20ee21bbca4bd301f3da704b09f34082ae9b7`
+- Final backup checkpoint creation: `89b877fc6b183ad07b2263018506df7e59a6202f`
+- Final backup registration in VERSION_STATUS: `20ed375c4655c58c71214942a82aa9c935e43405`
+- Final backup registration in CHANGELOG: `93c38c13a6077b6a05a0ac79f085424b132382eb`
 
 ## 6. Version / Change Tracking Snapshot
 - `VERSION_STATUS.md`
-  - Blob SHA: `e0f42b3356e19dc1bfe084f97d54fdf20d877a27`
-  - Confirms six-authority architecture and adaptive-validation boundaries.
+  - Blob SHA: `3a5db834441e57d45468afc2e8ddd0dab6db06e2`
+  - Confirms six-authority architecture, adaptive-validation boundaries and final checkpoint registration.
 
 - `CHANGELOG.md`
-  - Blob SHA: `c2e1868ea7120f7e819c6a7956ea771d9adae3e8`
-  - Records Legacy Restore, New Adaptive Application, safeguards and scoring firewall.
+  - Blob SHA: `aa590b79046d176569479b996578dabe0e449caf`
+  - Records Legacy Restore, New Adaptive Application, safeguards, scoring firewall and final checkpoint creation.
 
 ## 7. Preserved Architecture Validation
 Verified preserved:
