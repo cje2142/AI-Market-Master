@@ -75,7 +75,99 @@ Use:
 
 Do not call a full-field execution VERIFIED when only ticker-level or snapshot-level data was retrieved.
 
-## 9. Global Futures Sub-Engines
+## 9. Latest Re-query First
+When the exact Full Dashboard trigger `AI Market Master 3.2 Dashboard 실행` is executed and Binance is required as a supporting layer, always attempt a fresh 8-symbol Binance query first.
+
+Do not skip a fresh query merely because a prior Binance result is available.
+
+Execution priority:
+`Latest Re-query → Valid Fallback → Stale Reference Only → DATA UNAVAILABLE`.
+
+The standalone Binance trigger continues to execute the current 8-symbol Binance workflow directly.
+
+## 10. Binance Data Mode
+Data freshness/source is tracked separately from the official Validation Status.
+
+Use:
+- `LIVE`: data newly queried during the current execution.
+- `FALLBACK`: current re-query failed or produced unusable results and a valid prior verified result is being reused within the allowed freshness window.
+- `STALE`: prior data is outside the allowed freshness window and may only be referenced as historical context.
+
+`LIVE / FALLBACK / STALE` are Data Modes. They are not Bull/Bear signals and are not replacements for `VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED`.
+
+Do not create new official Validation States such as `FALLBACK VERIFIED` or `STALE VERIFIED`.
+
+## 11. Fallback Eligibility
+Fallback is allowed only when all of the following are satisfied:
+1. A latest Binance re-query was attempted first.
+2. The latest re-query failed or did not produce usable data for the intended judgment.
+3. The prior result has a known query/completion timestamp.
+4. The prior result has a known Validation Status and is reliable enough for reuse.
+5. The prior result is inside the applicable freshness window.
+
+Unvalidated historical data must not be promoted into fallback evidence.
+
+If the prior result was `PARTIAL CONSENSUS` or field-depth `PARTIAL`, preserve that status. Fallback never upgrades the prior validation level.
+
+## 12. Freshness Window
+### Intraday
+During market-hours / intraday analysis, prior Binance data may be used as normal fallback only when its age is **60 minutes or less**.
+
+### Post-Close Structural Analysis
+For post-close structural analysis, prior Binance data may be used as normal fallback only when its age is **2 hours or less**.
+
+Data age is measured from the actual prior Binance query/completion time to the current analysis time.
+
+If the prior query time is unknown, normal fallback is prohibited.
+
+## 13. Confidence Adjustment
+LIVE data uses the normal Confidence rules.
+
+When FALLBACK data is used, downgrade the Binance-related Confidence by at least one level:
+- High → Medium
+- Medium → Low
+- Low → Low
+
+Fallback usage must be disclosed and must not be presented as equally fresh to LIVE data.
+
+## 14. Stale / Expired Data Rule
+If prior Binance data is older than:
+- 60 minutes during intraday analysis, or
+- 2 hours during post-close structural analysis,
+
+it is not eligible for normal fallback.
+
+Mark the Data Mode `STALE` and Confidence `Low` when historical reference is still useful.
+
+STALE Binance data may be used only as historical/context comparison. It must not be a primary basis for:
+- current Binance consensus confirmation,
+- current broad Risk-On / Risk-Off confirmation,
+- aggressive portfolio action,
+- new leverage expansion,
+- numeric scoring inputs.
+
+If current judgment requires Binance evidence and no valid live/fallback result exists, use the existing official status `PARTIAL`, `UNAVAILABLE`, `PARTIAL CONSENSUS` or `EXECUTION BLOCKED` as appropriate.
+
+## 15. Mandatory Fallback Disclosure
+When FALLBACK or STALE data is used, show when available:
+- Binance Data Mode
+- Previous Query Time
+- Current Analysis Time
+- Data Age
+- Previous Validation Status
+- Symbol Availability
+- Field Depth
+- Current Confidence
+
+Example:
+`Binance Data Mode: FALLBACK`
+`Previous Query: 10:34 KST`
+`Current Analysis: 11:11 KST`
+`Data Age: 37 min`
+`Previous Status: 8/8 VERIFIED / Field Depth PARTIAL`
+`Confidence: Medium`
+
+## 16. Global Futures Sub-Engines
 ### G1 Global Risk
 SPYUSDT + QQQUSDT + BTCUSDT.
 Assess broad risk-on/risk-off. BTC is auxiliary and cannot alone confirm equity risk regime.
@@ -97,7 +189,7 @@ BTCUSDT as a high-beta 24-hour risk/liquidity auxiliary signal. Never convert BT
 ### G6 Futures Positioning
 Combine Price + Volume + OI + OI Change + Funding + Premium + Mark/Index + Long/Short + Order Book/Trades + ADL Risk.
 
-## 10. Positioning Interpretation
+## 17. Positioning Interpretation
 Only apply OI-direction logic when OI change/time-series is actually available.
 - Price up + OI up: new position inflow possible; direction requires corroboration.
 - Price up + OI down: short covering possible.
@@ -106,27 +198,27 @@ Only apply OI-direction logic when OI change/time-series is actually available.
 
 A current OI snapshot alone must not be labeled OI rising or falling.
 
-## 11. Funding Rule
+## 18. Funding Rule
 Funding is a positioning/crowding indicator, not an automatic buy/sell signal. Excessive positive or negative funding may indicate overheating/crowding. Interpret with price, OI, long/short and market structure.
 
-## 12. Mark / Index / Premium Rule
+## 19. Mark / Index / Premium Rule
 Use divergence between mark, index and premium/basis to assess futures dislocation or supply-demand imbalance. Small normal differences are not automatically meaningful.
 
-## 13. Long/Short Ratio Labeling
+## 20. Long/Short Ratio Labeling
 Always identify the exact endpoint/type used. Do not label Top Trader Accounts as general Global Long/Short or Top Trader Positions. If the requested ratio type was not fetched, mark it DATA UNAVAILABLE.
 
-## 14. Order Book / Trades Rule
+## 21. Order Book / Trades Rule
 Best bid/ask can support spread/liquidity observations, but single-level quantities must not be over-interpreted as deep order-book imbalance. Recent trades require actual trade data; if not fetched, mark DATA UNAVAILABLE.
 
-## 15. ADL Risk
+## 22. ADL Risk
 ADL status is a leverage/liquidation risk input, not a directional market signal. Keep it separate from Bull/Bear judgment.
 
-## 16. Cross-Engine Integration
+## 23. Cross-Engine Integration
 Binance results feed the existing 24-engine architecture, especially Leading Indicator, Smart Money support, Global Liquidity, Technical, Ultra Short, AI Cycle, Portfolio, Strategy, Scenario Forecast, Change Detection, Validation, Final AI Decision and Intraday Position Tracking.
 
 Risk Assessment is a subordinate analysis/module, not a 25th official engine.
 
-## 17. Dashboard Mapping
+## 24. Dashboard Mapping
 In the Full Dashboard, do not create a ninth Binance category.
 - Global risk / Korea-leading → Observation / Judgment
 - Semiconductor signals → AI Cycle
@@ -135,16 +227,21 @@ In the Full Dashboard, do not create a ninth Binance category.
 - Relevant market structure → Technical
 - Final consensus → Strategy
 
-## 18. Portfolio Decision Rule
+## 25. Portfolio Decision Rule
 Binance alone cannot finalize aggressive portfolio decisions. Final portfolio strategy requires consensus across Binance + HTS/KRX + Technical + Smart Money + AI Cycle + Liquidity/Risk.
 
-## 19. Conflict Rule
+FALLBACK Binance data has lower evidentiary weight than LIVE Binance data. STALE Binance data cannot be the primary basis of a current aggressive portfolio action.
+
+## 26. Conflict Rule
 If Binance is bullish while HTS/KRX is bearish, or vice versa, state the divergence explicitly. Do not silently choose the more convenient signal. HTS/KRX remains final confirmation for Korean-market action.
 
-## 20. Anti-Hallucination
-Never fabricate unavailable symbol data, OI direction, funding, long/short ratios, trades, order-book depth, premium, ADL or scoring values.
+## 27. Anti-Hallucination
+Never fabricate unavailable symbol data, OI direction, funding, long/short ratios, trades, order-book depth, premium, ADL, query timestamps, data age or scoring values.
 
-## 21. Final Principle
+## 28. Final Principle
 Binance = Global Leading / Supporting Layer.
 KRX/HTS = Final Korean-Market Confirmation.
 Multi Engine Consensus > Single Indicator.
+
+For Full Dashboard execution:
+**Latest Re-query → Freshness Validation → Valid Fallback → Confidence Adjustment → HTS/KRX Cross-Validation → Multi Engine Consensus**.
