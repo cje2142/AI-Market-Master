@@ -11,7 +11,7 @@ Authority by scope:
 2. DASHBOARD_RULE: exact triggers and fixed user-facing output layout.
 3. SCORING_RULE: AI Master Score and Strategy Action Index formulas/gates.
 4. TECHNICAL_RULE: Elliott/Fibonacci/technical calculations.
-5. BINANCE_RULE: Binance 8-symbol layer, G1-G6, positioning and validation.
+5. BINANCE_RULE: Binance 8-symbol layer, G1-G6, positioning, freshness, fallback and validation.
 
 No rule may silently override another rule outside its authority. Do not duplicate authoritative definitions across files; reference the owning rule instead.
 
@@ -65,7 +65,9 @@ If sources conflict, state the conflict. For Korean-market judgment, HTS/KRX is 
 The 24 engines are the internal analysis architecture. The fixed 8 Dashboard categories are the presentation architecture. The 8 categories do not replace or delete the 24 engines.
 
 ## 5. Standard Full Execution Chain
-Trigger → Preflight → Data Validation → 24 Engines → Binance Validation when required → Evidence → Cross-Engine Consensus → Score/Indicator → Portfolio → Strategy → Validation/Revision → Final AI Decision → 8-Category Dashboard → Completion Validation
+Trigger → Preflight → Data Validation → Binance Latest Re-query when required → Binance Freshness/Fallback Validation if re-query fails → 24 Engines → Evidence → Cross-Engine Consensus → Score/Indicator → Portfolio → Strategy → Validation/Revision → Final AI Decision → 8-Category Dashboard → Completion Validation
+
+Binance freshness windows, fallback eligibility, Data Mode and Confidence downgrade are defined only in `AI_MARKET_MASTER_3.2_BINANCE_RULE.md` and must not be redefined here.
 
 ## 6. Intraday Rule
 If intraday HTS data is provided without the exact Full Dashboard trigger, default execution is:
@@ -147,15 +149,18 @@ Every final action requires evidence and execution conditions.
 VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED.
 These are execution/data states, not Bull/Bear market signals.
 
+Binance `LIVE / FALLBACK / STALE` are Data Modes defined by BINANCE_RULE and must remain separate from these Validation States.
+
 ## 15. Preflight Gate
 Before Full Dashboard output validate:
 1. Exact trigger
 2. Required HTS input availability/readability
 3. Mandatory engines
 4. Binance requirement/status
-5. Official scoring inputs
-6. Technical required data
-7. Portfolio data when portfolio action is produced
+5. If Binance is required, latest re-query attempt status and applicable freshness/fallback status
+6. Official scoring inputs
+7. Technical required data
+8. Portfolio data when portfolio action is produced
 
 If a mandatory element fails, do not claim normal completion.
 
@@ -167,6 +172,8 @@ Numeric output requires: official formula + mandatory inputs + actual calculatio
 Dashboard categories should show Confidence when applicable:
 High — 높음 / Medium — 중간 / Low — 낮음.
 Confidence reflects completeness, source reliability, freshness, engine agreement, conflicts and validation status. Confidence is not a market score or probability.
+
+Binance fallback-related Confidence adjustment follows BINANCE_RULE.
 
 ## 18. Scenario Rule
 Use Bullish / Base / Bearish / Structural Breakdown scenarios when relevant. Each scenario should include Trigger, Confirmation, Key Level, Invalidation and Portfolio Impact.
@@ -180,6 +187,10 @@ Normal completion requires:
 - required 24-engine functions executed or correctly mapped
 - HTS validated
 - Binance status validated when required
+- if Binance is required, latest re-query was attempted before fallback consideration
+- if Binance fallback/stale data is used, query time/data age/Data Mode are validated under BINANCE_RULE
+- fallback never upgrades prior Validation Status and its Confidence downgrade is applied
+- stale Binance data is not used as the primary basis for aggressive current portfolio action
 - technical rules applied
 - scoring status validated
 - confidence shown where applicable
