@@ -4,7 +4,7 @@ Version: 3.2 Unified Stable
 Status: Dashboard Presentation Authority
 
 ## 1. Scope
-This file controls only exact triggers and user-facing output layout. Market formulas, technical calculations, Binance interpretation and scoring belong to their dedicated rules.
+This file controls only exact triggers and user-facing output layout. Market formulas, technical calculations, Binance interpretation/freshness and scoring belong to their dedicated rules.
 
 ## 2. Exact Triggers
 Full Dashboard: `AI Market Master 3.2 Dashboard 실행`
@@ -60,6 +60,8 @@ Other descriptive wording may appear in explanation but must be normalized in th
 ## 8. Validation Status Is Separate
 VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED are execution/data states, not market signals.
 
+For Binance, `LIVE / FALLBACK / STALE` are separate Data Modes defined by BINANCE_RULE. They must not replace or be merged into the official Validation Status.
+
 ## 9. Standard Category Output Order
 When applicable, each category follows:
 1. Signal
@@ -81,11 +83,15 @@ Use:
 - Low — 낮음
 Confidence reflects completeness, source reliability, freshness, engine agreement, signal conflict and validation status. It is not a probability or market score.
 
+If Binance FALLBACK is used, apply the Confidence downgrade defined by BINANCE_RULE. Dashboard presentation must not hide that downgrade.
+
 ## 12. Missing Data
 Never delete a required category because data is missing. Mark the relevant item `DATA UNAVAILABLE`; for partial retrieval use PARTIAL or PARTIAL CONSENSUS as applicable. Never estimate missing values.
 
 ## 13. Evidence / Judgment / Action
 Evidence should prioritize HTS/KRX, verified official data, then verified Binance supporting data. Judgment must reflect cross-engine consensus and explicitly state conflicts. Action must use the MASTER_RULE vocabulary and include evidence/conditions.
+
+LIVE Binance evidence has higher freshness than FALLBACK evidence. STALE Binance data may be shown as historical context only and must not be presented as current decisive evidence.
 
 ## 14. Strategy Mandatory Outputs
 Strategy (전략) must include:
@@ -108,13 +114,42 @@ If official scores cannot be calculated, display `DATA UNAVAILABLE` rather than 
 - Scenarios belong mainly in Judgment/Strategy and do not become a ninth category.
 - Binance results must be mapped into the existing 8 categories: global risk into Observation/Judgment, semiconductor signals into AI Cycle, TMF/rates into Liquidity, positioning evidence into Evidence/Smart Money/Judgment, final consensus into Strategy.
 
-## 16. Technical Presentation
+## 16. Binance Status Presentation
+When Binance is part of a Full Dashboard execution, show its status within the existing 8-category structure or the execution/validation summary. Do not create a ninth Binance category.
+
+Display, when available:
+- `Binance Validation Status`
+- `Binance Data Mode`
+- `Previous Query Time` when FALLBACK/STALE
+- `Current Analysis Time` when FALLBACK/STALE
+- `Data Age` when FALLBACK/STALE
+- `Symbol Availability`
+- `Field Depth`
+- `Confidence`
+
+Recommended compact forms:
+
+Latest query success:
+`Binance: LIVE / 8/8 VERIFIED / Field Depth VERIFIED or PARTIAL`
+
+Fallback:
+`Binance: FALLBACK / 8/8 VERIFIED / 37 min old / Confidence Medium`
+
+Stale historical reference:
+`Binance: STALE / 74 min old / Confidence Low / Current-decision use restricted`
+
+No usable current data:
+`Binance: DATA UNAVAILABLE`
+
+The exact freshness windows and fallback eligibility are owned by BINANCE_RULE and are not redefined here.
+
+## 17. Technical Presentation
 Technical should show, when available: Trend, Elliott, Dual Fibonacci, Dynamic Fibonacci if relevant, RSI, MACD, Ichimoku, MA/VWAP, ADX, ADL/Breadth, Volume, Support, Resistance, Confirmation and Invalidation.
 
-## 17. Density Rule
+## 18. Density Rule
 Large HTS input does not change the 8-category structure. Remove duplicated raw data, prioritize decision-relevant evidence and avoid repeating the same conclusion across categories.
 
-## 18. Completion Declaration
+## 19. Completion Declaration
 Only declare `AI Market Master 3.2 Dashboard 실행 완료` after confirming:
 - 8 categories complete
 - summary table complete
@@ -124,8 +159,9 @@ Only declare `AI Market Master 3.2 Dashboard 실행 완료` after confirming:
 - missing data marked
 - Strategy mandatory fields checked
 - validation status checked
+- when Binance is required, its Data Mode/freshness disclosure is consistent with BINANCE_RULE
 - final action evidence-backed
 Otherwise use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED.
 
-## 19. Dashboard Master Principle
+## 20. Dashboard Master Principle
 Table First → 8 Fixed Categories → English + Korean → Canonical Signal → Score/Indicator → Confidence → Evidence → Judgment → Action.
