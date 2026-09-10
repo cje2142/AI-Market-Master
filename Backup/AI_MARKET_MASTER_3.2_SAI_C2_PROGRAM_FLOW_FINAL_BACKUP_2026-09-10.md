@@ -38,9 +38,9 @@ Neither component alone nor their combination activates the global SAI.
    - blob SHA: `8833555b261e334b6b0f39d4ce272776fd97af71`
    - unchanged; retains E2 Program/Regime/Transition authority
 
-Supporting files at initial final-backup creation:
-- `VERSION_STATUS.md`: `3673aaa181502b56d1c795a500333f39ffb49ac2`
-- `CHANGELOG.md`: `2c66ec1fca04f0514250d56c8d079546a9b9c4ae`
+Registered supporting files after final-backup registration:
+- `VERSION_STATUS.md`: `f819aee480508bc0a6b38cd9ab71750047e00ba1`
+- `CHANGELOG.md`: `cee15c77324df0e83fde7fff781c03fcd7749a64`
 
 ## 3. SAI-C2 Formula
 Inputs:
@@ -171,11 +171,18 @@ Pre-patch creation commit:
 SCORING_RULE integration commit:
 `581ed41313e8af1f387df9f230d31b546ce077f0`
 
-VERSION_STATUS integration commit:
+Initial VERSION_STATUS integration commit:
 `8fbf56e7f7b94e97a88302927e011b792eaa33fe`
 
-CHANGELOG integration commit:
+Initial CHANGELOG integration commit:
 `2e7c64dfe836fa4e23e0beed229d259f61a3aa0a`
+
+Final backup creation commit:
+`7cd9eb5a08b4a17f92ded7abb47bfb191b82182b`
+
+Final backup registration commits:
+- VERSION_STATUS: `a8c1e9ee9ff910f84f6a00e61438399ffab1d01e`
+- CHANGELOG: `fc6620ba218511c040bf144cf940a568c8e52e39`
 
 ## 11. Final Verification State
 - C2 purpose/boundary: VERIFIED
