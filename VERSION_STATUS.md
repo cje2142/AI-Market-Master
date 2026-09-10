@@ -40,7 +40,7 @@ Official 3.2 adaptive framework:
 - qualitative Regime-to-Strategy posture
 
 These are 3.2 applications, not recovered historical numeric formulas.
-VH/H/M/L are not numeric weights and must not be converted into scores unless SCORING_RULE later adopts a fully reproducible formula.
+VH/H/M/L are not numeric weights and must not be converted into scores unless SCORING_RULE explicitly defines a separate reproducible numeric formula.
 
 ## Fixed Technical References
 - Major High 9,114 = 0% / Major Low 2,293 = 100% on Long-Term Retracement Axis
@@ -55,20 +55,27 @@ Fixed 8-symbol watchlist:
 HTS/KRX is final Korean-market confirmation. Binance is leading/supporting data only.
 
 ## Scoring
-Official numeric formulas for `AI Master Score` and `Strategy Action Index` are not currently verified from a complete reproducible legacy rule. Until verified, both remain `DATA UNAVAILABLE`; invented scoring is prohibited.
+Official global numeric formulas for `AI Master Score` and `Strategy Action Index` are not yet complete. Therefore both global scores remain `DATA UNAVAILABLE`.
 
-Adaptive Market Regime, Evidence Priority and qualitative Strategy postures do not activate numeric scoring.
+`SAI-C1 Smart Money` is now formally specified inside `SCORING_RULE` as a component-level numeric formula using:
+- Foreign KOSPI cash flow
+- Foreign KOSPI200 futures flow
+- Institutional KOSPI cash flow
+
+C1 does not activate the global Strategy Action Index by itself.
+Program/Breadth/Options remain outside C1 under existing E2/E3/E7 ownership, and VH/H/M/L qualitative Evidence Priority is not converted into numeric weight.
 
 ## Restore / Design References
 Non-authoritative backup references:
 - `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md` — legacy restore evidence boundary
 - `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md` — new 3.2 adaptive design boundary
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md` — SAI-C1 pre-patch design checkpoint
 
 ## Final Backup Checkpoint
-Verified final checkpoint for this integration:
+Verified final checkpoint for the Adaptive Validation integration:
 - `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`
 
-The checkpoint records the six official authority blob SHAs, restore/design references, integration boundaries, scoring firewall and cross-validation status. It is non-authoritative and exists for recovery/regression verification.
+A separate SAI-C1 final checkpoint is created after SAI-C1 rule integration and cross-validation.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
@@ -77,4 +84,4 @@ The original 3.1 CFB remains preserved unchanged for reference and regression ve
 ## Legacy 3.2
 Superseded 3.2 rule files are non-authoritative and recoverable through Git history using `Legacy/3.2-history/INDEX.md`.
 
-Date: 2026-09-08
+Date: 2026-09-10
