@@ -6,12 +6,12 @@ Status: Scoring Authority
 ## 1. Scope
 This file is the only authority for numeric `AI Master Score` and `Strategy Action Index` definitions, inputs, weights, formulas, missing-data handling and validation.
 
-Validated numeric sub-components do not activate the global Strategy Action Index unless the full Numeric Score Activation Gate is satisfied.
+Validated numeric sub-components do not activate a global score unless the applicable Numeric Score Activation Gate is satisfied in this file.
 
 ## 2. Current Official Status
 Official current global numeric state:
 - `AI Master Score: DATA UNAVAILABLE`
-- `Strategy Action Index: DATA UNAVAILABLE`
+- `Strategy Action Index: FORMULA ACTIVATED / RUNTIME DATA-DEPENDENT`
 
 Defined component specifications:
 - `SAI-C1 Smart Money`
@@ -23,7 +23,9 @@ Defined component specifications:
 - `SAI-C7 Volatility / Derivatives Risk`
 - `SAI-C8 Global Leading`
 
-C1-C8 are component specifications only. None may be presented alone or in combination as the final Strategy Action Index until the global activation gate is complete.
+C1-C8 are component specifications and inputs to the activated global Strategy Action Index v1. A runtime numeric Strategy Action Index may be shown only when the Global SAI data/completeness gate below passes. Otherwise output `Strategy Action Index: DATA UNAVAILABLE`.
+
+AI Master Score remains unavailable because no complete reproducible AI Master Score formula has been adopted.
 
 ## 3. Numeric Score Activation Gate
 A global numeric score may be activated only after all are explicitly defined and verified here:
@@ -38,7 +40,7 @@ A global numeric score may be activated only after all are explicitly defined an
 9. Actual calculation procedure
 10. Validation / regression tests
 
-Until then, global numeric output is prohibited.
+The Strategy Action Index v1 satisfies this rule-design gate in Sections 48-57. AI Master Score does not.
 
 ## 4. Global Scoring Firewalls
 Never infer a global score from qualitative signal colors, Market Regime, Transition, VH/H/M/L Evidence Priority, qualitative Strategy posture, analyst intuition, prior displayed numbers, indicator counts or hidden weights.
@@ -48,6 +50,8 @@ Missing mandatory data is never silently converted to zero/Neutral. Partial form
 Confidence and Regime Confidence are non-numeric evidence-quality labels, not market scores or probabilities.
 
 Binance does not create a separate market score. Binance data can enter C8 only through the explicit C8 rules below and remains subject to BINANCE_RULE freshness, fallback and anti-hallucination controls.
+
+Strategy Action Index is an execution-bias index, not an automatic trade command. Final portfolio action remains governed by MASTER_RULE + ADAPTIVE_VALIDATION_RULE with technical location, Regime/Transition, conflict and portfolio exposure.
 
 ## 5. Cross-Component Ownership Map
 - C1 / E1: Smart Money
@@ -485,7 +489,7 @@ Internal weights:
 - GLIQ 15%
 - CRYPTO 10%
 
-These are C8 v1 calibration weights. They do not define C8's future global weight inside the complete Strategy Action Index.
+These are C8 v1 calibration weights. They do not define C8's global weight inside Strategy Action Index except where Section 49 explicitly assigns the global C8 Base Weight.
 
 The normalization saturation boundaries and internal weights are design calibrations, not claims of empirical backtest optimization.
 
@@ -591,36 +595,286 @@ J. Samsung/SKH conflict with EWY/SOXL -> confirmation conflict only; no direct n
 
 Result: PASS by rule design.
 
-## 48. Current Component / Global SAI Status After C8
-- C1 Smart Money: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C2 Program Flow: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C3 Breadth / Market Internal: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C4 Sector / Leadership: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C5 Technical Structure: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C6 Liquidity / Macro: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C7 Volatility / Derivatives Risk: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- C8 Global Leading: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
-- Strategy Action Index: DATA UNAVAILABLE
-- AI Master Score: DATA UNAVAILABLE
+# Global Strategy Action Index v1
 
-All E1-E8 now have defined numeric SAI sub-components C1-C8. This does NOT activate global SAI.
-Global SAI remains unavailable until the global aggregation formula, C1-C8 global Base Weights, global missing/partial handling, any conditional numeric-weight logic, final output range/Action Bands and regression validation are explicitly defined and verified.
+## 48. Purpose / Activation Boundary
+Global `Strategy Action Index` (SAI) converts the eight independently specified C1-C8 component values into a reproducible execution-bias index.
 
-## 49. Future Global Formula Adoption Procedure
-Before activating global Strategy Action Index:
-1. define C1-C8 global aggregation and Base Weights
-2. define whether/when Conditional Numeric Weight exists
-3. preserve anti-circularity between Regime and conditional weighting
-4. define global mandatory/partial coverage rules
-5. define final range and Action Bands
-6. verify no conflict with MASTER/DASHBOARD/TECHNICAL/BINANCE/ADAPTIVE_VALIDATION
-7. run regression, conflict, missing-data and shock cases
-8. update VERSION_STATUS and CHANGELOG
-9. only then change official global status from DATA UNAVAILABLE
+SAI is not an automatic buy/sell command and does not replace Market Regime, Transition, qualitative Evidence Priority, Technical location, portfolio exposure or MASTER portfolio-risk rules.
 
-## 50. Final Principle
-No complete official global formula = no official global number.
-A validated sub-component does not equal Strategy Action Index.
+Runtime numeric SAI is allowed only when Section 50's global data gate passes. Otherwise output `Strategy Action Index: DATA UNAVAILABLE`.
+
+`AI Master Score` remains `DATA UNAVAILABLE` and is not inferred from SAI.
+
+## 49. Global Base Weights / Base Formula
+Fixed v1 Base Weights:
+- C1 Smart Money = 18%
+- C2 Program Flow = 12%
+- C3 Breadth / Internal = 15%
+- C4 Sector / Leadership = 10%
+- C5 Technical Structure = 20%
+- C6 Liquidity / Macro = 10%
+- C7 Volatility / Derivatives Risk = 8%
+- C8 Global Leading = 7%
+
+Sum = 100%.
+
+`SAI_Base = 0.18*C1 + 0.12*C2 + 0.15*C3 + 0.10*C4 + 0.20*C5 + 0.10*C6 + 0.08*C7 + 0.07*C8`
+
+Range: `-1.00 <= SAI <= +1.00`.
+
+Family-level Base distribution:
+- Flow = C1+C2 = 30%
+- Internal = C3+C4 = 25%
+- Structure = C5 = 20%
+- Environment = C6+C7+C8 = 25%
+
+The 18/12/15/10/20/10/8/7 weights are v1 rule-design calibrations, not claims of empirical backtest optimization. They may not be changed automatically or permanently from observed outcomes without an explicit future SCORING_RULE revision.
+
+## 50. Global Missing / Partial Gate
+A component is `usable` only when that component's own rule produces a valid numeric value with status VERIFIED or predefined PARTIAL.
+
+### Global VERIFIED
+Global SAI status is VERIFIED only when:
+- C1-C8 are all usable;
+- every C1-C8 status is VERIFIED;
+- applicable source/date/session/freshness checks pass.
+
+### Global PARTIAL
+If one or more usable components are PARTIAL or one/two components are unavailable, calculate only with the predefined global partial formula:
+
+`SAI_Partial = sum(w_i*C_i for usable components) / sum(w_i for usable components)`
+
+PARTIAL is allowed only when all are true:
+1. C5 Technical Structure is usable;
+2. at least one of C1/C2 is usable;
+3. at least one of C3/C4 is usable;
+4. at least one of C6/C7/C8 is usable;
+5. at least 6 of 8 components are usable;
+6. original fixed Base Weight coverage of usable components is at least 70%.
+
+Any predefined component PARTIAL may be used inside this formula, but global status remains PARTIAL.
+
+If any gate fails -> `Strategy Action Index: DATA UNAVAILABLE`.
+Missing values are never set to zero/Neutral.
+Conditional Adaptive Weight is prohibited whenever global status is PARTIAL.
+
+## 51. Family Scores / Global Conflict
+For conflict and adaptive-event logic only when all C1-C8 are VERIFIED, define:
+
+`F_FLOW = 0.60*C1 + 0.40*C2`
+`F_INTERNAL = 0.60*C3 + 0.40*C4`
+`F_STRUCTURE = C5`
+`F_ENV = 0.40*C6 + 0.32*C7 + 0.28*C8`
+
+These are within-SCORING aggregation helpers, not new Evidence Groups. The four family scores correspond to the fixed 30/25/20/25 Base family distribution and do not replace E1-E8.
+
+Raise `Global SAI Conflict: ACTIVE` when any two independent family scores:
+- have opposite signs, and
+- both satisfy `|F| >= 0.50`.
+
+When active:
+- keep the mathematically calculated Base SAI;
+- do not interpret a near-zero aggregate as absence of information;
+- block Conditional Adaptive Weight;
+- disclose the material conflict;
+- resolve action through ADAPTIVE_VALIDATION_RULE + MASTER_RULE rather than score counting.
+
+## 52. Conditional Adaptive Weight v1
+Conditional numeric reweighting is an exception layer over the fixed Base Weights. It is not Regime-to-number conversion.
+
+Eligibility requires all:
+- C1-C8 status VERIFIED;
+- `Global SAI Conflict` not ACTIVE;
+- qualifying Shock and confirmation data validated;
+- no qualifying trigger depends solely on mechanical-event distortion.
+
+### Qualifying Family Events
+`Flow Adaptive Event`:
+- C1 and C2 same direction;
+- at least one has its own Shock ACTIVE;
+- the other satisfies `|C| >= 0.50`.
+
+`Internal Adaptive Event`:
+- C3 and C4 same direction;
+- at least one has its own Shock ACTIVE;
+- the other satisfies `|C| >= 0.50`.
+
+`Structure Adaptive Event`:
+- C5 Shock ACTIVE;
+- at least one independent family among F_FLOW/F_INTERNAL/F_ENV has the same direction and `|F| >= 0.50`.
+
+`Environment Adaptive Event`:
+- at least two of C6/C7/C8 have the same direction;
+- both qualifying values satisfy `|C| >= 0.50`;
+- at least one has its own Shock ACTIVE.
+
+Mechanical-event guard:
+A C2 or C7 Shock accompanied by its Mechanical Event flag cannot be the sole qualifying Shock for numeric reweighting unless the owning rule's event review confirms that the directional stress is structural rather than mechanical.
+
+### Weight Adjustment
+No qualifying event:
+- Base Weights unchanged.
+
+Exactly one qualifying family event:
+- active family weight `+5 percentage points`;
+- the other three family weights are reduced proportionally to their Base family weights;
+- component ratios inside each family remain fixed.
+
+Exactly two qualifying family events with the same direction:
+- each active family weight `+3 percentage points`;
+- the other two family weights are reduced proportionally to their Base family weights;
+- component ratios inside each family remain fixed.
+
+Exactly two qualifying family events with opposite directions:
+- `Conditional Adaptive Weight: BLOCKED`;
+- retain Base Weights;
+- disclose Conflict / Transition review.
+
+Three or more qualifying family events:
+- retain Base Weights;
+- raise `Broad Market Shock: ACTIVE`;
+- do not increase any family because broad alignment does not justify preferring one already-confirming family over another.
+
+Maximum total family-weight reallocation = 6 percentage points.
+All adjusted component weights must remain non-negative and sum to 1.00.
+
+`SAI_Final = sum(w_i_adjusted * C_i)` when adaptive weighting is valid; otherwise `SAI_Final = SAI_Base` for VERIFIED status or `SAI_Partial` for PARTIAL status.
+
+VH/H/M/L is never converted into numeric weights. Market Regime labels never directly select a numeric weight table.
+
+Required anti-circularity order:
+`C1-C8 -> Base SAI -> Preliminary Regime -> Adaptive Validation / Transition / Conflict -> Regime Re-validation -> Conditional Adaptive Event -> Final SAI -> Strategy / Portfolio Response`.
+
+Prohibited:
+`Regime -> numeric reweight -> Final SAI -> same Regime reconfirmed solely from Final SAI`.
+
+## 53. Strategy Action Index Action Bands
+Use the final valid SAI value in `[-1,+1]`.
+
+- `+0.60 <= SAI <= +1.00` -> `Strong Positive Execution Bias`
+- `+0.30 <= SAI < +0.60` -> `Positive Execution Bias`
+- `-0.30 < SAI < +0.30` -> `Balanced / Hold Bias`
+- `-0.60 < SAI <= -0.30` -> `Negative Execution Bias`
+- `-1.00 <= SAI <= -0.60` -> `Strong Negative Execution Bias`
+
+These bands are numeric SAI interpretation labels, not ADAPTIVE_VALIDATION qualitative Strategy Postures and not automatic portfolio orders.
+
+After independent confirmation, MASTER action vocabulary may be considered:
+- Strong Positive -> 적극매수 / 비중확대 검토
+- Positive -> 분할매수 / 보유강화 검토
+- Balanced -> 보유 / 현금대기 / 다음 확인
+- Negative -> 비중축소 / 분할매도 검토
+- Strong Negative -> 적극 비중축소 / 현금확보 검토; leverage-reduction priority applies before core spot when reduction is actually required.
+
+The +/-0.30 and +/-0.60 thresholds are v1 design calibrations, not empirically optimized market-performance cutoffs.
+
+## 54. Execution Safety Overrides
+The numeric SAI and its Action Band never override:
+- verified Market Regime / Transition evidence;
+- material unresolved Conflict;
+- C5 technical location / support-resistance confirmation;
+- MASTER portfolio leverage/exposure/concentration assessment;
+- HTS/KRX final Korean-market confirmation;
+- Extreme Risk controls;
+- Binance freshness restrictions.
+
+If Global SAI status is PARTIAL, show the numeric value and Action Band only as a partial execution bias. PARTIAL SAI alone cannot authorize the strongest aggressive action.
+
+If `Global SAI Conflict: ACTIVE`, adaptive weighting is blocked and score-only execution is prohibited.
+
+If C2/C7 Mechanical Event is ACTIVE and materially affects the direction, require structural re-validation before event-sensitive evidence supports strong execution.
+
+A Strong Positive SAI does not automatically permit leverage expansion. A Strong Negative SAI does not automatically require core-spot liquidation. Final portfolio action remains cross-engine and portfolio-specific.
+
+## 55. Actual Calculation Procedure
+For every runtime SAI calculation:
+1. Calculate C1-C8 only from their owning formulas and current validated inputs.
+2. Record each component value, status and material Conflict/Shock/Mechanical flags.
+3. Apply Section 50 Global VERIFIED/PARTIAL/DATA UNAVAILABLE gate.
+4. If PARTIAL, calculate only `SAI_Partial`; adaptive weighting is prohibited.
+5. If VERIFIED, calculate `SAI_Base` and four family scores.
+6. Evaluate `Global SAI Conflict`.
+7. Complete Preliminary Regime -> Adaptive Validation -> Transition/Conflict -> Regime re-validation under ADAPTIVE_VALIDATION_RULE.
+8. Only after re-validation, test Section 52 Conditional Adaptive Events.
+9. Apply Base or adjusted weights according to Section 52.
+10. Calculate `SAI_Final` and constrain numerical round-off to [-1,+1].
+11. Assign the Section 53 Action Band.
+12. Display SAI numeric value, Validation Status, Base/Adaptive mode, material Conflict/Shock state and Action Band; use two decimals for normal presentation while retaining full precision internally.
+13. Derive final portfolio action only through MASTER_RULE + ADAPTIVE_VALIDATION_RULE, not from the SAI number alone.
+
+## 56. Regression / Stress Validation
+Rule-design validation completed before activation:
+
+### Weight invariants
+- Base component weights sum exactly to 1.00.
+- Base family weights sum exactly to 1.00.
+- Every defined one-family +5pp pattern preserves total weight 1.00 and positive component weights.
+- Every defined two-family +3pp/+3pp pattern preserves total weight 1.00 and positive component weights.
+
+### Range regression
+Exhaustive mathematical corner testing over all 256 combinations of `C1-C8 in {-1,+1}` was evaluated across Base and every allowed one-family/two-family adjusted-weight pattern.
+Result: every score remained inside `[-1,+1]`.
+
+Boundary cases:
+- all C1-C8 = +1 -> SAI = +1.00
+- all C1-C8 = -1 -> SAI = -1.00
+
+Theoretical maximum score displacement caused solely by adaptive reallocation for component values in [-1,+1]:
+- one-family 5pp shift: <=0.10 versus Base
+- two-family total 6pp shift: <=0.12 versus Base
+
+### Missing / Partial regression
+- C5 missing -> DATA UNAVAILABLE even if seven other components are available.
+- fewer than six usable components -> DATA UNAVAILABLE.
+- missing Flow family, Internal family or Environment family -> DATA UNAVAILABLE.
+- valid six-plus-component state with C5, all required families and >=70% Base Weight coverage -> PARTIAL.
+- any component PARTIAL -> global status cannot be VERIFIED.
+- PARTIAL -> Conditional Adaptive Weight blocked.
+
+### Conflict / interpretation regression
+Example stress set:
+`C1=.9,C2=.7,C3=.8,C4=.6,C5=-.9,C6=-.4,C7=-.8,C8=-.6`
+produces a near-neutral Base SAI around `+0.10`, while Flow/Internal are strongly positive and Structure/Environment strongly negative. `Global SAI Conflict: ACTIVE` therefore prevents false 'no information' interpretation and blocks adaptive reweighting.
+
+Action Bands are monotonic and sign-symmetric around the Balanced interval.
+
+Result: `PASS BY FORMULA / RULE-DESIGN REGRESSION`.
+This is not empirical market-performance backtesting and does not establish that v1 weights or thresholds are statistically optimal.
+
+## 57. Current Status After Global SAI v1 Activation
+- C1 Smart Money: FORMULA DEFINED / COMPONENT INPUT
+- C2 Program Flow: FORMULA DEFINED / COMPONENT INPUT
+- C3 Breadth / Market Internal: FORMULA DEFINED / COMPONENT INPUT
+- C4 Sector / Leadership: FORMULA DEFINED / COMPONENT INPUT
+- C5 Technical Structure: FORMULA DEFINED / COMPONENT INPUT
+- C6 Liquidity / Macro: FORMULA DEFINED / COMPONENT INPUT
+- C7 Volatility / Derivatives Risk: FORMULA DEFINED / COMPONENT INPUT
+- C8 Global Leading: FORMULA DEFINED / COMPONENT INPUT
+- `Strategy Action Index`: FORMULA ACTIVATED; runtime numeric output permitted only when Section 50 gate passes
+- `AI Master Score`: DATA UNAVAILABLE
+
+Activation-gate result for Strategy Action Index v1:
+1. Formula -> DEFINED
+2. Mandatory inputs -> DEFINED
+3. Component normalization -> DEFINED in C1-C8
+4. Global weights / aggregation -> DEFINED
+5. Missing-data rule -> DEFINED
+6. Partial-data rule -> DEFINED
+7. Range -> DEFINED [-1,+1]
+8. Action Bands -> DEFINED
+9. Calculation procedure -> DEFINED
+10. Formula/regression tests -> PASS BY RULE DESIGN
+
+Empirical optimization / out-of-sample market backtest remains NOT ESTABLISHED and must not be claimed.
+
+## 58. Final Principle
+A valid Strategy Action Index requires official C1-C8 formulas + global data gate + reproducible aggregation + validation.
+No valid runtime inputs = `Strategy Action Index: DATA UNAVAILABLE`.
+
+Strategy Action Index = execution bias, not automatic trade.
+AI Master Score remains separate and DATA UNAVAILABLE.
 Adaptive priority != numeric weight.
+Conflict is information, not noise to average away.
 Reliability > Speed.
 DATA UNAVAILABLE is preferable to fabricated precision.
