@@ -124,8 +124,9 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`
 
-C4 final checkpoint is registered only after post-integration cross-validation and final-backup creation pass.
+The C4 final checkpoint records the post-integration six-authority snapshot, fixed eight-sector benchmark universe, same-session data standard, SD/RL formula, 60/40 internal weights, 75% completeness gate, Leadership Concentration boundary, conflict/shock safeguards, anti-double-counting, anti-circularity and final validation state.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
