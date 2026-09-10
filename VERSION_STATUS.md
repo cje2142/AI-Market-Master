@@ -22,12 +22,11 @@ No legacy file may override these rules.
 - No ninth Dashboard category created
 - 3.0/3.1 validated functions restored where 3.2 became weakly specified
 - Table First, English+Korean, Confidence, Dynamic KOSPI Zone, Smart Money Action Matrix, Portfolio Sell Priority, Intraday 24→16→17 retained
-- Change Detection → Validation → Revision → Final AI Decision restored as explicit closed-loop logic
-- Legacy Performance Validation / qualitative Engine Reliability concept restored without inventing historical numeric formulas
-- Execution Integrity gates absorbed into current authority files
+- Change Detection → Validation → Revision → Final AI Decision retained as closed-loop logic
+- Legacy Performance Validation / qualitative Engine Reliability concept retained without inventing historical numeric formulas
 
 ## Adaptive Validation
-Official 3.2 adaptive framework:
+Official 3.2 adaptive framework remains:
 - 8 Market Regimes
 - Primary Regime + Transition Regime / Risk
 - Regime Confidence High / Medium / Low
@@ -39,7 +38,6 @@ Official 3.2 adaptive framework:
 - Regime re-validation
 - qualitative Regime-to-Strategy posture
 
-These are 3.2 applications, not recovered historical numeric formulas.
 VH/H/M/L are not numeric weights and must not be converted into scores unless SCORING_RULE explicitly defines a separate reproducible numeric formula.
 
 ## Fixed Technical References
@@ -57,26 +55,42 @@ HTS/KRX is final Korean-market confirmation. Binance is leading/supporting data 
 ## Scoring
 Official global numeric formulas for `AI Master Score` and `Strategy Action Index` are not yet complete. Therefore both global scores remain `DATA UNAVAILABLE`.
 
-`SAI-C1 Smart Money` is now formally specified inside `SCORING_RULE` as a component-level numeric formula using:
+Defined component-level formulas inside `SCORING_RULE`:
+
+### SAI-C1 Smart Money
+Uses:
 - Foreign KOSPI cash flow
 - Foreign KOSPI200 futures flow
 - Institutional KOSPI cash flow
 
-C1 does not activate the global Strategy Action Index by itself.
-Program/Breadth/Options remain outside C1 under existing E2/E3/E7 ownership, and VH/H/M/L qualitative Evidence Priority is not converted into numeric weight.
+Program/Breadth/Options remain outside C1 under E2/E3/E7 ownership.
+
+### SAI-C2 Program Flow
+Uses:
+- Arbitrage Program flow — supplementary/mechanical-sensitive
+- Non-Arbitrage Program flow — mandatory structural core
+- Total Program flow — reconciliation/context only, not an additional score
+
+C2 full internal weighting is 30% Arbitrage / 70% Non-Arbitrage. Non-Arbitrage missing makes C2 `DATA UNAVAILABLE`; Arbitrage missing permits the predefined Non-Arbitrage-only `PARTIAL` formula.
+
+Known expiry/index/ETF rebalance effects are disclosed through `C2 Mechanical Event` and do not automatically change numeric weights or Market Regime.
+
+Neither C1 nor C2 activates the global Strategy Action Index by itself.
+VH/H/M/L qualitative Evidence Priority is never converted into C1/C2 numeric weight.
 
 ## Restore / Design References
 Non-authoritative backup references:
-- `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md` — legacy restore evidence boundary
-- `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md` — new 3.2 adaptive design boundary
-- `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md` — SAI-C1 pre-patch design checkpoint
+- `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md`
+- `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_PREPATCH_BACKUP_2026-09-10.md`
 
 ## Final Backup Checkpoint
 Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
 
-The SAI-C1 final checkpoint records the post-integration authority snapshot, formula boundary, anti-double-counting safeguards, conflict/shock behavior and cross-validation result.
+A separate SAI-C2 final checkpoint is created after C2 integration and post-patch cross-validation.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
