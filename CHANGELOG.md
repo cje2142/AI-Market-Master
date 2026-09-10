@@ -32,11 +32,7 @@
 - Conditional Adaptive Weight is prohibited when global status is PARTIAL.
 
 ### Conditional Adaptive Weight
-- Added four internal scoring families for conflict/adaptive logic only:
-  - Flow = C1/C2
-  - Internal = C3/C4
-  - Structure = C5
-  - Environment = C6/C7/C8
+- Added four internal scoring families for conflict/adaptive logic only: Flow, Internal, Structure and Environment.
 - These helpers do not create new Evidence Groups and do not replace E1-E8.
 - Added `Global SAI Conflict: ACTIVE` when independent family scores materially oppose with both absolute family values >=0.50.
 - Adaptive numeric weighting requires 8/8 VERIFIED, no Global SAI Conflict and validated Shock/confirmation.
@@ -82,7 +78,11 @@
 ### Backup
 - Pre-patch checkpoint:
   - `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-activation checkpoint is created only after cross-authority verification succeeds.
+  - blob SHA: `9a0cc7db72972288a9e81a3f305b792cb20a1761`
+- Final post-activation checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_FINAL_BACKUP_2026-09-10.md`
+  - blob SHA: `c8316a0fbc746c7ca5867073f39aacf6ef9f7878`
+- Final checkpoint records the post-activation six-authority snapshot, Base Weights, Global Missing/Partial gate, family conflict, Conditional Adaptive Weight, Action Bands, anti-circularity, regression/stress validation and the explicit empirical-backtest caveat.
 
 ## 2026-09-10 — SAI-C8 Global Leading Component Integration
 
@@ -120,19 +120,10 @@
 - Added `C8 Shock: ACTIVE` for aligned extreme GR/KR/SEMI moves or comparable extreme global-leading movement with independent G6 confirmation.
 - Conflict/Shock feed Change Detection / Transition / Regime re-validation only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight.
 
-### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1-C8 now cover E1-E8 as component-level formulas only.
-- Global aggregation, C1-C8 global Base Weights, global missing/partial handling, any Conditional Numeric Weight logic, final range/Action Bands and regression validation remain required before global SAI activation.
-
 ### Backup
-- Pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
+- Pre-patch checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
 - Final checkpoint blob SHA: `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6`.
-- Final checkpoint records the post-integration six-authority snapshot, five-axis 30/25/20/15/10 formula, aligned-window normalization, LIVE/FALLBACK/STALE firewall, GR-mandatory 3-axis/60% PARTIAL gate, Samsung/SK hynix and G6 context-only boundaries, conflict/shock safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
 
 ## 2026-09-10 — SAI-C7 Volatility / Derivatives Risk Component Integration
 - Added `SAI-C7 Volatility / Derivatives Risk`.
@@ -194,7 +185,6 @@
 - Added six-authority architecture with `AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
 - Added 8 Market Regimes, E1-E8 Evidence Groups, VH/H/M/L qualitative Evidence Priority Matrix, Transition framework, conflict resolution, anti-double-counting and Regime re-validation.
 - Adaptive Validation remains cross-engine, not a 25th engine.
-- Global numeric scoring remains disabled until SCORING_RULE activation gate is complete.
 - Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`.
 
 ## 2026-09-08 — Binance Latest Re-query & Fallback Policy
