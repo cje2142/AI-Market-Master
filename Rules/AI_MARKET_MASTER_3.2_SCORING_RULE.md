@@ -15,7 +15,7 @@ Therefore the official current numeric state remains:
 - `AI Master Score: DATA UNAVAILABLE`
 - `Strategy Action Index: DATA UNAVAILABLE`
 
-`SAI-C1 Smart Money`, `SAI-C2 Program Flow` and `SAI-C3 Breadth / Market Internal` are defined below as component specifications only. None may be presented as the final Strategy Action Index.
+`SAI-C1 Smart Money`, `SAI-C2 Program Flow`, `SAI-C3 Breadth / Market Internal` and `SAI-C4 Sector / Leadership` are defined below as component specifications only. None may be presented as the final Strategy Action Index.
 
 ## 3. Numeric Score Activation Gate
 A global numeric score may be activated only after all of the following are explicitly defined and verified in this file:
@@ -591,6 +591,7 @@ Any future Conditional Numeric Weight must be separately defined in this SCORING
 - `SAI-C1 Smart Money`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
 - `SAI-C2 Program Flow`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
 - `SAI-C3 Breadth / Market Internal`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C4 Sector / Leadership`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
 - `Strategy Action Index`: DATA UNAVAILABLE
 - `AI Master Score`: DATA UNAVAILABLE
 
@@ -838,4 +839,248 @@ Breadth measures participation, not headline index direction.
 KOSPI breadth is the structural core; KOSDAQ breadth is supplementary confirmation.
 Raw ADL without comparable history is context, not a numeric score.
 Index/Breadth divergence is information, not a reason to distort the formula.
+No complete global formula = no global Strategy Action Index.
+
+## 54. SAI-C4 Sector / Leadership — Purpose and Boundary
+`SAI-C4 Sector / Leadership` is the fourth formally specified numeric component for a future Strategy Action Index.
+
+Purpose:
+Measure whether Korean-market sector participation and relative leadership are broadening or deteriorating, while separating broad sector direction from KOSPI-relative leadership and preventing theme/index overlap from being counted as independent evidence.
+
+Authority boundary:
+- Numeric C4 formula, fixed-universe input rules, thresholds, bounds, internal weights, completeness handling and numeric conflict/shock conditions are owned by this SCORING_RULE.
+- `E4 Sector / Leadership` remains the qualitative/adaptive owner for sector rotation, leadership concentration/expansion, Market Regime, Transition, Evidence Priority and re-validation.
+- C4 does not replace E4 and cannot select or reconfirm a Market Regime by itself.
+- C4 must not convert E4 VH/H/M/L priority into numeric weight.
+
+## 55. SAI-C4 Fixed Sector Universe v1
+The C4 v1 universe contains exactly eight verified benchmark identities:
+1. Semiconductor — KRX Semiconductor Index
+2. Automobile — KRX Automobile Index
+3. Secondary Battery — KRX Secondary Battery TOP 10 Index
+4. Financials — KOSPI 200 Financial Index
+5. Shipbuilding — iSelect Shipbuilding TOP10 Index (PR)
+6. Defense — iSelect Defense TOP10 Index (Price Return)
+7. AI Power Infrastructure — KRX-Akros AI Power Infrastructure Index
+8. Bio — KRX Bio TOP 10 Index
+
+Identification rule:
+- canonical identity = `index provider + exact benchmark index name`
+- ETF ticker/code is never treated as the benchmark index code
+- an HTS short code may be stored only as a verified alias
+- if the displayed index name cannot be mapped unambiguously to one of these eight identities, that sector is unavailable for C4 numeric calculation.
+
+The universe is fixed for C4 v1. Adding, removing or substituting sectors requires a future SCORING_RULE revision rather than an ad hoc session-level change.
+
+## 56. SAI-C4 Data Collection and Freshness Standard
+Source priority follows MASTER_RULE:
+1. user-provided HTS/KRX data
+2. verified official KRX/index-provider data
+3. other verified supplementary data
+
+Required recurring data:
+- KOSPI daily return
+- same-session daily return for each available fixed-universe sector benchmark
+
+Preferred validation fields:
+`Index Name | Current Level | Change | Daily Return | Source | Timestamp`
+
+Numeric C4 uses daily return only. Current level/change/source/timestamp are validation/context unless separately defined later.
+
+All C4 sector returns and the KOSPI comparator must refer to the same trading session and materially aligned observation time. Mixed-date or materially asynchronous data is not silently combined.
+
+ETF return may be used as contextual verification only; it is not a silent numeric replacement for a missing benchmark-index return.
+
+## 57. SAI-C4-A Sector Direction Breadth
+For each valid fixed-universe sector `i`, let `r_i` be its daily percentage return.
+
+Classification:
+- `r_i > +0.20%` → `D_i = +1`
+- `r_i < -0.20%` → `D_i = -1`
+- `-0.20% <= r_i <= +0.20%` → `D_i = 0`
+
+Let:
+- `UP` = count of sectors with `D_i=+1`
+- `DOWN` = count of sectors with `D_i=-1`
+- `N_valid` = number of valid fixed-universe sector returns
+
+Then:
+`SD = (UP - DOWN) / N_valid`
+
+Range:
+`-1.00 <= SD <= +1.00`
+
+The ±0.20% neutral band is a C4 v1 noise-control calibration rule. It is not a qualitative signal-color conversion.
+
+Sector Direction Breadth measures sector-level participation. Issue advance/decline Breadth remains C3/E3 and is not re-added here.
+
+## 58. SAI-C4-B Relative Leadership Breadth
+Let `r_K` be the same-session KOSPI daily return.
+
+For each valid sector `i`:
+`RS_i = r_i - r_K`
+
+Classification:
+- `RS_i > +0.20%p` → `L_i = +1`
+- `RS_i < -0.20%p` → `L_i = -1`
+- `-0.20%p <= RS_i <= +0.20%p` → `L_i = 0`
+
+Let:
+- `OUT` = count of sectors with `L_i=+1`
+- `UNDER` = count of sectors with `L_i=-1`
+
+Then:
+`RL = (OUT - UNDER) / N_valid`
+
+Range:
+`-1.00 <= RL <= +1.00`
+
+KOSPI return is a comparator only and is not separately added as a third C4 numeric contribution.
+
+## 59. SAI-C4 Formula and Completeness Gate
+When completeness and same-session validation pass:
+
+`SAI-C4 = 0.60*SD + 0.40*RL`
+
+Component range:
+`-1.00 <= SAI-C4 <= +1.00`
+
+Internal weights:
+- Sector Direction Breadth: 60%
+- Relative Leadership Breadth: 40%
+
+Rationale:
+- broad absolute sector direction receives greater weight so widespread losses do not become strongly bullish merely because sectors decline less than the headline index.
+- relative leadership remains material for detecting concentration, rotation and resilience.
+
+Completeness:
+- `N_valid = 8` + valid KOSPI return + source/session validation → eligible for `VERIFIED`
+- `N_valid = 6 or 7` + valid KOSPI return → predefined `PARTIAL`; calculate SD/RL using only the valid fixed-universe sectors
+- `N_valid < 6` → `SAI-C4 = DATA UNAVAILABLE`
+- KOSPI daily return unavailable/invalid/asynchronous → `SAI-C4 = DATA UNAVAILABLE`
+
+Coverage threshold = 75% of the fixed universe, minimum 6 of 8.
+Missing sectors are excluded from `N_valid`; they are never converted to zero/Neutral.
+
+These C4 internal weights do not define the future global weight of C4 inside the complete Strategy Action Index.
+
+## 60. Leadership Concentration Boundary
+Leadership Concentration is deliberately NOT an independent numeric term in C4 v1.
+
+Reason:
+Concentration is not inherently bearish; `Concentrated Leadership Bull` is a valid Market Regime. Penalizing concentration mechanically could misclassify a strong but narrow bull phase.
+
+Permitted qualitative/context states under E4 include:
+- BROAD
+- NORMAL
+- CONCENTRATED
+- EXTREME
+
+No unvalidated concentration ratio is adopted in C4 v1. Concentration may inform E4/Transition analysis but does not alter C4 weights or add a third numeric term.
+
+## 61. SAI-C4 Conflict / Shock Rules
+### C4 Conflict
+Raise `C4 Conflict: ACTIVE` when:
+- `SD` and `RL` have opposite signs, and
+- `|SD| >= 0.50` and `|RL| >= 0.50`.
+
+Interpretation examples:
+- strongly positive SD + strongly negative RL → broad nominal gains but meaningful KOSPI-relative lag; possible headline-index/large-cap concentration
+- strongly negative SD + strongly positive RL → broad nominal losses but relative resilience; possible internal stabilization/rotation
+
+When active:
+- keep the formula unchanged
+- disclose the conflict
+- do not interpret a near-zero aggregate as absence of information
+- pass the conflict to ADAPTIVE_VALIDATION_RULE
+- do not alter weights ad hoc.
+
+### C4 Shock / Weight Shift Candidate
+Raise `C4 Shock: ACTIVE` when either:
+1. `|SD| >= 0.75`, or
+2. SD and RL have the same sign and both satisfy `|SD| >= 0.60` and `|RL| >= 0.60`.
+
+C4 Shock is a Change Detection / Transition / Weight Shift candidate only.
+It is not an automatic Market Regime change, global SAI override, portfolio action or permanent Base Weight change.
+
+## 62. SAI-C4 Anti-Double-Counting and Anti-Circularity
+For C4 numeric scoring:
+- each fixed benchmark return is used once as source data for derived SD/RL
+- SD and RL are two predefined transforms of the same fixed sector-return set and must not be presented as two independent Evidence Groups
+- KOSPI return is comparator only
+- individual Samsung Electronics / SK hynix or other constituent returns are not separately added
+- Foreign/Institution flow remains C1/E1
+- Program/Arbitrage/Non-Arbitrage remains C2/E2
+- issue advance/decline breadth / ADL remains C3/E3
+- MA/VWAP/RSI/MACD/Elliott/Fibonacci remain E5 / future technical component
+- HBM/DRAM/NAND/CAPEX/inventory/AI-demand fundamentals remain AI Cycle / future leading-cycle component
+- options/OI/volatility remain E7
+- Binance/SOXL/EWY/QQQ/SPY/BTC/TMF remain E8
+
+Required separation:
+`Raw Sector/KOSPI Data → C4 Calculation`
+
+and independently:
+`Raw HTS + other Evidence → Preliminary Regime → Adaptive Priority → Transition / Conflict → Regime Re-validation`
+
+C4 must not:
+1. choose a Market Regime,
+2. use that Regime to alter its own numeric weights,
+3. use the altered C4 as the sole reason to reconfirm the same Regime.
+
+VH/H/M/L Evidence Priority must never be converted into numeric C4 weights.
+
+## 63. SAI-C4 Validation Cases
+### Case A — Broad Bullish Leadership
+Most valid sectors have `r_i > +0.20%` and most also outperform KOSPI by more than +0.20%p.
+Expected: SD positive, RL positive, C4 positive, no conflict.
+
+### Case B — Broad Market Weakness
+Most valid sectors have `r_i < -0.20%` and most underperform KOSPI by more than -0.20%p.
+Expected: SD negative, RL negative, C4 negative.
+
+### Case C — Widespread Losses but Relative Resilience
+Example: `SD=-1.00`, `RL=+1.00`.
+`C4 = 0.60*(-1.00) + 0.40*(+1.00) = -0.20`.
+Expected: not strongly bullish; `C4 Conflict: ACTIVE`.
+
+### Case D — Strong Index / Weak Sector Participation
+KOSPI strongly positive while most sector benchmarks are only modestly positive or lag KOSPI.
+Expected: SD may be positive while RL is negative; concentration warning remains contextual under E4 rather than an automatic C4 penalty.
+
+### Case E — Missing 2 of 8 Sectors
+6 valid sector returns + valid same-session KOSPI return.
+Expected: calculate with `N_valid=6`; Status `PARTIAL`.
+
+### Case F — Missing 3 or More Sectors
+5 or fewer valid sector returns.
+Expected: `SAI-C4 = DATA UNAVAILABLE`.
+
+### Case G — Missing KOSPI Comparator
+Sector returns available but KOSPI return unavailable/invalid.
+Expected: `SAI-C4 = DATA UNAVAILABLE`.
+
+### Case H — Broad Sector Shock
+`|SD| >= 0.75`.
+Expected: calculate C4 normally + `C4 Shock: ACTIVE`; no automatic Regime/global SAI change.
+
+### Case I — Mixed Session / Ambiguous Benchmark
+A sector return is from another session or its index identity cannot be mapped unambiguously to the fixed universe.
+Expected: exclude that sector from `N_valid`; apply the 8/6-7/<6 completeness gate; never substitute an ETF return silently.
+
+## 64. Current Component / Global SAI Status After C4
+- `SAI-C1 Smart Money`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C2 Program Flow`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C3 Breadth / Market Internal`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C4 Sector / Leadership`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `Strategy Action Index`: DATA UNAVAILABLE
+- `AI Master Score`: DATA UNAVAILABLE
+
+C1-C4 remain component-level formulas only.
+The global SAI remains unavailable until remaining components, global aggregation, global missing/partial handling, final range/Action Bands and required regression/validation are complete.
+
+C4 final principle:
+Sector breadth measures leadership structure, not the Market Regime by itself.
+Absolute direction > relative resilience in the v1 formula, while concentration remains qualitative context.
+Missing/ambiguous benchmark data is never neutralized or silently substituted.
 No complete global formula = no global Strategy Action Index.
