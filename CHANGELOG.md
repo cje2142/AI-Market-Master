@@ -40,7 +40,10 @@
 ### Backup
 - Created pre-patch checkpoint:
   - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint is created after cross-validation and then registered in VERSION_STATUS/CHANGELOG.
+- Created final post-integration checkpoint after cross-validation:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`
+- Final checkpoint blob SHA: `740941c70a468c2c7638783ba282dd5b174e1250`.
+- Final checkpoint records the post-integration six-authority snapshot, Daily/Closing timeframe boundary, PS/SR/TP formula, predefined partial rules, non-numeric momentum/volume boundary, conflict/divergence/shock safeguards, anti-double-counting and anti-circularity state.
 
 ## 2026-09-10 — SAI-C4 Sector / Leadership Component Integration
 
