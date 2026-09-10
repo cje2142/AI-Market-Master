@@ -40,7 +40,10 @@
 ### Backup
 - Pre-patch checkpoint:
   - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint is created after cross-validation and then registered in VERSION_STATUS/CHANGELOG.
+- Final post-integration checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
+- Final checkpoint blob SHA: `3dd78dd160eb49e7cee0ad8bde97f2b31fc2ef48`.
+- Final checkpoint records the post-integration six-authority snapshot, 35/35/30 FX/Rate/Cash formula, point-in-time/freshness rules, predefined partial handling, Margin Credit and Policy Rate/M2 non-numeric boundaries, Conflict/Shock safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
 
 ## 2026-09-10 — SAI-C5 Technical Structure Component Integration
 - Added `SAI-C5 Technical Structure`.
