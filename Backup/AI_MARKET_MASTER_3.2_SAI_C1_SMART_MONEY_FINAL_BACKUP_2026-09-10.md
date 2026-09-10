@@ -34,9 +34,9 @@ A component formula does not activate the complete global score.
    - blob SHA: `8833555b261e334b6b0f39d4ce272776fd97af71`
    - unchanged; retains E1/Transition/Regime authority
 
-Supporting files at initial final-backup creation:
-- `VERSION_STATUS.md`: `fc724b7bfd6b27ce360ab8e6b028fb7d1c5311d1`
-- `CHANGELOG.md`: `1b2da6f56eb87496842f722d33e64064ff74e971`
+Registered supporting files after final-backup registration:
+- `VERSION_STATUS.md`: `c39ede3c2f5a4e6bd07e653b5ea140b6df83f764`
+- `CHANGELOG.md`: `ae2d68caf415581dd2e1acdea445e9202bdffe88`
 
 ## 3. SAI-C1 Formula
 Core inputs:
@@ -169,21 +169,28 @@ The following remain prohibited:
 
 Result: PASS.
 
-## 10. Pre-Patch Recovery Reference
+## 10. Recovery / Integration References
 Pre-patch checkpoint:
 `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
 
-Creation commit:
+Pre-patch creation commit:
 `e81376a3674860b1357de5243a032ad5e57c027e`
 
 SCORING_RULE integration commit:
 `32bb84e27a0b730db738221db2f03c8c9091e65e`
 
-VERSION_STATUS integration commit:
+Initial VERSION_STATUS integration commit:
 `f6e42c1f1d75e53d3cec099c90fd9016c9e4ec89`
 
-CHANGELOG integration commit:
+Initial CHANGELOG integration commit:
 `209799c3bacaaa93bcf10aa2158c7561175caf86`
+
+Final backup creation commit:
+`b120db567cf39633e6ab1ff16b6351ff65a9ee1b`
+
+Final backup registration commits:
+- VERSION_STATUS: `cf40e3fa916a73336f4465fd761e8b89988087b3`
+- CHANGELOG: `4920415357c336d49e34dc8fe754e43fcccf0777`
 
 ## 11. Final Verification State
 - SAI-C1 purpose: VERIFIED
