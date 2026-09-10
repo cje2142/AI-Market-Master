@@ -39,7 +39,9 @@
 ### Backup
 - Created pre-patch checkpoint:
   - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint is created only after C3 cross-validation passes.
+- Created final post-integration checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`
+- Final checkpoint records the post-integration authority snapshot, active-breadth formula, ADL/unchanged boundary, anti-double-counting, conflict/divergence/shock safeguards, real-HTS sanity check and cross-validation state.
 
 ## 2026-09-10 — SAI-C2 Program Flow Component Integration
 
