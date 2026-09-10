@@ -89,8 +89,9 @@ Non-authoritative backup references:
 Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`
 
-A separate SAI-C2 final checkpoint is created after C2 integration and post-patch cross-validation.
+The C2 final checkpoint records the post-integration authority snapshot, C2 formula, Program anti-double-counting, conflict/shock/mechanical-event safeguards and cross-validation state.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
