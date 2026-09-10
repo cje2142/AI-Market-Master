@@ -90,7 +90,6 @@ Numeric terms:
 - Fair-value-adjusted KOSPI200 Basis Stress `BASIS` 40% — optional
 
 `VOL = -clip((VKOSPI_t / VKOSPI_MA20 - 1)/0.30,-1,+1)`
-
 `BasisGap = ActualBasis - FairBasis`
 `BG = BasisGap / KOSPI200Spot`
 `BASIS = clip(BG/0.003,-1,+1)`
@@ -112,7 +111,46 @@ C7 safeguards:
 - C7 Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight
 - Binance OI/Funding/Long-Short and global proxies remain E8 and are not re-scored in C7
 
-C1-C7 remain component-level formulas only and do not activate global Strategy Action Index.
+### SAI-C8 Global Leading
+Official v1 uses the fixed Binance/global-leading symbol roles while compressing correlated inputs into five numeric axes.
+
+Numeric axes:
+- Global Equity Risk `GR` 30% — SPY + QQQ composite
+- Korea Leading `KR` 25% — EWY
+- Semiconductor Risk `SEMI` 20% — SOXL
+- Global Rate/Liquidity `GLIQ` 15% — TMF
+- Crypto Risk `CRYPTO` 10% — BTC
+
+Normalization:
+- `N_SPY = clip(r_SPY/0.015,-1,+1)`
+- `N_QQQ = clip(r_QQQ/0.020,-1,+1)`
+- `GR = 0.50*N_SPY + 0.50*N_QQQ`
+- `KR = clip(r_EWY/0.025,-1,+1)`
+- `SEMI = clip(r_SOXL/0.050,-1,+1)`
+- `GLIQ = clip(r_TMF/0.030,-1,+1)`
+- `CRYPTO = clip(r_BTC/0.040,-1,+1)`
+
+Full formula:
+`SAI-C8 = 0.30*GR + 0.25*KR + 0.20*SEMI + 0.15*GLIQ + 0.10*CRYPTO`
+
+Missing/Partial safeguards:
+- full five-axis set + both SPY/QQQ in GR + freshness/window validation → eligible VERIFIED
+- predefined renormalized PARTIAL requires GR present, at least 3/5 axes, and at least 60% original fixed-weight coverage
+- if GR uses only one of SPY/QQQ, overall C8 is PARTIAL
+- any valid Binance FALLBACK input caps overall C8 at PARTIAL and preserves Confidence downgrade
+- STALE Binance data is prohibited from numeric C8 use
+- GR missing, <3 axes, <60% coverage or STALE-only completion → DATA UNAVAILABLE
+
+C8 safeguards:
+- SAMSUNGUSDT and SKHYNIXUSDT remain G2/G3 confirmation only, not extra numeric axes
+- OI/Funding/Long-Short/Premium/ADL/order book/trades remain G6 context/flags, not direct C8 numeric terms
+- SPY/QQQ are one GR composite, not two independent Evidence Groups
+- TMF is global E8 rates/liquidity context; C6 Korea Treasury 3Y remains domestic
+- BTC is auxiliary and limited to 10% internal C8 weight
+- C8 Conflict/Confirmation Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight
+
+C1-C8 now cover E1-E8 as component-level formulas only. This does not activate the global Strategy Action Index.
+Global aggregation, C1-C8 global Base Weights, global missing/partial rules, any Conditional Numeric Weight logic, final range/Action Bands and regression validation remain required.
 
 ## Restore / Design References
 Non-authoritative references:
@@ -125,6 +163,7 @@ Non-authoritative references:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_PREPATCH_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
 
 ## Final Backup Checkpoint
 Verified final checkpoints:
@@ -137,7 +176,7 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`
 
-The C7 final checkpoint blob SHA is `3f9ee5985a46dbb3e2f2bd8b7c714b20e67f2bd6` and records the post-integration six-authority snapshot, 60/40 VOL/BASIS formula, VKOSPI mandatory rule, fair-value-adjusted Basis rule, predefined VOL-only PARTIAL handling, OI/PCR/volatility-futures contextual boundaries, Conflict/Shock/Mechanical Event safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
+C8 final backup is created only after post-integration cross-validation succeeds.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
