@@ -1,5 +1,47 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — SAI-C5 Technical Structure Component Integration
+
+### Added
+- Added the fifth formally specified Strategy Action Index sub-component: `SAI-C5 Technical Structure`.
+- Official C5 v1 timeframe is KOSPI Daily / Closing-confirmed structure.
+- Added three numeric terms:
+  - Price Structure `PS` — mandatory directional core, 50%
+  - Support / Resistance Position `SR` — 30%
+  - MA / VWAP Trend Position `TP` — 20%
+- Added full formula: `SAI-C5 = 0.50*PS + 0.30*SR + 0.20*TP`.
+- Added predefined partial formulas when only SR or TP is unavailable.
+- Missing/invalid PS makes C5 `DATA UNAVAILABLE`.
+
+### Technical optimization / safeguards
+- Price Structure uses validated daily HH/HL, LH/LL and closing-confirmed breakout/breakdown logic.
+- Intraday data is limited to `C5 Intraday Preview` and cannot overwrite the latest closing-confirmed C5 by itself.
+- SR uses the nearest validated major Support/Resistance corridor; intact-corridor score is limited to ±0.50, while confirmed closing breakout/breakdown may reach ±1.00.
+- TP compresses MA20/MA60/VWAP20/VWAP60 into one composite with a ±0.20% noise-control band.
+- Volume, RSI, MACD, ADX, Ichimoku, Elliott and Fibonacci remain confirmation/context rather than additional C5 numeric terms.
+- ADX remains trend-strength only and cannot create direction by itself.
+- Added `C5 Conflict`, `C5 Divergence` and `C5 Shock` handling without ad hoc weight changes.
+
+### Anti-double-counting / authority safeguards
+- `TECHNICAL_RULE` remains technical calculation authority.
+- `E5 Technical Structure` remains adaptive/qualitative interpretation owner.
+- PS/SR/TP form one E5/C5 technical evidence family and must not be counted as three independent Evidence Groups.
+- Breadth/ADL remains C3/E3; Sector Leadership remains C4/E4; Foreign/Institution flow remains C1/E1; Program remains C2/E2.
+- Liquidity remains E6; Options/OI/Volatility remains E7; Binance/global leading remains E8.
+- VH/H/M/L qualitative Evidence Priority remains non-numeric.
+- C5 cannot independently select or reconfirm a Market Regime.
+
+### Scoring firewall retained
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- C1-C5 are component-level formulas only.
+- Remaining components, global aggregation, global missing/partial rules, Action Bands and regression validation must be completed before global SAI activation.
+
+### Backup
+- Created pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_PREPATCH_BACKUP_2026-09-10.md`
+- Final post-integration checkpoint is created after cross-validation and then registered in VERSION_STATUS/CHANGELOG.
+
 ## 2026-09-10 — SAI-C4 Sector / Leadership Component Integration
 
 ### Added
