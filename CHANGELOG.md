@@ -1,5 +1,47 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — SAI-C2 Program Flow Component Integration
+
+### Added
+- Added the second formally specified Strategy Action Index sub-component: `SAI-C2 Program Flow`.
+- C2 uses:
+  - Arbitrage Program net flow — supplementary/mechanical-sensitive input
+  - Non-Arbitrage Program net flow — mandatory structural input
+  - Total Program net flow — reconciliation/context only, not an additional numeric contribution
+- Added source-data normalization to `[-1.00,+1.00]` using KOSPI total traded value as denominator.
+- Added v1 C2 internal weights:
+  - Arbitrage 30%
+  - Non-Arbitrage 70%
+- Added explicit partial formula when Arbitrage is missing: `C2 = N_NONARB / PARTIAL`.
+- Added mandatory-input gate: missing Non-Arbitrage → `SAI-C2 = DATA UNAVAILABLE`.
+- Added explicit C2 Conflict threshold and C2 Shock thresholds.
+- Added `C2 Mechanical Event` handling for derivatives expiry, index/sector rebalance, ETF rebalance and comparable mechanical-flow events.
+
+### Anti-double-counting / authority safeguards
+- Total Program is not scored in addition to Arbitrage + Non-Arbitrage.
+- E2 Program Flow remains the adaptive/qualitative interpretation owner.
+- Foreign/institution investor flow remains C1/E1 and is not re-added to C2.
+- Breadth/ADL remains E3; Technical remains E5; Options/OI/Volatility remains E7.
+- VH/H/M/L Evidence Priority remains qualitative and is not converted into C2 numeric weights.
+- C2 cannot select or reconfirm a Market Regime by itself.
+
+### Program conflict / mechanical-flow safeguards
+- Existing 3.2 rule preserved: persistent Non-Arbitrage deterioration has greater structural significance than temporary Arbitrage fluctuations.
+- Strong Arbitrage buying cannot hide material Non-Arbitrage selling.
+- Opposing Arbitrage and Non-Arbitrage signals remain visible through `C2 Conflict` rather than being hidden by a near-zero aggregate.
+- Mechanical-event flow is calculated but cannot independently create a structural Regime conclusion.
+
+### Scoring firewall retained
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- C1 and C2 are component-level formulas only.
+- Remaining components, global aggregation, missing/partial rules, Action Bands and validation must be completed before global SAI activation.
+
+### Backup
+- Created pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_PREPATCH_BACKUP_2026-09-10.md`
+- A final C2 post-integration checkpoint is created after cross-validation.
+
 ## 2026-09-10 — SAI-C1 Smart Money Component Integration
 
 ### Added
