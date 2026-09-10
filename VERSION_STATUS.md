@@ -175,8 +175,9 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
 
-C8 final backup is created only after post-integration cross-validation succeeds.
+The C8 final checkpoint blob SHA is `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6` and records the post-integration six-authority snapshot, five-axis 30/25/20/15/10 formula, aligned-window normalization, LIVE/FALLBACK/STALE firewall, GR-mandatory 3-axis/60% PARTIAL gate, Samsung/SK hynix and G6 context-only boundaries, conflict/shock safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
