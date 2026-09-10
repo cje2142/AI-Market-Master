@@ -1,5 +1,52 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — SAI-C8 Global Leading Component Integration
+
+### Added
+- Added the eighth formally specified Strategy Action Index sub-component: `SAI-C8 Global Leading`.
+- Added five numeric axes:
+  - Global Equity Risk `GR` 30% — SPY + QQQ composite
+  - Korea Leading `KR` 25% — EWY
+  - Semiconductor Risk `SEMI` 20% — SOXL
+  - Global Rate/Liquidity `GLIQ` 15% — TMF
+  - Crypto Risk `CRYPTO` 10% — BTC
+- Added full formula: `SAI-C8 = 0.30*GR + 0.25*KR + 0.20*SEMI + 0.15*GLIQ + 0.10*CRYPTO`.
+- Added explicit v1 normalization boundaries for SPY, QQQ, EWY, SOXL, TMF and BTC.
+- Added aligned-observation-window and query-time validation.
+
+### Optimization / safeguards
+- SPY and QQQ are compressed into one GR composite instead of being counted as two independent Evidence Groups.
+- SAMSUNGUSDT and SKHYNIXUSDT remain G2/G3 Korea/Semiconductor confirmation only and are not added as extra numeric axes after EWY/SOXL.
+- OI, Funding, Long/Short, Premium, ADL risk, order book and recent trades remain G6 positioning/crowding context rather than additional numeric C8 terms.
+- BTC is retained as a high-beta auxiliary proxy with the smallest fixed internal C8 weight of 10%.
+- TMF remains E8 global rates/liquidity proxy; C6 Korea Treasury 3Y remains domestic financial-condition input.
+- C8 axes remain one E8 evidence family and are not counted as five independent Evidence Groups.
+
+### Freshness / missing-data safeguards
+- LIVE Binance data is eligible for normal numeric C8 use.
+- Valid FALLBACK inside BINANCE_RULE TTL may be used but caps C8 status at PARTIAL and preserves the Confidence downgrade.
+- STALE Binance data is prohibited from numeric C8 input.
+- Predefined PARTIAL formula renormalizes only explicitly valid axes and is allowed only when GR exists, at least 3/5 axes exist and original fixed-weight coverage is at least 60%.
+- If GR uses only SPY or only QQQ, overall C8 is PARTIAL.
+- GR missing, fewer than 3 axes, <60% coverage or STALE-only completion makes C8 DATA UNAVAILABLE.
+
+### Conflict / shock safeguards
+- Added `C8 Conflict: ACTIVE` for material GR-vs-KR or GR-vs-SEMI disagreement.
+- Added Korea/Semiconductor confirmation-conflict flags when EWY/SOXL materially disagree with both available Samsung/SK hynix confirmation signals.
+- Added `C8 Shock: ACTIVE` for aligned extreme GR/KR/SEMI moves or comparable extreme global-leading movement with independent G6 confirmation.
+- Conflict/Shock feed Change Detection / Transition / Regime re-validation only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight.
+
+### Scoring firewall retained
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- C1-C8 now cover E1-E8 as component-level formulas only.
+- Global aggregation, C1-C8 global Base Weights, global missing/partial handling, any Conditional Numeric Weight logic, final range/Action Bands and regression validation remain required before global SAI activation.
+
+### Backup
+- Pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
+- Final post-integration checkpoint is created only after cross-validation.
+
 ## 2026-09-10 — SAI-C7 Volatility / Derivatives Risk Component Integration
 
 ### Added
@@ -16,73 +63,27 @@
 - Futures OI/OI change is positioning context only because OI direction is ambiguous without price/position context.
 - Single-strike Call/Put OI or volume is context only and cannot be labeled official market PCR.
 - Full-market Put/Call Ratio remains qualitative/contextual in v1.
-- Added `C7 Conflict: ACTIVE` when VOL and BASIS materially oppose each other.
-- Added `C7 Shock: ACTIVE` for extreme VKOSPI-vs-MA20 stress, extreme fair-value-adjusted basis stress or aligned downside VOL/BASIS stress with independent derivatives-risk confirmation.
-- Added `C7 Mechanical Event: ACTIVE` for expiry, rollover and major rebalance distortions.
+- Added `C7 Conflict: ACTIVE`, `C7 Shock: ACTIVE` and `C7 Mechanical Event: ACTIVE` safeguards.
 
 ### Anti-double-counting / authority safeguards
 - `E7 Volatility / Derivatives Risk` remains the qualitative/adaptive interpretation owner.
 - Smart Money remains C1/E1; Program C2/E2; Breadth C3/E3; Sector Leadership C4/E4; Technical C5/E5; Liquidity/Macro C6/E6.
-- Binance OI/Funding/Long-Short and TMF/SPY/QQQ/BTC/EWY/SOXL remain E8 and are not re-scored inside C7.
-- VKOSPI relative stress is scored once; VKOSPI absolute level and volatility futures remain contextual only.
-- C7 cannot independently select or reconfirm a Market Regime and cannot convert VH/H/M/L into numeric weights.
+- Binance positioning/global proxies remain E8 and are not re-scored inside C7.
+- C7 cannot independently select or reconfirm a Market Regime or convert VH/H/M/L into numeric weights.
 
 ### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1-C7 are component-level formulas only.
-- Global aggregation, global missing/partial handling, final range/Action Bands and regression validation remain required before global SAI activation.
+- Global scores remain DATA UNAVAILABLE; C1-C7 are component-level formulas only.
 
 ### Backup
-- Pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`
+- Pre-patch: `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_PREPATCH_BACKUP_2026-09-10.md`
+- Final: `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`
 - Final checkpoint blob SHA: `3f9ee5985a46dbb3e2f2bd8b7c714b20e67f2bd6`.
-- Final checkpoint records the post-integration six-authority snapshot, 60/40 VOL/BASIS formula, VKOSPI mandatory rule, fair-value-adjusted Basis rule, predefined VOL-only PARTIAL handling, OI/PCR/volatility-futures contextual boundaries, Conflict/Shock/Mechanical Event safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
 
 ## 2026-09-10 — SAI-C6 Liquidity / Macro Component Integration
-
-### Added
-- Added the sixth formally specified Strategy Action Index sub-component: `SAI-C6 Liquidity / Macro`.
-- Added three numeric axes:
-  - FX Pressure 35% — USD/KRW 5-observation change, direction inverted for KRW financial-condition interpretation.
-  - Domestic Rate Pressure 35% — Korea Treasury 3Y 5-observation change in basis points.
-  - Cash Liquidity 30% — Customer Deposits 5-observation percentage change.
-- Added full formula: `SAI-C6 = 0.35*FX + 0.35*RATE + 0.30*CASH`.
-- Added completed-daily / point-in-time source rules and explicit Customer Deposits observation-date disclosure.
-- Added predefined PARTIAL formulas when one of the three axes is unavailable, with a minimum two-axis gate and at least one of FX or RATE required.
-
-### Optimization / safeguards
-- Margin Credit is not a direct numeric C6 term because rising credit can represent both liquidity expansion and leverage fragility; it remains qualitative E6/E7 context.
-- Policy Rate, M2 and lower-frequency macro series remain Structural Macro Context rather than being mixed directly into the daily score.
-- Absolute USD/KRW, yield and deposit levels remain context; v1 numeric scoring uses changes rather than fixed long-run levels.
-- Added `C6 Conflict: ACTIVE` when opposing available axes both have absolute normalized magnitude >=0.50.
-- Added `C6 Shock: ACTIVE` thresholds:
-  - |USD/KRW 5-observation change| >=2.5%
-  - |Korea Treasury 3Y 5-observation change| >=30bp
-  - |Customer Deposits 5-observation change| >=7.5%
-- C6 Shock/Conflict feed Change Detection / Transition only and do not automatically change Market Regime, global SAI, portfolio action or permanent Base Weight.
-
-### Anti-double-counting / authority safeguards
-- `E6 Liquidity / Macro` remains the qualitative/adaptive interpretation owner.
-- MASTER Engine 06 remains Global Liquidity analysis; no 25th engine created.
-- Smart Money remains C1/E1; Program C2/E2; Breadth C3/E3; Sector Leadership C4/E4; Technical Structure C5/E5; Options/OI/Volatility E7; Binance/global-leading proxies E8.
-- Korea Treasury 3Y in C6 represents domestic financial conditions; TMF remains E8 global-leading context and is not re-scored inside C6.
-- VH/H/M/L remains qualitative and cannot be converted into numeric C6 weights.
-- Anti-circularity preserved: C6 cannot choose a Regime, use that Regime to alter its own weights, then reconfirm the same Regime.
-
-### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1-C6 are component-level formulas only.
-- Global aggregation, global missing/partial handling, final range/Action Bands and regression validation remain required before global SAI activation.
-
-### Backup
-- Pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
+- Added `SAI-C6 Liquidity / Macro`.
+- Formula: `0.35*FX + 0.35*RATE + 0.30*CASH`.
+- Added point-in-time/freshness, predefined PARTIAL, Margin Credit context-only, Policy Rate/M2 structural-context, Conflict/Shock and anti-double-counting safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`.
 - Final checkpoint blob SHA: `3dd78dd160eb49e7cee0ad8bde97f2b31fc2ef48`.
 
 ## 2026-09-10 — SAI-C5 Technical Structure Component Integration
