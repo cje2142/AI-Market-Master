@@ -15,7 +15,7 @@ Therefore the official current numeric state remains:
 - `AI Master Score: DATA UNAVAILABLE`
 - `Strategy Action Index: DATA UNAVAILABLE`
 
-`SAI-C1 Smart Money`, `SAI-C2 Program Flow`, `SAI-C3 Breadth / Market Internal` and `SAI-C4 Sector / Leadership` are defined below as component specifications only. None may be presented as the final Strategy Action Index.
+`SAI-C1 Smart Money`, `SAI-C2 Program Flow`, `SAI-C3 Breadth / Market Internal`, `SAI-C4 Sector / Leadership` and `SAI-C5 Technical Structure` are defined below as component specifications only. None may be presented as the final Strategy Action Index.
 
 ## 3. Numeric Score Activation Gate
 A global numeric score may be activated only after all of the following are explicitly defined and verified in this file:
@@ -1083,4 +1083,256 @@ C4 final principle:
 Sector breadth measures leadership structure, not the Market Regime by itself.
 Absolute direction > relative resilience in the v1 formula, while concentration remains qualitative context.
 Missing/ambiguous benchmark data is never neutralized or silently substituted.
+No complete global formula = no global Strategy Action Index.
+
+## 65. SAI-C5 Technical Structure — Purpose and Boundary
+`SAI-C5 Technical Structure` is the fifth formally specified numeric component for a future Strategy Action Index.
+
+Purpose:
+Measure whether KOSPI technical price structure confirms strength or deterioration using closing-confirmed price structure, validated support/resistance position and MA/VWAP trend position, while minimizing repeated scoring of price-derived indicators.
+
+Authority boundary:
+- Numeric C5 formula, component weights, numeric transforms, completeness rules and C5 conflict/shock conditions are owned by this SCORING_RULE.
+- `TECHNICAL_RULE` remains the calculation/interpretation authority for Elliott/Fibonacci, swing confirmation, MA/VWAP, RSI, MACD, Ichimoku, ADX, Volume, support/resistance and breakout/breakdown confirmation.
+- `E5 Technical Structure` remains the qualitative/adaptive owner for Market Regime, Transition, VH/H/M/L Evidence Priority, conflict resolution and re-validation.
+- C5 does not replace E5 or TECHNICAL_RULE and cannot select/reconfirm a Market Regime by itself.
+
+## 66. SAI-C5 Timeframe and Data Standard
+Official C5 v1 uses KOSPI Daily / Closing-confirmed structure.
+
+Intraday data may produce only `C5 Intraday Preview`.
+An intraday touch, breakout or breakdown cannot overwrite the latest closing-confirmed C5 by itself.
+
+Required data are validated outputs from TECHNICAL_RULE, based on HTS/KRX-priority market data:
+- recent confirmed daily swing structure for PS
+- nearest validated major Support Cluster `S` and Resistance Cluster `R` for SR when available
+- MA20, MA60, VWAP20, VWAP60 for TP when available
+- daily close aligned to the same session
+
+Volume, RSI, MACD, ADX, Ichimoku and Elliott/Fibonacci may be used for confirmation/context according to TECHNICAL_RULE but are not direct C5 numeric terms in v1.
+
+## 67. C5-A Price Structure Score
+`PS` is the mandatory directional core.
+
+Use the latest validated recent daily swing-high and swing-low structure from TECHNICAL_RULE.
+
+Full directional classification:
+- Higher High + Higher Low → `PS = +1.00`
+- Lower High + Lower Low → `PS = -1.00`
+- mixed HH+LL or LH+HL / non-directional structure → `PS = 0.00`
+
+Partial one-sided structure when only one side is sufficiently validated:
+- improving one-sided swing structure → `PS = +0.50`
+- deteriorating one-sided swing structure → `PS = -0.50`
+
+A closing-confirmed breakout above the relevant validated swing-high / resistance structure may set `PS = +1.00`.
+A closing-confirmed breakdown below the relevant validated swing-low / support structure may set `PS = -1.00`.
+
+Intraday touch alone cannot set PS to ±1.00.
+If swing identity or confirmation is insufficient, PS is unavailable rather than guessed.
+
+## 68. C5-B Support / Resistance Position Score
+Use the nearest validated major Support Cluster `S` and Resistance Cluster `R` from TECHNICAL_RULE, with `R > S`.
+
+When the daily close `C` remains inside an intact valid corridor:
+`X = clip(2*(C-S)/(R-S)-1, -1,+1)`
+`SR = 0.50*X`
+
+Thus an intact corridor contributes only:
+`-0.50 <= SR <= +0.50`.
+
+Confirmed closing breakout above the validated Resistance Cluster → `SR = +1.00`.
+Confirmed closing breakdown below the validated Support Cluster → `SR = -1.00`.
+
+A touch alone does not create ±1.00.
+Fibonacci, Elliott, MA/VWAP, previous high/low and volume concentration may help TECHNICAL_RULE validate a cluster, but their derived levels are not separately added again to C5.
+
+If no unambiguous valid `S < R` corridor or confirmed boundary event can be established, SR is unavailable.
+
+## 69. C5-C MA / VWAP Trend Position Score
+Fixed v1 anchors:
+- MA20
+- MA60
+- VWAP20
+- VWAP60
+
+For each valid anchor `A_j` using the same closing session:
+- `Close > A_j * 1.002` → `T_j = +1`
+- `Close < A_j * 0.998` → `T_j = -1`
+- otherwise → `T_j = 0`
+
+Then:
+`TP = average(T_j)` across valid anchors.
+
+Completeness for TP:
+- 4/4 anchors valid → full TP
+- 2 or 3 anchors valid → TP is usable, but C5 overall cannot be VERIFIED solely on a reduced TP set and is labeled PARTIAL when calculated
+- fewer than 2 anchors valid → TP unavailable
+
+The ±0.20% anchor band is a C5 v1 noise-control calibration rule.
+MA/VWAP anchors form one composite TP and are not independent Evidence Groups.
+
+## 70. SAI-C5 Formula / Missing / Partial Rule
+Full formula when PS, SR and full TP are valid:
+`SAI-C5 = 0.50*PS + 0.30*SR + 0.20*TP`
+Status: eligible for `VERIFIED` when source/timeframe/calculation validation passes.
+
+Component range:
+`-1.00 <= SAI-C5 <= +1.00`
+
+Internal weights:
+- Price Structure: 50%
+- Support / Resistance Position: 30%
+- MA / VWAP Trend Position: 20%
+
+If TP is based on only 2 or 3 valid anchors, use the same formula but label C5 `PARTIAL`.
+
+### SR Missing Only
+If PS and usable TP are valid but SR is unavailable:
+`SAI-C5 = 0.70*PS + 0.30*TP`
+Status: `PARTIAL`.
+
+### TP Missing Only
+If PS and SR are valid but TP is unavailable:
+`SAI-C5 = 0.625*PS + 0.375*SR`
+Status: `PARTIAL`.
+
+### Mandatory / Insufficient Input
+- PS unavailable/invalid → `SAI-C5 = DATA UNAVAILABLE`
+- PS valid but both SR and TP unavailable → `SAI-C5 = DATA UNAVAILABLE`
+
+Missing data is never converted to zero/Neutral.
+The partial formulas above are predefined and therefore are not silent reweighting.
+
+These internal C5 weights do not define C5's future global weight inside the complete Strategy Action Index.
+
+## 71. C5 Confirmation / Divergence Boundary
+The following are contextual validation inputs only and are not direct numeric C5 terms in v1:
+- Volume → breakout/breakdown confirmation, contraction/exhaustion, weak-confirmation flag
+- RSI → overbought/oversold and bullish/bearish divergence
+- MACD → momentum confirmation/deceleration/divergence
+- ADX → trend-strength confirmation only; ADX is not directional
+- Ichimoku → supplementary structure confirmation
+- Elliott/Fibonacci → S/R cluster, wave context, invalidation and Recovery Structure Failure review
+
+A strong momentum reading or high ADX cannot reverse a confirmed price-structure failure by itself.
+
+Raise `C5 Divergence: ACTIVE` when a price-vs-RSI/MACD divergence is validated under TECHNICAL_RULE and is material to the current structure.
+Divergence does not directly change C5 weights or formula.
+
+## 72. C5 Conflict / Shock Rules
+### C5 Conflict
+Raise `C5 Conflict: ACTIVE` when either condition is validated:
+1. PS and SR have opposite signs and both satisfy `|value| >= 0.50`, or
+2. PS and TP have opposite signs and both satisfy `|value| >= 0.50`.
+
+When active:
+- keep the formula unchanged
+- disclose the conflict
+- do not interpret a near-zero aggregate as absence of information
+- pass the conflict to ADAPTIVE_VALIDATION_RULE / Change Detection as relevant
+- do not alter C5 weights ad hoc.
+
+### C5 Shock / Weight Shift Candidate
+Raise `C5 Shock: ACTIVE` for validated structural events including:
+- confirmed major Support Cluster breakdown
+- confirmed major Resistance Cluster breakout
+- current TECHNICAL_RULE Recovery Structure Failure review trigger, including a closing break below fixed Correction Low 5,593
+
+C5 Shock is a Change Detection / Transition / Weight Shift candidate only.
+It is not an automatic Market Regime change, global SAI override, portfolio action or permanent Base Weight change.
+
+## 73. SAI-C5 Anti-Double-Counting and Anti-Circularity
+For C5 numeric scoring:
+- price/swing structure is scored once in PS
+- validated S/R corridor or confirmed boundary event is scored once in SR
+- MA20/60 + VWAP20/60 are compressed into one TP composite
+- Volume/RSI/MACD/ADX/Ichimoku/Elliott/Fibonacci are context/validation only in C5 v1 and are not independent numeric additions
+- issue Breadth/ADL remains C3/E3
+- sector leadership remains C4/E4
+- Foreign/Institution flow remains C1/E1
+- Program flow remains C2/E2
+- Liquidity/Macro remains E6
+- Options/OI/Volatility remains E7
+- Binance/global leading remains E8
+
+PS, SR and TP are predefined transforms of related technical price structure and must not be presented as three independent Evidence Groups. Together they form one E5/C5 technical evidence family.
+
+Required separation:
+`Validated Technical Data → C5 Calculation`
+
+and independently:
+`Raw HTS + other Evidence → Preliminary Regime → Adaptive Priority → Transition / Conflict → Regime Re-validation`
+
+C5 must not:
+1. choose a Market Regime,
+2. use that Regime to alter its own numeric weights,
+3. use the altered C5 as the sole reason to reconfirm the same Regime.
+
+VH/H/M/L Evidence Priority must never be converted into numeric C5 weights.
+
+## 74. SAI-C5 Validation Cases
+### Case A — Confirmed Bullish Structure
+`PS=+1.00, SR=+0.40, TP=+1.00`
+`C5 = 0.50 + 0.12 + 0.20 = +0.82`.
+Expected: strong positive technical component, no conflict.
+
+### Case B — Confirmed Bearish Structure
+`PS=-1.00, SR=-1.00, TP=-1.00`
+`C5=-1.00`.
+Expected: strong negative technical component; structural breakdown dominates contextual oversold signals.
+
+### Case C — Rising Structure / Support Retest
+`PS=+1.00, SR=-0.40, TP=+0.50`
+`C5=+0.48`.
+Expected: positive but weakened technical structure; support retest does not mechanically become bearish.
+
+### Case D — Price Structure / Trend Conflict
+`PS=+1.00, SR=+0.20, TP=-0.75`
+`C5=+0.41`.
+Expected: positive aggregate + `C5 Conflict: ACTIVE`; do not call it clean bullish alignment.
+
+### Case E — SR Missing
+`PS=+1.00, TP=+0.50`
+`C5 = 0.70*1.00 + 0.30*0.50 = +0.85`.
+Status: `PARTIAL`.
+
+### Case F — TP Missing
+`PS=-1.00, SR=-0.50`
+`C5 = 0.625*(-1.00) + 0.375*(-0.50) = -0.8125`.
+Status: `PARTIAL`.
+
+### Case G — PS Missing
+SR and TP available but PS unavailable.
+Expected: `SAI-C5 = DATA UNAVAILABLE`.
+
+### Case H — Volume Spike Alone
+Strong volume without validated directional PS/SR structure.
+Expected: no independent bullish/bearish C5 numeric contribution.
+
+### Case I — Intraday Breakout Without Close Confirmation
+Intraday price exceeds resistance but the session has not closed/confirmed.
+Expected: `C5 Intraday Preview` / context only; official closing-confirmed PS/SR remains unchanged.
+
+### Case J — Recovery Structure Failure Trigger
+Closing break below 5,593 under current TECHNICAL_RULE.
+Expected: `C5 Shock: ACTIVE`, Recovery Structure Failure review, no automatic global SAI or Regime change.
+
+## 75. Current Component / Global SAI Status After C5
+- `SAI-C1 Smart Money`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C2 Program Flow`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C3 Breadth / Market Internal`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C4 Sector / Leadership`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C5 Technical Structure`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `Strategy Action Index`: DATA UNAVAILABLE
+- `AI Master Score`: DATA UNAVAILABLE
+
+C1-C5 remain component-level formulas only.
+The global SAI remains unavailable until remaining components, global aggregation, global missing/partial handling, final range/Action Bands and required regression/validation are complete.
+
+C5 final principle:
+Price structure is the directional core.
+Support/resistance and MA/VWAP refine confirmation without multiplying the same technical evidence into independent groups.
+Momentum, Volume and Elliott/Fibonacci validate structure but do not become extra numeric terms in v1.
+Intraday preview does not replace closing-confirmed structure.
 No complete global formula = no global Strategy Action Index.
