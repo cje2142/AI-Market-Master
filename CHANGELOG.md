@@ -45,38 +45,17 @@
 ### Backup
 - Pre-patch checkpoint:
   - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
-- Final post-integration checkpoint is created only after cross-validation.
+- Final post-integration checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
+- Final checkpoint blob SHA: `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6`.
+- Final checkpoint records the post-integration six-authority snapshot, five-axis 30/25/20/15/10 formula, aligned-window normalization, LIVE/FALLBACK/STALE firewall, GR-mandatory 3-axis/60% PARTIAL gate, Samsung/SK hynix and G6 context-only boundaries, conflict/shock safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
 
 ## 2026-09-10 — SAI-C7 Volatility / Derivatives Risk Component Integration
-
-### Added
-- Added the seventh formally specified Strategy Action Index sub-component: `SAI-C7 Volatility / Derivatives Risk`.
-- Added two numeric axes:
-  - Volatility Stress `VOL` 60% — mandatory, based on VKOSPI relative to its 20-observation moving average.
-  - Fair-value-adjusted KOSPI200 Basis Stress `BASIS` 40% — optional, based on Actual Basis minus Fair/Theoretical Basis normalized by KOSPI200 spot.
-- Added full formula: `SAI-C7 = 0.60*VOL + 0.40*BASIS`.
-- Added predefined PARTIAL rule: when VOL is valid but BASIS unavailable, `C7=VOL / PARTIAL`; when VOL is unavailable, C7 is DATA UNAVAILABLE.
-
-### Optimization / safeguards
-- VKOSPI spot is the primary volatility input; volatility futures are term-structure/confirmation context and cannot silently replace VKOSPI spot.
-- Raw KOSPI200 basis sign is not scored because normal basis depends on rates, dividends and time to expiry; C7 uses fair-value-adjusted BasisGap instead.
-- Futures OI/OI change is positioning context only because OI direction is ambiguous without price/position context.
-- Single-strike Call/Put OI or volume is context only and cannot be labeled official market PCR.
-- Full-market Put/Call Ratio remains qualitative/contextual in v1.
-- Added `C7 Conflict: ACTIVE`, `C7 Shock: ACTIVE` and `C7 Mechanical Event: ACTIVE` safeguards.
-
-### Anti-double-counting / authority safeguards
-- `E7 Volatility / Derivatives Risk` remains the qualitative/adaptive interpretation owner.
-- Smart Money remains C1/E1; Program C2/E2; Breadth C3/E3; Sector Leadership C4/E4; Technical C5/E5; Liquidity/Macro C6/E6.
-- Binance positioning/global proxies remain E8 and are not re-scored inside C7.
-- C7 cannot independently select or reconfirm a Market Regime or convert VH/H/M/L into numeric weights.
-
-### Scoring firewall retained
-- Global scores remain DATA UNAVAILABLE; C1-C7 are component-level formulas only.
-
-### Backup
-- Pre-patch: `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_PREPATCH_BACKUP_2026-09-10.md`
-- Final: `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`
+- Added `SAI-C7 Volatility / Derivatives Risk`.
+- Formula: `0.60*VOL + 0.40*BASIS`.
+- VKOSPI mandatory; fair-value-adjusted Basis optional; VOL-only predefined PARTIAL.
+- OI/PCR/volatility-futures remain contextual; added Conflict/Shock/Mechanical Event safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`.
 - Final checkpoint blob SHA: `3f9ee5985a46dbb3e2f2bd8b7c714b20e67f2bd6`.
 
 ## 2026-09-10 — SAI-C6 Liquidity / Macro Component Integration
