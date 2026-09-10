@@ -34,8 +34,11 @@
 - Remaining global components, aggregation, missing/partial rules, Action Bands and regression validation must be completed before final SAI activation.
 
 ### Backup
-- Created `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md` before rule modification.
-- A final SAI-C1 checkpoint is created after post-patch cross-validation.
+- Created pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
+- Created final post-integration checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
+- Final checkpoint records the post-integration authority snapshot, C1 formula boundary, anti-double-counting safeguards, conflict/shock handling and cross-validation result.
 
 ## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
 
