@@ -1,5 +1,42 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — SAI-C1 Smart Money Component Integration
+
+### Added
+- Added the first formally specified Strategy Action Index sub-component: `SAI-C1 Smart Money`.
+- C1 uses three source inputs:
+  - Foreign KOSPI cash net flow
+  - Foreign KOSPI200 futures net flow
+  - Institutional KOSPI cash net flow
+- Added source-data normalization to `[-1.00, +1.00]` using market-scale ratios rather than raw amounts.
+- Added v1 C1 internal weights:
+  - Foreign Cash 40%
+  - Foreign Futures 40%
+  - Institution Cash 20%
+- Added explicit institution-missing partial formula: 50% Foreign Cash + 50% Foreign Futures.
+- Added mandatory-input gate: missing Foreign Cash or Foreign Futures → `SAI-C1 = DATA UNAVAILABLE`.
+- Added C1 Conflict and C1 Shock flags.
+- Added normal, bearish, reversal/conflict, missing-data and extreme-flow validation cases.
+
+### Anti-double-counting / authority safeguards
+- Program / Arbitrage / Non-Arbitrage remain outside C1 under E2 ownership.
+- Breadth / ADL remain outside C1 under E3 ownership.
+- Options / derivatives-risk structure remain outside C1 under E7 ownership.
+- Financial Investment is not separately scored when already contained in total Institution flow.
+- Foreign cumulative futures position is contextual only when current futures flow is already scored.
+- VH/H/M/L Evidence Priority remains qualitative and is not converted into C1 numeric weights.
+- SAI-C1 does not replace `E1 Smart Money` and cannot choose or reconfirm a Market Regime by itself.
+
+### Scoring firewall retained
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- A defined C1 component does not activate the final global score.
+- Remaining global components, aggregation, missing/partial rules, Action Bands and regression validation must be completed before final SAI activation.
+
+### Backup
+- Created `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md` before rule modification.
+- A final SAI-C1 checkpoint is created after post-patch cross-validation.
+
 ## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
 
 ### Final backup checkpoint
