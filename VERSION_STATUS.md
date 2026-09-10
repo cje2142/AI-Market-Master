@@ -86,7 +86,6 @@ FX/Rate/Cash use predefined normalization and explicit two-axis PARTIAL rules. M
 
 ### SAI-C7 Volatility / Derivatives Risk
 Official v1 uses completed domestic volatility/derivatives observations.
-
 Numeric terms:
 - Volatility Stress `VOL` 60% — mandatory
 - Fair-value-adjusted KOSPI200 Basis Stress `BASIS` 40% — optional
@@ -95,27 +94,12 @@ Numeric terms:
 `BasisGap = ActualBasis - FairBasis`
 `BG = BasisGap / KOSPI200Spot`
 `BASIS = clip(BG/0.003,-1,+1)`
-
-Full formula:
 `SAI-C7 = 0.60*VOL + 0.40*BASIS`
 
-Missing/Partial:
-- VOL + BASIS valid → eligible VERIFIED
-- VOL valid, BASIS unavailable → `C7=VOL` / PARTIAL
-- VOL unavailable → DATA UNAVAILABLE
-
-C7 safeguards:
-- futures OI/OI change is positioning context, not independent directional numeric score
-- isolated option strikes cannot be used as official PCR
-- full-market Put/Call Ratio remains contextual in v1
-- volatility futures are term-structure/confirmation context and do not silently replace VKOSPI spot
-- derivatives expiry/rollover/rebalance may activate `C7 Mechanical Event`
-- C7 Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight
-- Binance OI/Funding/Long-Short and global proxies remain E8 and are not re-scored in C7
+VOL + BASIS valid → eligible VERIFIED; VOL valid/BASIS unavailable → `C7=VOL` / PARTIAL; VOL unavailable → DATA UNAVAILABLE.
+OI/PCR/volatility futures remain contextual; Mechanical Event, Conflict and Shock safeguards remain active.
 
 ### SAI-C8 Global Leading
-Official v1 uses the fixed Binance/global-leading symbol roles while compressing correlated inputs into five numeric axes.
-
 Numeric axes:
 - Global Equity Risk `GR` 30% — SPY + QQQ composite
 - Korea Leading `KR` 25% — EWY
@@ -123,33 +107,16 @@ Numeric axes:
 - Global Rate/Liquidity `GLIQ` 15% — TMF
 - Crypto Risk `CRYPTO` 10% — BTC
 
-Normalization:
-- `N_SPY = clip(r_SPY/0.015,-1,+1)`
-- `N_QQQ = clip(r_QQQ/0.020,-1,+1)`
-- `GR = 0.50*N_SPY + 0.50*N_QQQ`
-- `KR = clip(r_EWY/0.025,-1,+1)`
-- `SEMI = clip(r_SOXL/0.050,-1,+1)`
-- `GLIQ = clip(r_TMF/0.030,-1,+1)`
-- `CRYPTO = clip(r_BTC/0.040,-1,+1)`
-
-Full formula:
+`N_SPY = clip(r_SPY/0.015,-1,+1)`
+`N_QQQ = clip(r_QQQ/0.020,-1,+1)`
+`GR = 0.50*N_SPY + 0.50*N_QQQ`
+`KR = clip(r_EWY/0.025,-1,+1)`
+`SEMI = clip(r_SOXL/0.050,-1,+1)`
+`GLIQ = clip(r_TMF/0.030,-1,+1)`
+`CRYPTO = clip(r_BTC/0.040,-1,+1)`
 `SAI-C8 = 0.30*GR + 0.25*KR + 0.20*SEMI + 0.15*GLIQ + 0.10*CRYPTO`
 
-Missing/Partial safeguards:
-- full five-axis set + both SPY/QQQ in GR + freshness/window validation → eligible VERIFIED
-- predefined renormalized PARTIAL requires GR present, at least 3/5 axes, and at least 60% original fixed-weight coverage
-- if GR uses only one of SPY/QQQ, overall C8 is PARTIAL
-- any valid Binance FALLBACK input caps overall C8 at PARTIAL and preserves Confidence downgrade
-- STALE Binance data is prohibited from numeric C8 use
-- GR missing, <3 axes, <60% coverage or STALE-only completion → DATA UNAVAILABLE
-
-C8 safeguards:
-- SAMSUNGUSDT and SKHYNIXUSDT remain G2/G3 confirmation only, not extra numeric axes
-- OI/Funding/Long-Short/Premium/ADL/order book/trades remain G6 context/flags, not direct C8 numeric terms
-- SPY/QQQ are one GR composite, not two independent Evidence Groups
-- TMF is global E8 rates/liquidity context; C6 Korea Treasury 3Y remains domestic
-- BTC is auxiliary and limited to 10% internal C8 weight
-- C8 Conflict/Confirmation Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight
+C8 full requires all five axes and both SPY/QQQ in GR. PARTIAL requires GR, at least 3/5 axes and >=60% original C8 weight coverage. FALLBACK caps C8 at PARTIAL; STALE is prohibited numerically. Samsung/SKH and G6 positioning remain confirmation/context only.
 
 ### Global Strategy Action Index v1
 Base weights:
@@ -179,7 +146,7 @@ Action Bands:
 
 SAI is execution bias, not an automatic trade command. PARTIAL/Conflict/Mechanical Event and portfolio/technical/Regime safeguards remain binding.
 
-Formula/regression validation passed by rule design, including 256 C1-C8 +/-1 corner combinations across Base and allowed one/two-family adaptive patterns. Empirical backtest optimization remains NOT ESTABLISHED.
+Formula/regression validation passed by rule design, including all 256 C1-C8 +/-1 corner combinations across Base and allowed one/two-family adaptive patterns. Empirical backtest optimization remains NOT ESTABLISHED.
 
 ## Restore / Design References
 Non-authoritative references:
@@ -207,10 +174,10 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_FINAL_BACKUP_2026-09-10.md`
 
-The C8 final checkpoint blob SHA is `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6` and records the post-integration six-authority snapshot, five-axis 30/25/20/15/10 formula, aligned-window normalization, LIVE/FALLBACK/STALE firewall, GR-mandatory 3-axis/60% PARTIAL gate, Samsung/SK hynix and G6 context-only boundaries, conflict/shock safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
-
-Global SAI final backup is created only after post-activation cross-authority verification succeeds.
+Global SAI final checkpoint blob SHA: `c8316a0fbc746c7ca5867073f39aacf6ef9f7878`.
+It records the post-activation six-authority snapshot, global Base Weights, Missing/Partial gate, family conflict, Conditional Adaptive Weight, Action Bands, anti-circularity, formula/regression validation and empirical-backtest caveat.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
