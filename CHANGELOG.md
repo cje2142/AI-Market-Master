@@ -1,201 +1,141 @@
 # AI Market Master Change Log
 
-## 2026-09-10 — Global Strategy Action Index v1 Activation
+## 2026-09-10 — SAI HTS-Operational v2 Redesign
 
-### Added
-- Activated a reproducible global `Strategy Action Index` v1 inside `SCORING_RULE` while keeping `AI Master Score` separate and `DATA UNAVAILABLE`.
-- Added Base Weights across C1-C8:
-  - C1 Smart Money 18%
-  - C2 Program Flow 12%
-  - C3 Breadth / Internal 15%
-  - C4 Sector / Leadership 10%
-  - C5 Technical Structure 20%
-  - C6 Liquidity / Macro 10%
-  - C7 Volatility / Derivatives Risk 8%
-  - C8 Global Leading 7%
-- Added Base formula:
-  `SAI_Base = 0.18*C1 + 0.12*C2 + 0.15*C3 + 0.10*C4 + 0.20*C5 + 0.10*C6 + 0.08*C7 + 0.07*C8`.
-- Added final range `[-1,+1]`.
+### Why
+- Reworked C1-C8 around HTS fields the user can repeatedly provide in normal operation.
+- The prior v1 formulas were reproducible but several components depended on inputs not reliably present in the user's actual HTS export, causing unnecessary `DATA UNAVAILABLE` results.
+- The redesign keeps validation strict while replacing unavailable theoretical dependencies with explicit HTS-native formulas.
 
-### Global Missing / Partial Gate
-- Global VERIFIED requires all C1-C8 to be VERIFIED with applicable source/freshness checks passed.
-- Global PARTIAL uses predefined renormalization across usable components only.
-- PARTIAL requires all:
-  - C5 Technical Structure usable
-  - at least one C1/C2 Flow input
-  - at least one C3/C4 Internal input
-  - at least one C6/C7/C8 Environment input
-  - at least 6/8 components usable
-  - at least 70% original Base Weight coverage
-- Missing data is never converted to zero/Neutral.
-- Any component PARTIAL makes global status PARTIAL.
-- Conditional Adaptive Weight is prohibited when global status is PARTIAL.
+### C1 Smart Money v2
+- Replaced futures-flow/OI-unit normalization with participant-direction shares from the HTS investor-flow panel.
+- `D_FC = Foreign KOSPI / (|Individual|+|Foreign|+|Institution|)`.
+- `D_FF = Foreign Futures / (|IndividualF|+|ForeignF|+|InstitutionF|)`.
+- `C1 = 0.55*D_FC + 0.45*D_FF`.
+- Institution sub-rows remain context to avoid double counting.
 
-### Conditional Adaptive Weight
-- Added four internal scoring families for conflict/adaptive logic only: Flow, Internal, Structure and Environment.
-- These helpers do not create new Evidence Groups and do not replace E1-E8.
-- Added `Global SAI Conflict: ACTIVE` when independent family scores materially oppose with both absolute family values >=0.50.
-- Adaptive numeric weighting requires 8/8 VERIFIED, no Global SAI Conflict and validated Shock/confirmation.
-- Exactly one qualifying family event -> +5 percentage points to that family.
-- Exactly two same-direction qualifying family events -> +3 percentage points each.
-- Opposite qualifying events -> Adaptive Weight BLOCKED / Base Weights retained.
-- Three or more qualifying family events -> Base Weights retained + `Broad Market Shock: ACTIVE`.
-- Maximum total family-weight reallocation = 6 percentage points.
-- Component ratios inside each family remain fixed.
-- VH/H/M/L is never converted into numeric weights.
+### C2 Program Flow v2
+- Kept Arbitrage/Non-Arbitrage ownership but widened operational saturation to match the supplied traded-value ratios.
+- `N_ARB=clip(ARB_R/3%,-1,+1)`.
+- `N_NONARB=clip(NONARB_R/10%,-1,+1)`.
+- `C2=0.25*N_ARB+0.75*N_NONARB`.
+- Mechanical Event safeguard retained.
 
-### Mechanical-event / anti-circularity safeguards
-- C2/C7 Shock accompanied by a Mechanical Event cannot be the sole basis for adaptive numeric reweighting unless event review confirms the move is structural.
-- Required order:
-  `C1-C8 -> Base SAI -> Preliminary Regime -> Adaptive Validation / Transition / Conflict -> Regime Re-validation -> Conditional Adaptive Event -> Final SAI -> Strategy / Portfolio Response`.
-- Prohibited circular loop:
-  `Regime -> numeric reweight -> Final SAI -> same Regime reconfirmed solely from Final SAI`.
+### C3 Breadth v2
+- Kept `(ADV-DEC)/(ADV+DEC)` architecture.
+- Changed breadth normalization saturation from ±0.50 to ±0.40 for more responsive recurring HTS breadth.
+- `C3=0.70*N_K+0.30*N_Q`.
+- ADL absolute level remains context only.
 
-### Action Bands
-- `>= +0.60` -> Strong Positive Execution Bias
-- `+0.30 to < +0.60` -> Positive Execution Bias
-- `>-0.30 to <+0.30` -> Balanced / Hold Bias
-- `>-0.60 to <=-0.30` -> Negative Execution Bias
-- `<= -0.60` -> Strong Negative Execution Bias
-- Action Bands are execution-bias labels, not automatic portfolio orders or ADAPTIVE_VALIDATION qualitative Strategy Postures.
-- PARTIAL, Global Conflict, Mechanical Event, Technical location, Regime/Transition and portfolio exposure remain binding execution safeguards.
+### C4 Market Leadership / Rotation v2
+- Replaced the non-repeatable fixed eight-sector benchmark requirement.
+- Large-cap relative axis uses KOSPI100/KOSPI200/KTOP30/KRX100 versus KOSPI.
+- Growth/rotation axis uses KOSDAQ/KOSDAQ150 versus KOSPI.
+- `C4=0.40*N_LC+0.60*N_GR`.
+- Full sector leadership remains qualitative E4 context rather than a mandatory numeric input.
 
-### Regression / validation
-- Verified Base component and family weights sum to 1.00.
-- Verified all defined one-family and two-family adaptive patterns retain positive component weights and total weight 1.00.
-- Exhaustively tested all 256 C1-C8 corner combinations at {-1,+1} across Base and allowed one/two-family adjusted-weight patterns; every result remained inside [-1,+1].
-- Boundary regression: all +1 -> +1.00; all -1 -> -1.00.
-- Adaptive score displacement is bounded by <=0.10 for one-family +5pp reallocation and <=0.12 for two-family total +6pp reallocation.
-- Missing/Partial, C5-mandatory, family-coverage, conflict and action-band cases passed rule-design regression.
-- This is formula/rule-design validation, not empirical out-of-sample market-performance optimization.
+### C5 Technical Structure v2
+- Replaced mandatory HH/HL + formal SR inputs with recurring HTS technical data.
+- Trend Position 55% from MA20/50/60/200 + VWAP20/50/60/200.
+- Momentum 25% from RSI9 + MACD/Signal/Oscillator.
+- Session Structure 20% from close-location-in-range + KOSPI daily return.
+- `C5=0.55*TP+0.25*MOM+0.20*SES`.
+- ADX, volume, Elliott/Fibonacci and support/resistance remain validation/context; structural break can still activate C5 Shock.
 
-### Scoring status
-- `Strategy Action Index`: FORMULA ACTIVATED / runtime numeric output only when the global data gate passes.
-- `AI Master Score`: remains DATA UNAVAILABLE.
-- C1-C8 remain independently defined component formulas and E1-E8 ownership remains unchanged.
-- 24 Analysis Engines, 8 Dashboard categories and 6 Authority files remain unchanged in count.
+### C6 Liquidity / Macro v2
+- Replaced unavailable 5-day FX/rate history with recurring daily HTS changes while retaining 5-observation Customer Deposits.
+- `FX=-clip(r_USDKRW/0.8%,-1,+1)`.
+- KTB3Y and CD91 absolute HTS changes are converted from percentage points to bp.
+- `RATE=0.70*KTB+0.30*CD`.
+- `CASH=clip(DEP5/5%,-1,+1)`.
+- `C6=0.35*FX+0.35*RATE+0.30*CASH`.
+- Margin Credit/receivables/futures deposits remain contextual risk/liquidity flags.
+
+### C7 Volatility / Derivatives v2
+- Removed mandatory VKOSPI MA20 and fair-basis inputs.
+- `VOL=-clip(r_VKOSPI/10%,-1,+1)`.
+- `FLEAD=clip((r_KOSPI200_Futures-r_KOSPI200_Spot)/0.5%p,-1,+1)`.
+- `C7=0.70*VOL+0.30*FLEAD`.
+- Raw basis without fair basis, current OI snapshot, isolated option strike, PCR without full-market data and thin volatility futures remain context only.
+
+### C8 Global Leading v2
+- HTS global-market panel is now the primary numeric C8 source.
+- US Futures 40% = Mini S&P500 + Mini Nasdaq.
+- Prior US Close 25% = S&P500 + Nasdaq.
+- Semiconductor 20% = SOX.
+- Asia 15% = Nikkei + China/HK composite.
+- `C8=0.40*USF+0.25*USC+0.20*SEMI+0.15*ASIA`.
+- Binance remains supporting/confirmation under BINANCE_RULE and is no longer mandatory for numeric C8 v2.
+- WTI, Gold, DAX/CAC and Binance positioning remain context unless a later explicit scoring revision adopts them.
+
+### Global SAI impact
+- Global Base Weights remain unchanged after regression: `18/12/15/10/20/10/8/7%` for C1-C8.
+- Global VERIFIED/PARTIAL gate remains strict: C5 required, Flow/Internal/Environment represented, at least 6/8 usable and at least 70% Base Weight coverage.
+- Conditional Adaptive Weight rules remain unchanged in architecture: one qualifying family +5pp, two same-direction families +3pp each, opposite events blocked, 3+ events retain Base + Broad Market Shock, max reallocation 6pp.
+- Action Bands remain ±0.30 / ±0.60.
+
+### Validation / optimization
+- Double-counting boundaries rechecked: ADL -> C3 context, institution sub-rows -> C1 context, volume/ADX -> C5 context, Margin Credit -> C6 context, raw basis/OI/single-strike options -> C7 context, Binance -> C8 confirmation.
+- Missing values remain non-neutral and never silently filled.
+- C1-C8 formulas remain bounded to [-1,+1].
+- Global SAI remains bounded to [-1,+1] under Base and allowed adaptive reallocations.
+- The supplied 2026-09-10 HTS sample is executable under v2 and yields a near-balanced Base SAI while preserving the material conflict between negative Smart Money/Non-Arbitrage and positive technical/rotation/volatility-normalization evidence.
+- Validation is `PASS BY RULE DESIGN`; empirical out-of-sample optimization is not established.
 
 ### Backup
-- Pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_PREPATCH_BACKUP_2026-09-10.md`
-  - blob SHA: `9a0cc7db72972288a9e81a3f305b792cb20a1761`
-- Final post-activation checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_FINAL_BACKUP_2026-09-10.md`
-  - blob SHA: `c8316a0fbc746c7ca5867073f39aacf6ef9f7878`
-- Final checkpoint records the post-activation six-authority snapshot, Base Weights, Global Missing/Partial gate, family conflict, Conditional Adaptive Weight, Action Bands, anti-circularity, regression/stress validation and the explicit empirical-backtest caveat.
+- Pre-patch: `Backup/AI_MARKET_MASTER_3.2_SAI_HTS_V2_PREPATCH_BACKUP_2026-09-10.md`.
+- Final post-patch backup is created after authority re-read and regression confirmation.
+
+## 2026-09-10 — Global Strategy Action Index v1 Activation
+- Activated reproducible global `Strategy Action Index` v1 while keeping `AI Master Score` DATA UNAVAILABLE.
+- Base weights: C1-C8 = `18/12/15/10/20/10/8/7%`.
+- Added Global Missing/Partial Gate, family conflict, Conditional Adaptive Weight, Action Bands and formula/regression validation.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_FINAL_BACKUP_2026-09-10.md`.
+- Final checkpoint blob SHA: `c8316a0fbc746c7ca5867073f39aacf6ef9f7878`.
 
 ## 2026-09-10 — SAI-C8 Global Leading Component Integration
-
-### Added
-- Added the eighth formally specified Strategy Action Index sub-component: `SAI-C8 Global Leading`.
-- Added five numeric axes:
-  - Global Equity Risk `GR` 30% — SPY + QQQ composite
-  - Korea Leading `KR` 25% — EWY
-  - Semiconductor Risk `SEMI` 20% — SOXL
-  - Global Rate/Liquidity `GLIQ` 15% — TMF
-  - Crypto Risk `CRYPTO` 10% — BTC
-- Added full formula: `SAI-C8 = 0.30*GR + 0.25*KR + 0.20*SEMI + 0.15*GLIQ + 0.10*CRYPTO`.
-- Added explicit v1 normalization boundaries for SPY, QQQ, EWY, SOXL, TMF and BTC.
-- Added aligned-observation-window and query-time validation.
-
-### Optimization / safeguards
-- SPY and QQQ are compressed into one GR composite instead of being counted as two independent Evidence Groups.
-- SAMSUNGUSDT and SKHYNIXUSDT remain G2/G3 Korea/Semiconductor confirmation only and are not added as extra numeric axes after EWY/SOXL.
-- OI, Funding, Long/Short, Premium, ADL risk, order book and recent trades remain G6 positioning/crowding context rather than additional numeric C8 terms.
-- BTC is retained as a high-beta auxiliary proxy with the smallest fixed internal C8 weight of 10%.
-- TMF remains E8 global rates/liquidity proxy; C6 Korea Treasury 3Y remains domestic financial-condition input.
-- C8 axes remain one E8 evidence family and are not counted as five independent Evidence Groups.
-
-### Freshness / missing-data safeguards
-- LIVE Binance data is eligible for normal numeric C8 use.
-- Valid FALLBACK inside BINANCE_RULE TTL may be used but caps C8 status at PARTIAL and preserves the Confidence downgrade.
-- STALE Binance data is prohibited from numeric C8 input.
-- Predefined PARTIAL formula renormalizes only explicitly valid axes and is allowed only when GR exists, at least 3/5 axes exist and original fixed-weight coverage is at least 60%.
-- If GR uses only SPY or only QQQ, overall C8 is PARTIAL.
-- GR missing, fewer than 3 axes, <60% coverage or STALE-only completion makes C8 DATA UNAVAILABLE.
-
-### Conflict / shock safeguards
-- Added `C8 Conflict: ACTIVE` for material GR-vs-KR or GR-vs-SEMI disagreement.
-- Added Korea/Semiconductor confirmation-conflict flags when EWY/SOXL materially disagree with both available Samsung/SK hynix confirmation signals.
-- Added `C8 Shock: ACTIVE` for aligned extreme GR/KR/SEMI moves or comparable extreme global-leading movement with independent G6 confirmation.
-- Conflict/Shock feed Change Detection / Transition / Regime re-validation only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight.
-
-### Backup
-- Pre-patch checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
-- Final checkpoint blob SHA: `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6`.
+- Added original C8 v1 Binance/global-leading five-axis formula.
+- Superseded for current numeric execution by HTS-Operational v2; preserved in Git history and C8 final backup.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`.
+- Blob SHA: `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6`.
 
 ## 2026-09-10 — SAI-C7 Volatility / Derivatives Risk Component Integration
-- Added `SAI-C7 Volatility / Derivatives Risk`.
-- Formula: `0.60*VOL + 0.40*BASIS`.
-- VKOSPI mandatory; fair-value-adjusted Basis optional; VOL-only predefined PARTIAL.
-- OI/PCR/volatility-futures remain contextual; added Conflict/Shock/Mechanical Event safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_FINAL_BACKUP_2026-09-10.md`.
+- Added original C7 v1 VKOSPI-MA20/fair-basis formula.
+- Superseded for current numeric execution by HTS-Operational v2; preserved in Git history and final backup.
 - Final checkpoint blob SHA: `3f9ee5985a46dbb3e2f2bd8b7c714b20e67f2bd6`.
 
 ## 2026-09-10 — SAI-C6 Liquidity / Macro Component Integration
-- Added `SAI-C6 Liquidity / Macro`.
-- Formula: `0.35*FX + 0.35*RATE + 0.30*CASH`.
-- Added point-in-time/freshness, predefined PARTIAL, Margin Credit context-only, Policy Rate/M2 structural-context, Conflict/Shock and anti-double-counting safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`.
+- Added original C6 v1 daily domestic financial-condition formula.
+- Superseded for current numeric execution by HTS-Operational v2; preserved in Git history and final backup.
 - Final checkpoint blob SHA: `3dd78dd160eb49e7cee0ad8bde97f2b31fc2ef48`.
 
 ## 2026-09-10 — SAI-C5 Technical Structure Component Integration
-- Added `SAI-C5 Technical Structure`.
-- Formula: `0.50*PS + 0.30*SR + 0.20*TP`.
-- Official timeframe: KOSPI Daily / Closing-confirmed.
-- PS mandatory; predefined SR/TP missing PARTIAL formulas.
-- Volume/RSI/MACD/ADX/Ichimoku/Elliott/Fibonacci remain confirmation/context, not additional numeric C5 terms.
-- Added C5 Conflict/Divergence/Shock, anti-double-counting, anti-circularity and Intraday Preview safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`.
+- Added original C5 v1 PS/SR/TP formula.
+- Superseded for current numeric execution by HTS-Operational v2; preserved in Git history and final backup.
 
 ## 2026-09-10 — SAI-C4 Sector / Leadership Component Integration
-- Added `SAI-C4 Sector / Leadership` with fixed eight-benchmark universe.
-- Formula: `0.60*SD + 0.40*RL`.
-- 8/8 eligible VERIFIED, 6-7/8 PARTIAL, <6/8 DATA UNAVAILABLE.
-- Leadership Concentration remains qualitative/contextual under E4.
-- Added C4 Conflict/Shock and anti-double-counting/anti-circularity safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`.
+- Added original C4 v1 eight-benchmark sector formula.
+- Superseded for current numeric execution by HTS-Operational v2; preserved in Git history and final backup.
 
 ## 2026-09-10 — SAI-C3 Breadth / Market Internal
-- Added `SAI-C3 Breadth / Market Internal`.
-- Formula: `0.70*N_K + 0.30*N_Q` with KOSPI breadth mandatory and KOSDAQ supplementary.
-- KOSDAQ missing permits KOSPI-only PARTIAL; KOSPI missing makes C3 DATA UNAVAILABLE.
-- Raw ADL remains contextual in v1.
-- Added Cross-Market Conflict, Index/Breadth Divergence and Shock safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`.
+- Added original C3 breadth formula; core ownership retained and normalization revised in v2.
 
 ## 2026-09-10 — SAI-C2 Program Flow Component Integration
-- Added `SAI-C2 Program Flow`.
-- Formula: `0.30*N_ARB + 0.70*N_NONARB`.
-- Non-Arbitrage is structural core; Arbitrage missing permits predefined PARTIAL, Non-Arbitrage missing makes C2 DATA UNAVAILABLE.
-- Total Program is reconciliation/context only.
-- Added Conflict/Shock/Mechanical Event safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`.
+- Added original C2 Program formula; ownership retained and normalization/weights revised in v2.
 
 ## 2026-09-10 — SAI-C1 Smart Money Component Integration
-- Added `SAI-C1 Smart Money`.
-- Formula: `0.40*N_FC + 0.40*N_FF + 0.20*N_IC`.
-- Foreign Cash and Foreign Futures are mandatory; institution missing permits predefined 50/50 PARTIAL.
-- Added Conflict/Shock and anti-double-counting safeguards.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`.
+- Added original C1 Smart Money formula; superseded by participant-share v2.
 
 ## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
-- Restored Change Detection → Validation → Revision → Final AI Decision closed-loop behavior.
-- Added six-authority architecture with `AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
-- Added 8 Market Regimes, E1-E8 Evidence Groups, VH/H/M/L qualitative Evidence Priority Matrix, Transition framework, conflict resolution, anti-double-counting and Regime re-validation.
+- Added 8 Market Regimes, E1-E8 Evidence Groups, VH/H/M/L qualitative Evidence Priority, Transition, conflict resolution and Regime re-validation.
 - Adaptive Validation remains cross-engine, not a 25th engine.
-- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`.
 
 ## 2026-09-08 — Binance Latest Re-query & Fallback Policy
-- Added mandatory fresh re-query attempt before prior Binance reuse in Full Dashboard.
-- Added LIVE/FALLBACK/STALE Data Modes, freshness windows, fallback confidence downgrade and stale-data restrictions.
+- Added fresh re-query first, LIVE/FALLBACK/STALE, freshness windows and Confidence downgrade.
 - HTS/KRX remains final Korean-market confirmation.
 
 ## 2026-09-07 — 3.2 Unified Stable
-- Consolidated authority into dedicated rule files, preserving 24 internal engines and fixed 8 Dashboard categories.
-- Retained Dynamic KOSPI Zone, Smart Money Action Matrix, Portfolio Sell Priority, Intraday 24→16→17, dual-axis Elliott/Fibonacci and anti-hallucination gates.
-- Numeric global AI Master Score / Strategy Action Index remained DATA UNAVAILABLE pending reproducible formal formulas.
+- Consolidated authority into six dedicated rule files while preserving 24 internal engines and 8 Dashboard categories.
 
 ## Historical
-Earlier 3.2 Integrated Expansion and 3.1 history remain recoverable through Git history / legacy references.
+Earlier 3.2 and 3.1 history remain recoverable through Git history / legacy references.
