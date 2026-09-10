@@ -146,8 +146,9 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`
 
-C5 final checkpoint is registered only after post-integration cross-validation and final-backup creation pass.
+The C5 final checkpoint blob SHA is `740941c70a468c2c7638783ba282dd5b174e1250` and records the post-integration six-authority snapshot, Daily/Closing timeframe boundary, PS/SR/TP formula, 50/30/20 internal weights, predefined partial handling, Volume/Momentum/Elliott-Fibonacci non-numeric boundary, conflict/divergence/shock safeguards, anti-double-counting, anti-circularity and final validation state.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
