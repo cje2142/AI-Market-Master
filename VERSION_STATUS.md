@@ -72,10 +72,11 @@ Non-authoritative backup references:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md` — SAI-C1 pre-patch design checkpoint
 
 ## Final Backup Checkpoint
-Verified final checkpoint for the Adaptive Validation integration:
+Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
 
-A separate SAI-C1 final checkpoint is created after SAI-C1 rule integration and cross-validation.
+The SAI-C1 final checkpoint records the post-integration authority snapshot, formula boundary, anti-double-counting safeguards, conflict/shock behavior and cross-validation result.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
