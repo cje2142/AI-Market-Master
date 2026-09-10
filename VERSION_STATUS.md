@@ -122,8 +122,9 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
 
-C6 final checkpoint is registered only after post-integration cross-validation and final-backup creation pass.
+The C6 final checkpoint blob SHA is `3dd78dd160eb49e7cee0ad8bde97f2b31fc2ef48` and records the post-integration six-authority snapshot, 35/35/30 FX/Rate/Cash formula, point-in-time data rules, predefined partial handling, Margin Credit and Policy Rate/M2 non-numeric boundaries, Conflict/Shock safeguards, anti-double-counting, anti-circularity, scoring-rule consolidation validation and final cross-authority verification.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
