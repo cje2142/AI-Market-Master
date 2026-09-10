@@ -1,5 +1,46 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — SAI-C3 Breadth / Market Internal Component Integration
+
+### Added
+- Added the third formally specified Strategy Action Index sub-component: `SAI-C3 Breadth / Market Internal`.
+- C3 uses:
+  - KOSPI advance/decline active breadth — mandatory structural core
+  - KOSDAQ advance/decline active breadth — supplementary cross-market participation confirmation
+  - unchanged issue counts — validation/context only
+  - raw ADL level — contextual only in v1, not a numeric contribution without comparable history
+- Added symmetric active-breadth normalization to `[-1.00,+1.00]` with ±50% raw active breadth as the v1 saturation boundary.
+- Added v1 C3 internal weights:
+  - KOSPI breadth 70%
+  - KOSDAQ breadth 30%
+- Added explicit KOSDAQ-missing partial formula: `C3 = N_K / PARTIAL`.
+- Added mandatory-input gate: missing/invalid KOSPI breadth → `SAI-C3 = DATA UNAVAILABLE`.
+- Added C3 Cross-Market Conflict, Index/Breadth Divergence and Breadth Shock flags.
+
+### Anti-double-counting / authority safeguards
+- E3 Breadth / Internal remains the adaptive/qualitative interpretation owner.
+- Breadth/ADL is not independently re-scored in E5 Technical.
+- KOSPI/KOSDAQ index return is a divergence comparator only, not an additional C3 numeric contribution.
+- Program remains C2/E2; Foreign/Institution flow remains C1/E1; Options/OI/Volatility remains E7.
+- VH/H/M/L Evidence Priority remains qualitative and is not converted into C3 numeric weights.
+- C3 cannot select or reconfirm a Market Regime by itself.
+
+### Divergence / shock safeguards
+- KOSPI up with materially negative KOSPI breadth, or KOSPI down with materially positive breadth, is exposed through `C3 Divergence` rather than hidden inside the aggregate score.
+- Extreme broad participation is exposed through `C3 Shock` and passed to Change Detection / Transition as a Weight Shift candidate only.
+- C3 Conflict/Divergence/Shock flags do not automatically change Market Regime, portfolio action or permanent Base Weight.
+
+### Scoring firewall retained
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- C1, C2 and C3 are component-level formulas only.
+- Remaining components, global aggregation, global missing/partial rules, Action Bands and validation must be completed before global SAI activation.
+
+### Backup
+- Created pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_PREPATCH_BACKUP_2026-09-10.md`
+- Final post-integration checkpoint is created only after C3 cross-validation passes.
+
 ## 2026-09-10 — SAI-C2 Program Flow Component Integration
 
 ### Added
@@ -152,7 +193,7 @@ Official authority is now split across six files:
   - Post-close structural analysis: prior validated Binance data may be reused for up to 2 hours.
 - FALLBACK requires a known prior query time, known prior Validation Status and preserved symbol/field-depth status.
 - FALLBACK lowers Binance-related Confidence by at least one level.
-- STALE data is historical/context-only and cannot be the primary basis for current aggressive portfolio action, leverage expansion or numeric score inputs.
+- STALE data is historical/context-only and cannot be the primary basis for current aggressive portfolio action, leverage expansion or numeric scoring inputs.
 - Dashboard now discloses Binance Data Mode, data age, prior query time/status, symbol availability, field depth and Confidence when applicable.
 - MASTER Completion Gate now verifies latest re-query attempt, fallback freshness, Confidence downgrade and stale-data restrictions.
 
