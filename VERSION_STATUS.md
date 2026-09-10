@@ -57,51 +57,62 @@ Defined component-level formulas inside `SCORING_RULE`:
 
 ### SAI-C1 Smart Money
 Foreign KOSPI cash + Foreign KOSPI200 futures + Institutional KOSPI cash.
-Full internal weighting 40/40/20. Institution missing permits predefined 50/50 Foreign Cash/Futures PARTIAL formula. Program/Breadth/Options excluded from C1.
+Full internal weighting 40/40/20. Institution missing permits predefined 50/50 Foreign Cash/Futures PARTIAL formula.
 
 ### SAI-C2 Program Flow
 Arbitrage + Non-Arbitrage Program flow; Total Program is reconciliation/context only.
-Full internal weighting 30/70. Arbitrage missing permits Non-Arbitrage-only PARTIAL; Non-Arbitrage missing makes C2 DATA UNAVAILABLE. Mechanical-event safeguards retained.
+Full internal weighting 30/70. Arbitrage missing permits Non-Arbitrage-only PARTIAL; Non-Arbitrage missing makes C2 DATA UNAVAILABLE.
 
 ### SAI-C3 Breadth / Market Internal
 KOSPI active breadth mandatory + KOSDAQ active breadth supplementary.
-Full internal weighting 70/30. KOSDAQ missing permits KOSPI-only PARTIAL. Raw ADL remains contextual in v1. Conflict/Divergence/Shock safeguards retained.
+Full internal weighting 70/30. KOSDAQ missing permits KOSPI-only PARTIAL. Raw ADL remains contextual in v1.
 
 ### SAI-C4 Sector / Leadership
 Fixed eight-benchmark universe. Calculates Sector Direction Breadth `SD` and KOSPI-relative Leadership Breadth `RL`.
 `SAI-C4 = 0.60*SD + 0.40*RL`.
-8/8 eligible VERIFIED, 6-7/8 PARTIAL, <6/8 DATA UNAVAILABLE. Leadership Concentration remains qualitative/contextual under E4.
+8/8 eligible VERIFIED, 6-7/8 PARTIAL, <6/8 DATA UNAVAILABLE.
 
 ### SAI-C5 Technical Structure
 Official v1 timeframe: KOSPI Daily / Closing-confirmed.
-Numeric terms:
-- Price Structure PS 50% — mandatory core
-- Support/Resistance Position SR 30%
-- MA/VWAP Trend Position TP 20%
-
 `SAI-C5 = 0.50*PS + 0.30*SR + 0.20*TP`.
-Predefined partial formulas apply when only SR or TP is unavailable; missing PS makes C5 DATA UNAVAILABLE. Volume/RSI/MACD/ADX/Ichimoku/Elliott/Fibonacci remain validation/context, not extra numeric terms.
+Price Structure PS is mandatory. Predefined partial formulas apply when only SR or TP is unavailable. Volume/RSI/MACD/ADX/Ichimoku/Elliott/Fibonacci remain validation/context.
 
 ### SAI-C6 Liquidity / Macro
 Official v1 uses completed daily domestic financial-condition observations plus latest officially published Customer Deposits observation.
+`SAI-C6 = 0.35*FX + 0.35*RATE + 0.30*CASH`.
+FX/Rate/Cash use predefined normalization and explicit two-axis PARTIAL rules. Margin Credit remains qualitative context; Policy Rate/M2 remain Structural Macro Context.
+
+### SAI-C7 Volatility / Derivatives Risk
+Official v1 uses completed domestic volatility/derivatives observations.
 
 Numeric terms:
-- FX Pressure 35%: `FX = -clip((USDKRW_t/USDKRW_t-5 - 1)/0.020,-1,+1)`
-- Domestic Rate Pressure 35%: `RATE = -clip(dY3Y_5d_bp/20,-1,+1)`
-- Cash Liquidity 30%: `CASH = clip((Deposit_t/Deposit_t-5 - 1)/0.05,-1,+1)`
+- Volatility Stress `VOL` 60% — mandatory
+- Fair-value-adjusted KOSPI200 Basis Stress `BASIS` 40% — optional
+
+`VOL = -clip((VKOSPI_t / VKOSPI_MA20 - 1)/0.30,-1,+1)`
+
+`BasisGap = ActualBasis - FairBasis`
+`BG = BasisGap / KOSPI200Spot`
+`BASIS = clip(BG/0.003,-1,+1)`
 
 Full formula:
-`SAI-C6 = 0.35*FX + 0.35*RATE + 0.30*CASH`
+`SAI-C7 = 0.60*VOL + 0.40*BASIS`
 
-Predefined PARTIAL formulas:
-- FX missing: `0.5385*RATE + 0.4615*CASH`
-- RATE missing: `0.5385*FX + 0.4615*CASH`
-- CASH missing: `0.50*FX + 0.50*RATE`
+Missing/Partial:
+- VOL + BASIS valid → eligible VERIFIED
+- VOL valid, BASIS unavailable → `C7=VOL` / PARTIAL
+- VOL unavailable → DATA UNAVAILABLE
 
-Minimum two distinct valid axes with at least one of FX or RATE; otherwise DATA UNAVAILABLE.
-Margin Credit is qualitative leverage/liquidity-quality context only in v1. Policy Rate/M2 remain Structural Macro Context. C6 Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, portfolio action or permanent Base Weight.
+C7 safeguards:
+- futures OI/OI change is positioning context, not independent directional numeric score
+- isolated option strikes cannot be used as official PCR
+- full-market Put/Call Ratio remains contextual in v1
+- volatility futures are term-structure/confirmation context and do not silently replace VKOSPI spot
+- derivatives expiry/rollover/rebalance may activate `C7 Mechanical Event`
+- C7 Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight
+- Binance OI/Funding/Long-Short and global proxies remain E8 and are not re-scored in C7
 
-C1-C6 remain component-level formulas only and do not activate global Strategy Action Index.
+C1-C7 remain component-level formulas only and do not activate global Strategy Action Index.
 
 ## Restore / Design References
 Non-authoritative references:
@@ -113,6 +124,7 @@ Non-authoritative references:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_PREPATCH_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_PREPATCH_BACKUP_2026-09-10.md`
 
 ## Final Backup Checkpoint
 Verified final checkpoints:
@@ -124,7 +136,7 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_FINAL_BACKUP_2026-09-10.md`
 
-The C6 final checkpoint blob SHA is `3dd78dd160eb49e7cee0ad8bde97f2b31fc2ef48` and records the post-integration six-authority snapshot, 35/35/30 FX/Rate/Cash formula, point-in-time data rules, predefined partial handling, Margin Credit and Policy Rate/M2 non-numeric boundaries, Conflict/Shock safeguards, anti-double-counting, anti-circularity, scoring-rule consolidation validation and final cross-authority verification.
+C7 final backup is created only after post-integration cross-validation succeeds.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
