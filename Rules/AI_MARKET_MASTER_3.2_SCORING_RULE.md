@@ -15,7 +15,7 @@ Therefore the official current numeric state remains:
 - `AI Master Score: DATA UNAVAILABLE`
 - `Strategy Action Index: DATA UNAVAILABLE`
 
-`SAI-C1 Smart Money` is defined below as a component specification only. It must not be presented as the final Strategy Action Index.
+`SAI-C1 Smart Money` and `SAI-C2 Program Flow` are defined below as component specifications only. Neither may be presented as the final Strategy Action Index.
 
 ## 3. Numeric Score Activation Gate
 A global numeric score may be activated only after all of the following are explicitly defined and verified in this file:
@@ -378,9 +378,226 @@ Before activating the global Strategy Action Index:
 9. update VERSION_STATUS and CHANGELOG
 10. only then change Current Official Status from DATA UNAVAILABLE
 
-## 27. Final Principle
+## 27. General Final Principle
 No complete official global formula = no official global number.
 A validated sub-component does not equal Strategy Action Index.
 Adaptive priority ≠ numeric weight.
 Reliability > Speed.
 DATA UNAVAILABLE is preferable to fabricated precision.
+
+## 28. SAI-C2 Program Flow — Purpose and Boundary
+`SAI-C2 Program Flow` is the second formally specified numeric component for a future Strategy Action Index.
+
+Purpose:
+Measure whether KOSPI program trading is supplying or withdrawing market liquidity, while separating structurally informative Non-Arbitrage flow from more mechanical/event-sensitive Arbitrage flow.
+
+Authority boundary:
+- Numeric C2 formula, normalization, bounds, internal weights, missing-data handling and numeric shock thresholds are owned by this SCORING_RULE.
+- `E2 Program Flow` interpretation, Market Regime, Transition, VH/H/M/L Evidence Priority, conflict resolution and re-validation remain owned by ADAPTIVE_VALIDATION_RULE.
+- C2 does not replace E2 and cannot select or reconfirm a Regime by itself.
+- C2 must not convert E2 VH/H/M/L priority into numeric weight.
+
+## 29. SAI-C2 Inputs and Units
+### C2-A Arbitrage Program Flow
+- Input: KOSPI arbitrage program net buy/sell amount
+- Unit: KRW amount, unit-aligned with KOSPI total traded value before ratio conversion
+- Required: NO; supplementary/mechanical-sensitive component
+
+### C2-B Non-Arbitrage Program Flow
+- Input: KOSPI non-arbitrage program net buy/sell amount
+- Unit: KRW amount, unit-aligned with KOSPI total traded value before ratio conversion
+- Required: YES; structural core component
+
+### Validation-only Total Program Flow
+- Input: total KOSPI program net buy/sell amount when available
+- Use: source/unit reconciliation against Arbitrage + Non-Arbitrage
+- It is not a third independent numeric contribution.
+
+If total program is provided and materially fails to reconcile with unit-aligned Arbitrage + Non-Arbitrage, disclose a data-integrity conflict and do not silently score inconsistent inputs.
+
+## 30. SAI-C2 Normalization
+All normalized values are clipped to `[-1.00,+1.00]`.
+
+### C2-A Arbitrage Normalization
+Let:
+`ARB = Arbitrage Program Net Flow / KOSPI Total Traded Value`
+
+Then:
+`N_ARB = clip(ARB / 0.0075, -1, +1)`
+
+Interpretation:
+- +0.75% or greater of KOSPI traded value → +1.00
+- 0 → 0
+- -0.75% or lower → -1.00
+- intermediate values are linearly normalized
+
+### C2-B Non-Arbitrage Normalization
+Let:
+`NONARB = Non-Arbitrage Program Net Flow / KOSPI Total Traded Value`
+
+Then:
+`N_NONARB = clip(NONARB / 0.015, -1, +1)`
+
+Interpretation:
+- +1.50% or greater of KOSPI traded value → +1.00
+- 0 → 0
+- -1.50% or lower → -1.00
+- intermediate values are linearly normalized
+
+These are SAI-C2 v1 calibration boundaries. They are component-specific numeric rules, not conversions from qualitative Evidence Priority.
+
+## 31. SAI-C2 Formula
+When Arbitrage and Non-Arbitrage inputs are both valid:
+
+`SAI-C2 = 0.30*N_ARB + 0.70*N_NONARB`
+
+Component range:
+`-1.00 <= SAI-C2 <= +1.00`
+
+Internal weights:
+- Arbitrage Program: 30%
+- Non-Arbitrage Program: 70%
+
+Rationale:
+- Non-Arbitrage flow has greater structural significance under the existing 3.2 Program Conflict rule.
+- Arbitrage flow is retained because it contains useful liquidity/hedging information but is more sensitive to basis, expiry and index-rebalancing mechanics.
+- Strong Arbitrage buying must not numerically dominate persistent Non-Arbitrage selling.
+
+These internal weights do not define the future weight of C2 inside the complete global Strategy Action Index.
+
+## 32. SAI-C2 Missing / Partial Rule
+### Full C2
+If Arbitrage and Non-Arbitrage are both available and source/unit validation passes:
+`SAI-C2 = 0.30*N_ARB + 0.70*N_NONARB`
+Status: `VERIFIED`.
+
+### Arbitrage Missing Only
+If Non-Arbitrage is available but Arbitrage is unavailable:
+`SAI-C2 = N_NONARB`
+Status: `PARTIAL`.
+
+This is an explicit predefined partial formula and is not silent reweighting.
+
+### Non-Arbitrage Missing
+If Non-Arbitrage is unavailable or its unit/denominator cannot be validated:
+`SAI-C2 = DATA UNAVAILABLE`.
+
+Arbitrage alone may not create a C2 numeric score.
+Missing data is never converted to zero / Neutral.
+
+## 33. SAI-C2 Conflict Rule
+The aggregate number must not hide Arbitrage/Non-Arbitrage divergence.
+
+`C2 Conflict: ACTIVE` when:
+- `N_ARB` and `N_NONARB` have opposite signs, and
+- both absolute normalized magnitudes are at least `0.30`.
+
+When C2 Conflict is ACTIVE:
+- keep the formula unchanged
+- disclose the conflict
+- preserve Non-Arbitrage structural priority in qualitative interpretation
+- pass the conflict to ADAPTIVE_VALIDATION_RULE
+- do not alter C2 weights ad hoc to force a directional result.
+
+A near-zero aggregate caused by opposing flows is not interpreted as absence of information.
+
+## 34. SAI-C2 Shock / Weight Shift Candidate
+C2 remains clipped to ±1.00. Extreme flow does not extend the numeric range.
+
+Raise `C2 Shock: ACTIVE` when either validated raw ratio reaches 1.5 times its normal saturation boundary:
+- |Arbitrage / KOSPI Traded Value| >= 1.125%
+- |Non-Arbitrage / KOSPI Traded Value| >= 2.25%
+
+C2 Shock is passed to Change Detection / Transition analysis as a Weight Shift candidate.
+It is not an automatic Market Regime change, global SAI override, portfolio action or permanent Base Weight change.
+
+## 35. Mechanical Event Flag
+When a known derivatives expiry, index/sector rebalance, ETF mechanical rebalance or comparable market-structure event can materially distort program flow, disclose:
+`C2 Mechanical Event: ACTIVE`.
+
+Rules:
+- C2 is still calculated from validated raw data.
+- Arbitrage flow must not independently create a structural Regime conclusion on a Mechanical Event day.
+- Non-Arbitrage remains the stronger structural interpretation input, but its significance must still be cross-validated with E1 Smart Money, E3 Breadth, E5 Technical and E7 Risk when relevant.
+- Mechanical Event does not automatically change numeric C2 weights; any future numeric event adjustment requires a separately validated SCORING_RULE revision.
+
+## 36. SAI-C2 Anti-Double-Counting
+For C2 numeric scoring:
+- Arbitrage is scored once
+- Non-Arbitrage is scored once
+- Total Program is reconciliation/context only and is not added after its components
+- Foreign/institution investor flows remain C1/E1 and are not re-added to C2
+- Breadth/ADL remain E3
+- Technical price/volume remain E5
+- options/OI/volatility remain E7
+
+No derivative or sum of already-scored Program inputs may be added as an additional independent C2 contribution.
+
+## 37. SAI-C2 Validation Cases
+### Case A — Bullish Alignment
+`N_ARB=+0.50, N_NONARB=+0.70`
+`C2 = 0.30*0.50 + 0.70*0.70 = +0.64`
+Expected: positive C2, no conflict.
+
+### Case B — Bearish Alignment
+`N_ARB=-0.40, N_NONARB=-0.80`
+`C2 = 0.30*(-0.40) + 0.70*(-0.80) = -0.68`
+Expected: negative C2, no conflict.
+
+### Case C — Arbitrage Buy / Non-Arbitrage Sell
+`N_ARB=+1.00, N_NONARB=-0.60`
+`C2 = +0.30 - 0.42 = -0.12`
+Expected: `C2 Conflict: ACTIVE`; structural interpretation remains cautionary because Non-Arbitrage is negative.
+
+### Case D — Arbitrage Missing
+`N_ARB=DATA UNAVAILABLE, N_NONARB=+0.65`
+`C2 = +0.65`
+Status: `PARTIAL`.
+
+### Case E — Non-Arbitrage Missing
+`N_ARB=+0.80, N_NONARB=DATA UNAVAILABLE`
+Expected: `SAI-C2 = DATA UNAVAILABLE`.
+
+### Case F — Extreme Non-Arbitrage Flow
+If |Non-Arbitrage / KOSPI Traded Value| >= 2.25%:
+- normalized contribution remains clipped to ±1.00
+- `C2 Shock: ACTIVE`
+- pass to Change Detection / Transition analysis
+- no automatic global SAI or Regime change.
+
+### Case G — Mechanical Rebalance Day
+Large Arbitrage flow with a known expiry/rebalance event:
+- calculate C2 normally
+- disclose `C2 Mechanical Event: ACTIVE`
+- do not treat Arbitrage alone as structural confirmation.
+
+## 38. SAI-C2 Adaptive / Anti-Circularity Boundary
+Required separation:
+
+`Raw HTS Program Data → C2 Calculation`
+
+and independently:
+
+`Raw HTS + other Evidence → Preliminary Regime → Transition / Conflict → Regime Re-validation`
+
+C2 may inform later strategy once the global SAI formula exists, but C2 must not:
+1. choose a Regime,
+2. use that Regime to alter itself,
+3. use the altered C2 as the sole reason to reconfirm the same Regime.
+
+Any future Conditional Numeric Weight must be separately defined in this SCORING_RULE and must not be inferred from E2 VH/H/M/L priority.
+
+## 39. Current Component / Global SAI Status
+- `SAI-C1 Smart Money`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C2 Program Flow`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `Strategy Action Index`: DATA UNAVAILABLE
+- `AI Master Score`: DATA UNAVAILABLE
+
+The global SAI remains unavailable until remaining components, global aggregation, global missing/partial handling, output range/Action Bands and required validation are complete.
+
+## 40. C2 Final Principle
+Program Total = validation/context, not an extra score.
+Non-Arbitrage > Arbitrage for structural interpretation.
+Mechanical flow ≠ structural market change by itself.
+Conflict and Shock are information, not reasons to distort the formula.
+No complete global formula = no global Strategy Action Index.
