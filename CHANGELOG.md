@@ -1,342 +1,104 @@
 # AI Market Master Change Log
 
-## 2026-09-10 — SAI-C5 Technical Structure Component Integration
+## 2026-09-10 — SAI-C6 Liquidity / Macro Component Integration
 
 ### Added
-- Added the fifth formally specified Strategy Action Index sub-component: `SAI-C5 Technical Structure`.
-- Official C5 v1 timeframe is KOSPI Daily / Closing-confirmed structure.
-- Added three numeric terms:
-  - Price Structure `PS` — mandatory directional core, 50%
-  - Support / Resistance Position `SR` — 30%
-  - MA / VWAP Trend Position `TP` — 20%
-- Added full formula: `SAI-C5 = 0.50*PS + 0.30*SR + 0.20*TP`.
-- Added predefined partial formulas when only SR or TP is unavailable.
-- Missing/invalid PS makes C5 `DATA UNAVAILABLE`.
+- Added the sixth formally specified Strategy Action Index sub-component: `SAI-C6 Liquidity / Macro`.
+- Added three numeric axes:
+  - FX Pressure 35% — USD/KRW 5-observation change, direction inverted for KRW financial-condition interpretation.
+  - Domestic Rate Pressure 35% — Korea Treasury 3Y 5-observation change in basis points.
+  - Cash Liquidity 30% — Customer Deposits 5-observation percentage change.
+- Added full formula: `SAI-C6 = 0.35*FX + 0.35*RATE + 0.30*CASH`.
+- Added completed-daily / point-in-time source rules and explicit Customer Deposits observation-date disclosure.
+- Added predefined PARTIAL formulas when one of the three axes is unavailable, with a minimum two-axis gate and at least one of FX or RATE required.
 
-### Technical optimization / safeguards
-- Price Structure uses validated daily HH/HL, LH/LL and closing-confirmed breakout/breakdown logic.
-- Intraday data is limited to `C5 Intraday Preview` and cannot overwrite the latest closing-confirmed C5 by itself.
-- SR uses the nearest validated major Support/Resistance corridor; intact-corridor score is limited to ±0.50, while confirmed closing breakout/breakdown may reach ±1.00.
-- TP compresses MA20/MA60/VWAP20/VWAP60 into one composite with a ±0.20% noise-control band.
-- Volume, RSI, MACD, ADX, Ichimoku, Elliott and Fibonacci remain confirmation/context rather than additional C5 numeric terms.
-- ADX remains trend-strength only and cannot create direction by itself.
-- Added `C5 Conflict`, `C5 Divergence` and `C5 Shock` handling without ad hoc weight changes.
+### Optimization / safeguards
+- Margin Credit is not a direct numeric C6 term because rising credit can represent both liquidity expansion and leverage fragility; it remains qualitative E6/E7 context.
+- Policy Rate, M2 and lower-frequency macro series remain Structural Macro Context rather than being mixed directly into the daily score.
+- Absolute USD/KRW, yield and deposit levels remain context; v1 numeric scoring uses changes rather than fixed long-run levels.
+- Added `C6 Conflict: ACTIVE` when opposing available axes both have absolute normalized magnitude >=0.50.
+- Added `C6 Shock: ACTIVE` thresholds:
+  - |USD/KRW 5-observation change| >=2.5%
+  - |Korea Treasury 3Y 5-observation change| >=30bp
+  - |Customer Deposits 5-observation change| >=7.5%
+- C6 Shock/Conflict feed Change Detection / Transition only and do not automatically change Market Regime, global SAI, portfolio action or permanent Base Weight.
 
 ### Anti-double-counting / authority safeguards
-- `TECHNICAL_RULE` remains technical calculation authority.
-- `E5 Technical Structure` remains adaptive/qualitative interpretation owner.
-- PS/SR/TP form one E5/C5 technical evidence family and must not be counted as three independent Evidence Groups.
-- Breadth/ADL remains C3/E3; Sector Leadership remains C4/E4; Foreign/Institution flow remains C1/E1; Program remains C2/E2.
-- Liquidity remains E6; Options/OI/Volatility remains E7; Binance/global leading remains E8.
-- VH/H/M/L qualitative Evidence Priority remains non-numeric.
-- C5 cannot independently select or reconfirm a Market Regime.
+- `E6 Liquidity / Macro` remains the qualitative/adaptive interpretation owner.
+- MASTER Engine 06 remains Global Liquidity analysis; no 25th engine created.
+- Smart Money remains C1/E1; Program C2/E2; Breadth C3/E3; Sector Leadership C4/E4; Technical Structure C5/E5; Options/OI/Volatility E7; Binance/global-leading proxies E8.
+- Korea Treasury 3Y in C6 represents domestic financial conditions; TMF remains E8 global-leading context and is not re-scored inside C6.
+- VH/H/M/L remains qualitative and cannot be converted into numeric C6 weights.
+- Anti-circularity preserved: C6 cannot choose a Regime, use that Regime to alter its own weights, then reconfirm the same Regime.
 
 ### Scoring firewall retained
 - `AI Master Score` remains `DATA UNAVAILABLE`.
 - Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1-C5 are component-level formulas only.
-- Remaining components, global aggregation, global missing/partial rules, Action Bands and regression validation must be completed before global SAI activation.
+- C1-C6 are component-level formulas only.
+- Global aggregation, global missing/partial handling, final range/Action Bands and regression validation remain required before global SAI activation.
 
 ### Backup
-- Created pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_PREPATCH_BACKUP_2026-09-10.md`
-- Created final post-integration checkpoint after cross-validation:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`
-- Final checkpoint blob SHA: `740941c70a468c2c7638783ba282dd5b174e1250`.
-- Final checkpoint records the post-integration six-authority snapshot, Daily/Closing timeframe boundary, PS/SR/TP formula, predefined partial rules, non-numeric momentum/volume boundary, conflict/divergence/shock safeguards, anti-double-counting and anti-circularity state.
+- Pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_PREPATCH_BACKUP_2026-09-10.md`
+- Final post-integration checkpoint is created after cross-validation and then registered in VERSION_STATUS/CHANGELOG.
+
+## 2026-09-10 — SAI-C5 Technical Structure Component Integration
+- Added `SAI-C5 Technical Structure`.
+- Formula: `0.50*PS + 0.30*SR + 0.20*TP`.
+- Official timeframe: KOSPI Daily / Closing-confirmed.
+- PS mandatory; predefined SR/TP missing PARTIAL formulas.
+- Volume/RSI/MACD/ADX/Ichimoku/Elliott/Fibonacci remain confirmation/context, not additional numeric C5 terms.
+- Added C5 Conflict/Divergence/Shock, anti-double-counting, anti-circularity and Intraday Preview safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C5_TECHNICAL_STRUCTURE_FINAL_BACKUP_2026-09-10.md`.
 
 ## 2026-09-10 — SAI-C4 Sector / Leadership Component Integration
-
-### Added
-- Added the fourth formally specified Strategy Action Index sub-component: `SAI-C4 Sector / Leadership`.
-- Fixed the C4 v1 benchmark universe to eight sector identities:
-  - KRX Semiconductor Index
-  - KRX Automobile Index
-  - KRX Secondary Battery TOP 10 Index
-  - KOSPI 200 Financial Index
-  - iSelect Shipbuilding TOP10 Index (PR)
-  - iSelect Defense TOP10 Index (Price Return)
-  - KRX-Akros AI Power Infrastructure Index
-  - KRX Bio TOP 10 Index
-- Added same-session data standard using KOSPI daily return plus fixed-universe sector benchmark daily returns.
-- Added `Sector Direction Breadth (SD)` with a ±0.20% neutral band.
-- Added `Relative Leadership Breadth (RL)` using `Sector Return - KOSPI Return` with a ±0.20%p neutral band.
-- Added v1 C4 formula: `SAI-C4 = 0.60*SD + 0.40*RL`.
-- Added explicit 75% completeness gate: 8/8 eligible for VERIFIED, 6-7/8 predefined PARTIAL, fewer than 6/8 DATA UNAVAILABLE.
-- Missing/invalid/asynchronous KOSPI comparator makes C4 DATA UNAVAILABLE.
-
-### Leadership / conflict safeguards
-- Leadership Concentration remains qualitative/contextual under E4 and is not an independent numeric C4 term because concentration is not inherently bearish.
-- Added `C4 Conflict: ACTIVE` when SD and RL materially oppose each other.
-- Added `C4 Shock: ACTIVE` for broad same-direction sector participation or strong aligned SD/RL.
-- C4 Conflict/Shock feed Change Detection / Transition only; they do not automatically change Market Regime, portfolio action, global SAI or permanent Base Weight.
-
-### Anti-double-counting / authority safeguards
-- `E4 Sector / Leadership` remains the adaptive/qualitative interpretation owner.
-- C4 sector-return transforms do not create extra independent Evidence Groups.
-- Issue Breadth/ADL remains C3/E3; Foreign/Institution flow remains C1/E1; Program flow remains C2/E2.
-- Technical indicators remain E5; Liquidity remains E6; Options/OI/Volatility remains E7; Binance/global leading remains E8.
-- AI-cycle HBM/DRAM/NAND/CAPEX/inventory/demand fundamentals remain outside C4.
-- ETF return may be contextual verification only and cannot silently replace a missing benchmark-index return.
-- ETF ticker/code must not be treated as an index code; canonical identity is provider + exact benchmark name.
-- C4 cannot select/reconfirm a Market Regime by itself and cannot convert VH/H/M/L into numeric weights.
-
-### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1, C2, C3 and C4 are component-level formulas only.
-- Remaining components, global aggregation, global missing/partial rules, Action Bands and regression validation must be completed before global SAI activation.
-
-### Backup
-- Existing pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_PREPATCH_BACKUP_2026-09-10.md`
-- Created final post-integration checkpoint after cross-validation:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`
-- Final checkpoint records the post-integration six-authority snapshot, fixed-universe/data-source rules, SD/RL formula, completeness gate, concentration boundary, conflict/shock safeguards, anti-double-counting, anti-circularity and final validation state.
+- Added `SAI-C4 Sector / Leadership` with fixed eight-benchmark universe.
+- Formula: `0.60*SD + 0.40*RL`.
+- 8/8 eligible VERIFIED, 6-7/8 PARTIAL, <6/8 DATA UNAVAILABLE.
+- Leadership Concentration remains qualitative/contextual under E4.
+- Added C4 Conflict/Shock and anti-double-counting/anti-circularity safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`.
 
 ## 2026-09-10 — SAI-C3 Breadth / Market Internal Component Integration
-
-### Added
-- Added the third formally specified Strategy Action Index sub-component: `SAI-C3 Breadth / Market Internal`.
-- C3 uses:
-  - KOSPI advance/decline active breadth — mandatory structural core
-  - KOSDAQ advance/decline active breadth — supplementary cross-market participation confirmation
-  - unchanged issue counts — validation/context only
-  - raw ADL level — contextual only in v1, not a numeric contribution without comparable history
-- Added symmetric active-breadth normalization to `[-1.00,+1.00]` with ±50% raw active breadth as the v1 saturation boundary.
-- Added v1 C3 internal weights:
-  - KOSPI breadth 70%
-  - KOSDAQ breadth 30%
-- Added explicit KOSDAQ-missing partial formula: `C3 = N_K / PARTIAL`.
-- Added mandatory-input gate: missing/invalid KOSPI breadth → `SAI-C3 = DATA UNAVAILABLE`.
-- Added C3 Cross-Market Conflict, Index/Breadth Divergence and Breadth Shock flags.
-
-### Anti-double-counting / authority safeguards
-- E3 Breadth / Internal remains the adaptive/qualitative interpretation owner.
-- Breadth/ADL is not independently re-scored in E5 Technical.
-- KOSPI/KOSDAQ index return is a divergence comparator only, not an additional C3 numeric contribution.
-- Program remains C2/E2; Foreign/Institution flow remains C1/E1; Options/OI/Volatility remains E7.
-- VH/H/M/L Evidence Priority remains qualitative and is not converted into C3 numeric weights.
-- C3 cannot select or reconfirm a Market Regime by itself.
-
-### Divergence / shock safeguards
-- KOSPI up with materially negative KOSPI breadth, or KOSPI down with materially positive breadth, is exposed through `C3 Divergence` rather than hidden inside the aggregate score.
-- Extreme broad participation is exposed through `C3 Shock` and passed to Change Detection / Transition as a Weight Shift candidate only.
-- C3 Conflict/Divergence/Shock flags do not automatically change Market Regime, portfolio action or permanent Base Weight.
-
-### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1, C2 and C3 are component-level formulas only.
-- Remaining components, global aggregation, global missing/partial rules, Action Bands and validation must be completed before global SAI activation.
-
-### Backup
-- Created pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_PREPATCH_BACKUP_2026-09-10.md`
-- Created final post-integration checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`
-- Final checkpoint records the post-integration authority snapshot, active-breadth formula, ADL/unchanged boundary, anti-double-counting, conflict/divergence/shock safeguards, real-HTS sanity check and cross-validation state.
+- Added `SAI-C3 Breadth / Market Internal`.
+- Formula: `0.70*N_K + 0.30*N_Q` with KOSPI breadth mandatory and KOSDAQ supplementary.
+- KOSDAQ missing permits KOSPI-only PARTIAL; KOSPI missing makes C3 DATA UNAVAILABLE.
+- Raw ADL remains contextual in v1.
+- Added Cross-Market Conflict, Index/Breadth Divergence and Shock safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`.
 
 ## 2026-09-10 — SAI-C2 Program Flow Component Integration
-
-### Added
-- Added the second formally specified Strategy Action Index sub-component: `SAI-C2 Program Flow`.
-- C2 uses:
-  - Arbitrage Program net flow — supplementary/mechanical-sensitive input
-  - Non-Arbitrage Program net flow — mandatory structural input
-  - Total Program net flow — reconciliation/context only, not an additional numeric contribution
-- Added source-data normalization to `[-1.00,+1.00]` using KOSPI total traded value as denominator.
-- Added v1 C2 internal weights:
-  - Arbitrage 30%
-  - Non-Arbitrage 70%
-- Added explicit partial formula when Arbitrage is missing: `C2 = N_NONARB / PARTIAL`.
-- Added mandatory-input gate: missing Non-Arbitrage → `SAI-C2 = DATA UNAVAILABLE`.
-- Added explicit C2 Conflict threshold and C2 Shock thresholds.
-- Added `C2 Mechanical Event` handling for derivatives expiry, index/sector rebalance, ETF rebalance and comparable mechanical-flow events.
-
-### Anti-double-counting / authority safeguards
-- Total Program is not scored in addition to Arbitrage + Non-Arbitrage.
-- E2 Program Flow remains the adaptive/qualitative interpretation owner.
-- Foreign/institution investor flow remains C1/E1 and is not re-added to C2.
-- Breadth/ADL remains E3; Technical remains E5; Options/OI/Volatility remains E7.
-- VH/H/M/L Evidence Priority remains qualitative and is not converted into C2 numeric weights.
-- C2 cannot select or reconfirm a Market Regime by itself.
-
-### Program conflict / mechanical-flow safeguards
-- Existing 3.2 rule preserved: persistent Non-Arbitrage deterioration has greater structural significance than temporary Arbitrage fluctuations.
-- Strong Arbitrage buying cannot hide material Non-Arbitrage selling.
-- Opposing Arbitrage and Non-Arbitrage signals remain visible through `C2 Conflict` rather than being hidden by a near-zero aggregate.
-- Mechanical-event flow is calculated but cannot independently create a structural Regime conclusion.
-
-### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- C1 and C2 are component-level formulas only.
-- Remaining components, global aggregation, missing/partial rules, Action Bands and validation must be completed before global SAI activation.
-
-### Backup
-- Created pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_PREPATCH_BACKUP_2026-09-10.md`
-- Created final post-integration checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`
-- Final checkpoint records the post-integration authority snapshot, C2 formula, Program anti-double-counting, conflict/shock/mechanical-event safeguards and cross-validation state.
+- Added `SAI-C2 Program Flow`.
+- Formula: `0.30*N_ARB + 0.70*N_NONARB`.
+- Non-Arbitrage is structural core; Arbitrage missing permits predefined PARTIAL, Non-Arbitrage missing makes C2 DATA UNAVAILABLE.
+- Total Program is reconciliation/context only.
+- Added Conflict/Shock/Mechanical Event safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`.
 
 ## 2026-09-10 — SAI-C1 Smart Money Component Integration
-
-### Added
-- Added the first formally specified Strategy Action Index sub-component: `SAI-C1 Smart Money`.
-- C1 uses three source inputs:
-  - Foreign KOSPI cash net flow
-  - Foreign KOSPI200 futures net flow
-  - Institutional KOSPI cash net flow
-- Added source-data normalization to `[-1.00, +1.00]` using market-scale ratios rather than raw amounts.
-- Added v1 C1 internal weights:
-  - Foreign Cash 40%
-  - Foreign Futures 40%
-  - Institution Cash 20%
-- Added explicit institution-missing partial formula: 50% Foreign Cash + 50% Foreign Futures.
-- Added mandatory-input gate: missing Foreign Cash or Foreign Futures → `SAI-C1 = DATA UNAVAILABLE`.
-- Added C1 Conflict and C1 Shock flags.
-- Added normal, bearish, reversal/conflict, missing-data and extreme-flow validation cases.
-
-### Anti-double-counting / authority safeguards
-- Program / Arbitrage / Non-Arbitrage remain outside C1 under E2 ownership.
-- Breadth / ADL remain outside C1 under E3 ownership.
-- Options / derivatives-risk structure remain outside C1 under E7 ownership.
-- Financial Investment is not separately scored when already contained in total Institution flow.
-- Foreign cumulative futures position is contextual only when current futures flow is already scored.
-- VH/H/M/L Evidence Priority remains qualitative and is not converted into C1 numeric weights.
-- SAI-C1 does not replace `E1 Smart Money` and cannot choose or reconfirm a Market Regime by itself.
-
-### Scoring firewall retained
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- A defined C1 component does not activate the final global score.
-- Remaining global components, aggregation, missing/partial rules, Action Bands and regression validation must be completed before final SAI activation.
-
-### Backup
-- Created pre-patch checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
-- Created final post-integration checkpoint:
-  - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
-- Final checkpoint records the post-integration authority snapshot, C1 formula boundary, anti-double-counting safeguards, conflict/shock handling and cross-validation result.
+- Added `SAI-C1 Smart Money`.
+- Formula: `0.40*N_FC + 0.40*N_FF + 0.20*N_IC`.
+- Foreign Cash and Foreign Futures are mandatory; institution missing permits predefined 50/50 PARTIAL.
+- Added Conflict/Shock and anti-double-counting safeguards.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`.
 
 ## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
-
-### Final backup checkpoint
-- Created `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`.
-- The checkpoint records the final six-authority rule snapshot, supporting restore/design backups, integration safeguards, scoring firewall and verification state.
-- The checkpoint is non-authoritative and is intended for recovery/regression comparison only.
-
-### Legacy restore
-- Restored explicit closed-loop logic: `Change Detection → Validation → Revision → Final AI Decision`.
-- Restored legacy Performance Validation / Engine Reliability concept as qualitative validation intent.
-- Restored outcome-review principle when prior validated expectations and later results are actually available.
-- Restored Closed-loop Learning / Self-Evolution principle without inventing undocumented historical numeric formulas.
-- Added non-authoritative restore reference: `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md`.
-
-### New 3.2 adaptive application
-- Added official `Rules/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
-- Added 8 Market Regimes:
-  - Broad Risk-On
-  - Concentrated Leadership Bull
-  - Rotation
-  - Distribution
-  - Risk-Off Transition
-  - Panic / High Volatility
-  - Deep Correction / Support Test
-  - Recovery / Accumulation
-- Added Primary Regime + Transition Regime / Risk + Regime Confidence.
-- Added E1-E8 Evidence Groups and qualitative `VH / H / M / L` Regime Adaptive Evidence Priority Matrix.
-- Added Conditional Evidence Escalation, anti-double-counting, adaptive conflict resolution and Regime re-validation.
-- Added qualitative Strategy postures without numeric A1-A8 labels.
-- Added non-authoritative design reference: `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md`.
-
-### Integration safeguards
-- Adaptive Validation is a cross-engine framework, not a 25th engine.
-- Fixed 24-engine architecture remains unchanged.
-- Fixed 8 Dashboard categories remain unchanged; no ninth adaptive category was created.
-- `Market Regime` is separated from the `Portfolio Response Framework` to avoid naming collisions.
-- Program/Non-arbitrage and Breadth/ADL adaptive evidence receive explicit anti-double-counting boundaries.
-- Full adaptive execution uses `Preliminary Regime → Adaptive Evidence Priority → Transition/Conflict → Cross-Engine Consensus → Regime Re-validation → Validation/Revision → Final AI Decision` to prevent circular reasoning.
-- Signal Count cannot override higher-quality Regime-relevant independent evidence.
-- HTS/KRX remains final Korean-market confirmation.
-- Binance remains a global leading/supporting layer under existing LIVE/FALLBACK/STALE rules.
-
-### Scoring firewall
-- `AI Master Score` remains `DATA UNAVAILABLE`.
-- `Strategy Action Index` remains `DATA UNAVAILABLE`.
-- VH/H/M/L are qualitative Evidence Priority labels only, not numeric weights.
-- Prohibited conversion includes VH/H/M/L → 4/3/2/1, percentages, hidden weights or unofficial scores.
-- Market Regime / Transition / qualitative Strategy posture cannot be converted into numeric scoring without future formal SCORING_RULE adoption.
-
-### Authority architecture
-Official authority is now split across six files:
-1. `Rules/AI_MARKET_MASTER_3.2_MASTER_RULE.md`
-2. `Rules/AI_MARKET_MASTER_3.2_DASHBOARD_RULE.md`
-3. `Rules/AI_MARKET_MASTER_3.2_SCORING_RULE.md`
-4. `Rules/AI_MARKET_MASTER_3.2_TECHNICAL_RULE.md`
-5. `Rules/AI_MARKET_MASTER_3.2_BINANCE_RULE.md`
-6. `Rules/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`
+- Restored Change Detection → Validation → Revision → Final AI Decision closed-loop behavior.
+- Added six-authority architecture with `AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
+- Added 8 Market Regimes, E1-E8 Evidence Groups, VH/H/M/L qualitative Evidence Priority Matrix, Transition framework, conflict resolution, anti-double-counting and Regime re-validation.
+- Adaptive Validation remains cross-engine, not a 25th engine.
+- Global numeric scoring remains disabled until SCORING_RULE activation gate is complete.
+- Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_FINAL_BACKUP_2026-09-08.md`.
 
 ## 2026-09-08 — Binance Latest Re-query & Fallback Policy
-
-### Added
-- Full Dashboard now requires a fresh Binance 8-symbol re-query attempt before any prior Binance result may be reused.
-- Added Binance Data Mode: `LIVE / FALLBACK / STALE`, kept separate from official Validation Status.
-- Added fallback freshness windows:
-  - Intraday: prior validated Binance data may be reused for up to 60 minutes.
-  - Post-close structural analysis: prior validated Binance data may be reused for up to 2 hours.
-- FALLBACK requires a known prior query time, known prior Validation Status and preserved symbol/field-depth status.
-- FALLBACK lowers Binance-related Confidence by at least one level.
-- STALE data is historical/context-only and cannot be the primary basis for current aggressive portfolio action, leverage expansion or numeric scoring inputs.
-- Dashboard now discloses Binance Data Mode, data age, prior query time/status, symbol availability, field depth and Confidence when applicable.
-- MASTER Completion Gate now verifies latest re-query attempt, fallback freshness, Confidence downgrade and stale-data restrictions.
-
-### Compatibility / No structural change
-- Official five-rule architecture remained unchanged at the time of this patch; it was later expanded to six authorities by the Adaptive Validation integration above.
-- No new ninth Dashboard category was created.
-- Existing Validation States remain: `VERIFIED / PARTIAL / UNAVAILABLE / PARTIAL CONSENSUS / EXECUTION BLOCKED`.
-- `SCORING_RULE` and `TECHNICAL_RULE` were not changed by this Binance patch.
-- HTS/KRX remains the final Korean-market confirmation layer.
+- Added mandatory fresh re-query attempt before prior Binance reuse in Full Dashboard.
+- Added LIVE/FALLBACK/STALE Data Modes, freshness windows, fallback confidence downgrade and stale-data restrictions.
+- HTS/KRX remains final Korean-market confirmation.
 
 ## 2026-09-07 — 3.2 Unified Stable
-
-### Rule architecture optimized
-- Consolidated active rule authority into five files under `Rules/` at initial Unified Stable creation.
-- Removed duplicate/overlapping 3.2 authority from root, Extensions and old execution-flow files.
-- Added `Legacy/3.2-history/INDEX.md` with exact historical blob SHAs for recovery.
-
-### Restored legacy-compatible rules
-- Table First layout
-- English + Korean presentation
-- Confidence
-- Intraday `24 → 16 → 17`
-- Full-dashboard restriction for ordinary intraday input
-- Dynamic KOSPI Strategy Zone
-- Smart Money Action Matrix
-- Portfolio Sell Priority
-
-### Preserved 3.2 improvements
-- 24 internal Analysis Engines
-- 8 fixed Dashboard categories
-- HTS/KRX final confirmation
-- Binance 8-symbol global-leading layer
-- G1-G6 sub-engines
-- Dual-axis Elliott/Fibonacci
-- Execution Integrity / completion gates
-- DATA UNAVAILABLE anti-hallucination behavior
-
-### Scoring correction
-No complete reproducible legacy formula for `AI Master Score` or `Strategy Action Index` has yet been verified. Numeric scoring remains disabled and must output `DATA UNAVAILABLE` until a formal formula is verified and adopted in `SCORING_RULE`.
-
-### Initial Authority
-Initial Unified Stable authoritative files were:
-1. `Rules/AI_MARKET_MASTER_3.2_MASTER_RULE.md`
-2. `Rules/AI_MARKET_MASTER_3.2_DASHBOARD_RULE.md`
-3. `Rules/AI_MARKET_MASTER_3.2_SCORING_RULE.md`
-4. `Rules/AI_MARKET_MASTER_3.2_TECHNICAL_RULE.md`
-5. `Rules/AI_MARKET_MASTER_3.2_BINANCE_RULE.md`
+- Consolidated authority into dedicated rule files, preserving 24 internal engines and fixed 8 Dashboard categories.
+- Retained Dynamic KOSPI Zone, Smart Money Action Matrix, Portfolio Sell Priority, Intraday 24→16→17, dual-axis Elliott/Fibonacci and anti-hallucination gates.
+- Numeric global AI Master Score / Strategy Action Index remained DATA UNAVAILABLE pending reproducible formal formulas.
 
 ## Historical
-Earlier 3.2 Integrated Expansion and 3.1 history remain recoverable from Git history / legacy references.
+Earlier 3.2 Integrated Expansion and 3.1 history remain recoverable through Git history / legacy references.
