@@ -1,5 +1,89 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — Global Strategy Action Index v1 Activation
+
+### Added
+- Activated a reproducible global `Strategy Action Index` v1 inside `SCORING_RULE` while keeping `AI Master Score` separate and `DATA UNAVAILABLE`.
+- Added Base Weights across C1-C8:
+  - C1 Smart Money 18%
+  - C2 Program Flow 12%
+  - C3 Breadth / Internal 15%
+  - C4 Sector / Leadership 10%
+  - C5 Technical Structure 20%
+  - C6 Liquidity / Macro 10%
+  - C7 Volatility / Derivatives Risk 8%
+  - C8 Global Leading 7%
+- Added Base formula:
+  `SAI_Base = 0.18*C1 + 0.12*C2 + 0.15*C3 + 0.10*C4 + 0.20*C5 + 0.10*C6 + 0.08*C7 + 0.07*C8`.
+- Added final range `[-1,+1]`.
+
+### Global Missing / Partial Gate
+- Global VERIFIED requires all C1-C8 to be VERIFIED with applicable source/freshness checks passed.
+- Global PARTIAL uses predefined renormalization across usable components only.
+- PARTIAL requires all:
+  - C5 Technical Structure usable
+  - at least one C1/C2 Flow input
+  - at least one C3/C4 Internal input
+  - at least one C6/C7/C8 Environment input
+  - at least 6/8 components usable
+  - at least 70% original Base Weight coverage
+- Missing data is never converted to zero/Neutral.
+- Any component PARTIAL makes global status PARTIAL.
+- Conditional Adaptive Weight is prohibited when global status is PARTIAL.
+
+### Conditional Adaptive Weight
+- Added four internal scoring families for conflict/adaptive logic only:
+  - Flow = C1/C2
+  - Internal = C3/C4
+  - Structure = C5
+  - Environment = C6/C7/C8
+- These helpers do not create new Evidence Groups and do not replace E1-E8.
+- Added `Global SAI Conflict: ACTIVE` when independent family scores materially oppose with both absolute family values >=0.50.
+- Adaptive numeric weighting requires 8/8 VERIFIED, no Global SAI Conflict and validated Shock/confirmation.
+- Exactly one qualifying family event -> +5 percentage points to that family.
+- Exactly two same-direction qualifying family events -> +3 percentage points each.
+- Opposite qualifying events -> Adaptive Weight BLOCKED / Base Weights retained.
+- Three or more qualifying family events -> Base Weights retained + `Broad Market Shock: ACTIVE`.
+- Maximum total family-weight reallocation = 6 percentage points.
+- Component ratios inside each family remain fixed.
+- VH/H/M/L is never converted into numeric weights.
+
+### Mechanical-event / anti-circularity safeguards
+- C2/C7 Shock accompanied by a Mechanical Event cannot be the sole basis for adaptive numeric reweighting unless event review confirms the move is structural.
+- Required order:
+  `C1-C8 -> Base SAI -> Preliminary Regime -> Adaptive Validation / Transition / Conflict -> Regime Re-validation -> Conditional Adaptive Event -> Final SAI -> Strategy / Portfolio Response`.
+- Prohibited circular loop:
+  `Regime -> numeric reweight -> Final SAI -> same Regime reconfirmed solely from Final SAI`.
+
+### Action Bands
+- `>= +0.60` -> Strong Positive Execution Bias
+- `+0.30 to < +0.60` -> Positive Execution Bias
+- `>-0.30 to <+0.30` -> Balanced / Hold Bias
+- `>-0.60 to <=-0.30` -> Negative Execution Bias
+- `<= -0.60` -> Strong Negative Execution Bias
+- Action Bands are execution-bias labels, not automatic portfolio orders or ADAPTIVE_VALIDATION qualitative Strategy Postures.
+- PARTIAL, Global Conflict, Mechanical Event, Technical location, Regime/Transition and portfolio exposure remain binding execution safeguards.
+
+### Regression / validation
+- Verified Base component and family weights sum to 1.00.
+- Verified all defined one-family and two-family adaptive patterns retain positive component weights and total weight 1.00.
+- Exhaustively tested all 256 C1-C8 corner combinations at {-1,+1} across Base and allowed one/two-family adjusted-weight patterns; every result remained inside [-1,+1].
+- Boundary regression: all +1 -> +1.00; all -1 -> -1.00.
+- Adaptive score displacement is bounded by <=0.10 for one-family +5pp reallocation and <=0.12 for two-family total +6pp reallocation.
+- Missing/Partial, C5-mandatory, family-coverage, conflict and action-band cases passed rule-design regression.
+- This is formula/rule-design validation, not empirical out-of-sample market-performance optimization.
+
+### Scoring status
+- `Strategy Action Index`: FORMULA ACTIVATED / runtime numeric output only when the global data gate passes.
+- `AI Master Score`: remains DATA UNAVAILABLE.
+- C1-C8 remain independently defined component formulas and E1-E8 ownership remains unchanged.
+- 24 Analysis Engines, 8 Dashboard categories and 6 Authority files remain unchanged in count.
+
+### Backup
+- Pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_PREPATCH_BACKUP_2026-09-10.md`
+- Final post-activation checkpoint is created only after cross-authority verification succeeds.
+
 ## 2026-09-10 — SAI-C8 Global Leading Component Integration
 
 ### Added
@@ -82,7 +166,7 @@
 - Added C4 Conflict/Shock and anti-double-counting/anti-circularity safeguards.
 - Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_FINAL_BACKUP_2026-09-10.md`.
 
-## 2026-09-10 — SAI-C3 Breadth / Market Internal Component Integration
+## 2026-09-10 — SAI-C3 Breadth / Market Internal
 - Added `SAI-C3 Breadth / Market Internal`.
 - Formula: `0.70*N_K + 0.30*N_Q` with KOSPI breadth mandatory and KOSDAQ supplementary.
 - KOSDAQ missing permits KOSPI-only PARTIAL; KOSPI missing makes C3 DATA UNAVAILABLE.
