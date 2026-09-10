@@ -75,8 +75,19 @@ C2 full internal weighting is 30% Arbitrage / 70% Non-Arbitrage. Non-Arbitrage m
 
 Known expiry/index/ETF rebalance effects are disclosed through `C2 Mechanical Event` and do not automatically change numeric weights or Market Regime.
 
-Neither C1 nor C2 activates the global Strategy Action Index by itself.
-VH/H/M/L qualitative Evidence Priority is never converted into C1/C2 numeric weight.
+### SAI-C3 Breadth / Market Internal
+Uses:
+- KOSPI advance/decline breadth — mandatory structural core
+- KOSDAQ advance/decline breadth — supplementary cross-market participation confirmation
+- unchanged issue counts — validation/context only
+- raw ADL level — contextual only in v1, not a numeric contribution without comparable history
+
+C3 full internal weighting is 70% KOSPI breadth / 30% KOSDAQ breadth. KOSDAQ missing permits a predefined KOSPI-only `PARTIAL` formula; KOSPI breadth missing makes C3 `DATA UNAVAILABLE`.
+
+C3 preserves explicit Cross-Market Conflict, Index/Breadth Divergence and extreme Breadth Shock flags without changing Market Regime or numeric weights automatically.
+
+C1, C2 and C3 remain component-level formulas only and do not activate the global Strategy Action Index.
+VH/H/M/L qualitative Evidence Priority is never converted into numeric component weight.
 
 ## Restore / Design References
 Non-authoritative backup references:
@@ -84,6 +95,7 @@ Non-authoritative backup references:
 - `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_PREPATCH_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_PREPATCH_BACKUP_2026-09-10.md`
 
 ## Final Backup Checkpoint
 Verified final checkpoints:
@@ -91,7 +103,7 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`
 
-The C2 final checkpoint records the post-integration authority snapshot, C2 formula, Program anti-double-counting, conflict/shock/mechanical-event safeguards and cross-validation state.
+A separate SAI-C3 final checkpoint is created after C3 post-patch cross-validation.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
