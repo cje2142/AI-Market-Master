@@ -51,7 +51,9 @@ Fixed watchlist:
 `EWYUSDT / SAMSUNGUSDT / SKHYNIXUSDT / SOXLUSDT / QQQUSDT / SPYUSDT / TMFUSDT / BTCUSDT`
 
 ## Scoring
-Official global numeric formulas for `AI Master Score` and `Strategy Action Index` are not yet complete. Both remain `DATA UNAVAILABLE`.
+`AI Master Score` remains `DATA UNAVAILABLE` because no complete reproducible formula is adopted.
+
+`Strategy Action Index` v1 is now **FORMULA ACTIVATED / RUNTIME DATA-DEPENDENT** under `SCORING_RULE`. A numeric SAI may be displayed only when its global data/completeness gate passes; otherwise runtime output remains `DATA UNAVAILABLE`.
 
 Defined component-level formulas inside `SCORING_RULE`:
 
@@ -149,13 +151,41 @@ C8 safeguards:
 - BTC is auxiliary and limited to 10% internal C8 weight
 - C8 Conflict/Confirmation Conflict/Shock feed Change Detection/Transition only and do not automatically change Regime, global SAI, portfolio action or permanent Base Weight
 
-C1-C8 now cover E1-E8 as component-level formulas only. This does not activate the global Strategy Action Index.
-Global aggregation, C1-C8 global Base Weights, global missing/partial rules, any Conditional Numeric Weight logic, final range/Action Bands and regression validation remain required.
+### Global Strategy Action Index v1
+Base weights:
+`C1/C2/C3/C4/C5/C6/C7/C8 = 18/12/15/10/20/10/8/7%`.
+
+Base formula:
+`SAI_Base = 0.18*C1 + 0.12*C2 + 0.15*C3 + 0.10*C4 + 0.20*C5 + 0.10*C6 + 0.08*C7 + 0.07*C8`.
+
+Global VERIFIED requires 8/8 component VERIFIED.
+Global PARTIAL requires C5, Flow(C1/2), Internal(C3/4), Environment(C6/7/8), at least 6/8 usable components and at least 70% original Base Weight coverage. Missing is never zero/Neutral.
+
+Conditional Adaptive Weight:
+- only with 8/8 VERIFIED, no Global SAI Conflict and validated Shock/confirmation;
+- one qualifying family event -> +5pp to that family;
+- two same-direction qualifying families -> +3pp each;
+- opposite qualifying events -> adaptive blocked;
+- three or more qualifying families -> Base Weights retained + Broad Market Shock;
+- maximum total reallocation = 6pp;
+- VH/H/M/L are never converted to numbers.
+
+Action Bands:
+- >=+0.60 Strong Positive Execution Bias
+- +0.30 to <+0.60 Positive Execution Bias
+- >-0.30 to <+0.30 Balanced / Hold Bias
+- >-0.60 to <=-0.30 Negative Execution Bias
+- <=-0.60 Strong Negative Execution Bias
+
+SAI is execution bias, not an automatic trade command. PARTIAL/Conflict/Mechanical Event and portfolio/technical/Regime safeguards remain binding.
+
+Formula/regression validation passed by rule design, including 256 C1-C8 +/-1 corner combinations across Base and allowed one/two-family adaptive patterns. Empirical backtest optimization remains NOT ESTABLISHED.
 
 ## Restore / Design References
 Non-authoritative references:
 - `Backup/AMM_3.0_LEGACY_VALIDATION_RESTORE.md`
 - `Backup/AMM_3.2_ADAPTIVE_REGIME_DESIGN_BACKUP.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_ADAPTIVE_DESIGN_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_PREPATCH_BACKUP_2026-09-10.md`
@@ -164,6 +194,7 @@ Non-authoritative references:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C6_LIQUIDITY_MACRO_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C7_VOLATILITY_DERIVATIVES_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_PREPATCH_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_PREPATCH_BACKUP_2026-09-10.md`
 
 ## Final Backup Checkpoint
 Verified final checkpoints:
@@ -178,6 +209,8 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C8_GLOBAL_LEADING_FINAL_BACKUP_2026-09-10.md`
 
 The C8 final checkpoint blob SHA is `c40b37ffba7d025a7ed9e2711d7f9a4a6009a4a6` and records the post-integration six-authority snapshot, five-axis 30/25/20/15/10 formula, aligned-window normalization, LIVE/FALLBACK/STALE firewall, GR-mandatory 3-axis/60% PARTIAL gate, Samsung/SK hynix and G6 context-only boundaries, conflict/shock safeguards, anti-double-counting, anti-circularity and final cross-authority verification.
+
+Global SAI final backup is created only after post-activation cross-authority verification succeeds.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
