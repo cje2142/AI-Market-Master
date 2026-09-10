@@ -1,5 +1,52 @@
 # AI Market Master Change Log
 
+## 2026-09-10 — SAI-C4 Sector / Leadership Component Integration
+
+### Added
+- Added the fourth formally specified Strategy Action Index sub-component: `SAI-C4 Sector / Leadership`.
+- Fixed the C4 v1 benchmark universe to eight sector identities:
+  - KRX Semiconductor Index
+  - KRX Automobile Index
+  - KRX Secondary Battery TOP 10 Index
+  - KOSPI 200 Financial Index
+  - iSelect Shipbuilding TOP10 Index (PR)
+  - iSelect Defense TOP10 Index (Price Return)
+  - KRX-Akros AI Power Infrastructure Index
+  - KRX Bio TOP 10 Index
+- Added same-session data standard using KOSPI daily return plus fixed-universe sector benchmark daily returns.
+- Added `Sector Direction Breadth (SD)` with a ±0.20% neutral band.
+- Added `Relative Leadership Breadth (RL)` using `Sector Return - KOSPI Return` with a ±0.20%p neutral band.
+- Added v1 C4 formula: `SAI-C4 = 0.60*SD + 0.40*RL`.
+- Added explicit 75% completeness gate: 8/8 eligible for VERIFIED, 6-7/8 predefined PARTIAL, fewer than 6/8 DATA UNAVAILABLE.
+- Missing/invalid/asynchronous KOSPI comparator makes C4 DATA UNAVAILABLE.
+
+### Leadership / conflict safeguards
+- Leadership Concentration remains qualitative/contextual under E4 and is not an independent numeric C4 term because concentration is not inherently bearish.
+- Added `C4 Conflict: ACTIVE` when SD and RL materially oppose each other.
+- Added `C4 Shock: ACTIVE` for broad same-direction sector participation or strong aligned SD/RL.
+- C4 Conflict/Shock feed Change Detection / Transition only; they do not automatically change Market Regime, portfolio action, global SAI or permanent Base Weight.
+
+### Anti-double-counting / authority safeguards
+- `E4 Sector / Leadership` remains the adaptive/qualitative interpretation owner.
+- C4 sector-return transforms do not create extra independent Evidence Groups.
+- Issue Breadth/ADL remains C3/E3; Foreign/Institution flow remains C1/E1; Program flow remains C2/E2.
+- Technical indicators remain E5; Liquidity remains E6; Options/OI/Volatility remains E7; Binance/global leading remains E8.
+- AI-cycle HBM/DRAM/NAND/CAPEX/inventory/demand fundamentals remain outside C4.
+- ETF return may be contextual verification only and cannot silently replace a missing benchmark-index return.
+- ETF ticker/code must not be treated as an index code; canonical identity is provider + exact benchmark name.
+- C4 cannot select/reconfirm a Market Regime by itself and cannot convert VH/H/M/L into numeric weights.
+
+### Scoring firewall retained
+- `AI Master Score` remains `DATA UNAVAILABLE`.
+- Global `Strategy Action Index` remains `DATA UNAVAILABLE`.
+- C1, C2, C3 and C4 are component-level formulas only.
+- Remaining components, global aggregation, global missing/partial rules, Action Bands and regression validation must be completed before global SAI activation.
+
+### Backup
+- Existing pre-patch checkpoint:
+  - `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_PREPATCH_BACKUP_2026-09-10.md`
+- Final post-integration checkpoint is created after cross-validation passes and then registered in VERSION_STATUS/CHANGELOG.
+
 ## 2026-09-10 — SAI-C3 Breadth / Market Internal Component Integration
 
 ### Added
