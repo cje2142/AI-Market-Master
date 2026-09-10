@@ -82,7 +82,7 @@
 
 ### Backup
 - Pre-patch: `Backup/AI_MARKET_MASTER_3.2_SAI_HTS_V2_PREPATCH_BACKUP_2026-09-10.md` / blob `173e86d3d1af1c52130f2abbdf7f191da5319429`.
-- Final v2 checkpoint is created after post-patch authority re-read.
+- Final: `Backup/AI_MARKET_MASTER_3.2_SAI_HTS_V2_FINAL_BACKUP_2026-09-10.md` / blob `95d44a3569d426421b2709b2a1818ef4aaf52550`.
 
 ## 2026-09-10 — Global Strategy Action Index v1 Activation
 - Activated reproducible global SAI v1 while keeping AI Master Score DATA UNAVAILABLE.
@@ -90,7 +90,7 @@
 - Final checkpoint: `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_FINAL_BACKUP_2026-09-10.md` / blob `c8316a0fbc746c7ca5867073f39aacf6ef9f7878`.
 
 ## 2026-09-10 — SAI-C1~C8 v1 Component Integrations
-- Original C1-C8 formulas remain preserved through Git history and their individual final backups.
+- Original C1-C8 formulas remain preserved through Git history and individual final backups.
 - C1/C4/C5/C6/C7/C8 v1 operational dependencies are superseded by HTS-Operational v2 for current numeric execution.
 
 ## 2026-09-08 — Adaptive Validation & Regime Evidence Priority Integration
