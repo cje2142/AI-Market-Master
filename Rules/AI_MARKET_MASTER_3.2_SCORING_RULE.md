@@ -15,7 +15,7 @@ Therefore the official current numeric state remains:
 - `AI Master Score: DATA UNAVAILABLE`
 - `Strategy Action Index: DATA UNAVAILABLE`
 
-`SAI-C1 Smart Money` and `SAI-C2 Program Flow` are defined below as component specifications only. Neither may be presented as the final Strategy Action Index.
+`SAI-C1 Smart Money`, `SAI-C2 Program Flow` and `SAI-C3 Breadth / Market Internal` are defined below as component specifications only. None may be presented as the final Strategy Action Index.
 
 ## 3. Numeric Score Activation Gate
 A global numeric score may be activated only after all of the following are explicitly defined and verified in this file:
@@ -590,6 +590,7 @@ Any future Conditional Numeric Weight must be separately defined in this SCORING
 ## 39. Current Component / Global SAI Status
 - `SAI-C1 Smart Money`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
 - `SAI-C2 Program Flow`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C3 Breadth / Market Internal`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
 - `Strategy Action Index`: DATA UNAVAILABLE
 - `AI Master Score`: DATA UNAVAILABLE
 
@@ -600,4 +601,241 @@ Program Total = validation/context, not an extra score.
 Non-Arbitrage > Arbitrage for structural interpretation.
 Mechanical flow ≠ structural market change by itself.
 Conflict and Shock are information, not reasons to distort the formula.
+No complete global formula = no global Strategy Action Index.
+
+## 41. SAI-C3 Breadth / Market Internal — Purpose and Boundary
+`SAI-C3 Breadth / Market Internal` is the third formally specified numeric component for a future Strategy Action Index.
+
+Purpose:
+Measure whether domestic market participation is broadening or deteriorating beneath headline index performance, while preserving the distinction between KOSPI core participation and broader KOSDAQ confirmation.
+
+Authority boundary:
+- Numeric C3 formula, normalization, bounds, internal weights, missing-data handling and numeric divergence/shock thresholds are owned by this SCORING_RULE.
+- `E3 Breadth / Internal` interpretation, Market Regime, Transition, VH/H/M/L Evidence Priority, conflict resolution and re-validation remain owned by ADAPTIVE_VALIDATION_RULE.
+- C3 does not replace E3 and cannot select or reconfirm a Regime by itself.
+- C3 must not convert E3 VH/H/M/L priority into numeric weight.
+
+## 42. SAI-C3 Inputs and Units
+### C3-A KOSPI Active Breadth
+Required inputs:
+- KOSPI advancing issue count `ADV_K`
+- KOSPI declining issue count `DEC_K`
+
+Validation/context input:
+- unchanged issue count `UNCH_K` when available
+
+Directional breadth denominator:
+`ADV_K + DEC_K`
+
+Required: YES.
+
+### C3-B KOSDAQ Active Breadth
+Inputs:
+- KOSDAQ advancing issue count `ADV_Q`
+- KOSDAQ declining issue count `DEC_Q`
+
+Validation/context input:
+- unchanged issue count `UNCH_Q` when available
+
+Required: NO; supplementary cross-market participation confirmation.
+
+### ADL Boundary
+An isolated raw ADL level is not a C3 numeric input in v1.
+Reason: its absolute level depends on accumulation history and is not comparable across sessions without a validated reference series.
+ADL may be used contextually under E3. A future C3 revision may add ADL change/trend only after an explicit comparable-history formula is defined.
+
+## 43. SAI-C3 Breadth Calculation and Normalization
+### C3-A KOSPI
+If `ADV_K + DEC_K > 0`:
+`B_K = (ADV_K - DEC_K) / (ADV_K + DEC_K)`
+
+Then:
+`N_K = clip(B_K / 0.50, -1, +1)`
+
+Interpretation:
+- active breadth +50% or greater → +1.00
+- 0 → 0
+- active breadth -50% or lower → -1.00
+- intermediate values are linearly normalized
+
+### C3-B KOSDAQ
+If `ADV_Q + DEC_Q > 0`:
+`B_Q = (ADV_Q - DEC_Q) / (ADV_Q + DEC_Q)`
+
+Then:
+`N_Q = clip(B_Q / 0.50, -1, +1)`
+
+Interpretation uses the same symmetric saturation boundary.
+
+Unchanged issues do not enter the directional numerator and do not create Bull/Bear points. They remain validation/context for participation quality.
+
+These are SAI-C3 v1 calibration boundaries. They are component-specific numeric rules, not conversions from qualitative Evidence Priority or signal counts.
+
+## 44. SAI-C3 Formula
+When KOSPI and KOSDAQ breadth are both valid:
+
+`SAI-C3 = 0.70*N_K + 0.30*N_Q`
+
+Component range:
+`-1.00 <= SAI-C3 <= +1.00`
+
+Internal weights:
+- KOSPI active breadth: 70%
+- KOSDAQ active breadth: 30%
+
+Rationale:
+- KOSPI is the structural core for Korean-market portfolio action.
+- KOSDAQ adds broader domestic participation/risk-appetite confirmation without overriding the KOSPI internal structure.
+
+These internal weights do not define the future weight of C3 inside the complete global Strategy Action Index.
+
+## 45. SAI-C3 Missing / Partial Rule
+### Full C3
+If both KOSPI and KOSDAQ active breadth are valid:
+`SAI-C3 = 0.70*N_K + 0.30*N_Q`
+Status: `VERIFIED` when source/count validation passes.
+
+### KOSDAQ Missing Only
+If KOSPI active breadth is valid but KOSDAQ breadth is unavailable:
+`SAI-C3 = N_K`
+Status: `PARTIAL`.
+
+This is an explicit predefined partial formula and is not silent reweighting.
+
+### KOSPI Missing / Invalid
+If KOSPI advancing/declining counts are unavailable, inconsistent, or `ADV_K + DEC_K <= 0`:
+`SAI-C3 = DATA UNAVAILABLE`.
+
+Missing data is never converted to zero / Neutral.
+
+## 46. SAI-C3 Cross-Market Conflict Rule
+Raise `C3 Conflict: ACTIVE` when:
+- `N_K` and `N_Q` have opposite signs, and
+- both absolute normalized magnitudes are at least `0.30`.
+
+When active:
+- keep the formula unchanged
+- disclose KOSPI/KOSDAQ participation divergence
+- do not reinterpret a near-zero aggregate as absence of information
+- pass the conflict to ADAPTIVE_VALIDATION_RULE
+- do not alter C3 weights ad hoc.
+
+## 47. SAI-C3 Index / Breadth Divergence Rule
+KOSPI daily return may be used only as a comparator, not as an additional C3 numeric contribution.
+
+Raise `C3 Divergence: ACTIVE` when either condition is verified:
+- KOSPI daily return > 0 and `N_K <= -0.30`
+- KOSPI daily return < 0 and `N_K >= +0.30`
+
+Interpretation:
+- price up + weak breadth = concentration/distribution warning candidate
+- price down + improving breadth = internal stabilization/recovery-watch candidate
+
+The divergence flag is passed to Change Detection / Transition analysis and does not by itself change Market Regime or C3 weights.
+
+## 48. SAI-C3 Shock / Weight Shift Candidate
+C3 remains clipped to ±1.00. Extreme breadth does not extend the numeric range.
+
+Raise `C3 Shock: ACTIVE` when either condition is verified:
+1. `|B_K| >= 0.75`, or
+2. KOSPI and KOSDAQ breadth are in the same direction and both satisfy `|B_K| >= 0.65` and `|B_Q| >= 0.65`.
+
+A C3 Shock is a broad-participation Change Detection / Weight Shift candidate only.
+It is not an automatic Market Regime change, global SAI override, portfolio action or permanent Base Weight change.
+
+## 49. SAI-C3 Anti-Double-Counting
+For C3 numeric scoring:
+- KOSPI advance/decline breadth is scored once
+- KOSDAQ advance/decline breadth is scored once as supplementary confirmation
+- unchanged counts are validation/context only
+- raw ADL level is contextual only in v1 and not an extra numeric contribution
+- KOSPI/KOSDAQ index returns are divergence comparators only
+- Program flow remains C2/E2
+- foreign/institution flow remains C1/E1
+- MA/VWAP/momentum/price structure remain E5 and are not re-added to C3
+- volatility/options/OI remain E7
+
+E5 Technical may reference Breadth/ADL contextually under existing rules but must not count it again as independent numeric confirmation.
+
+## 50. SAI-C3 Validation Cases
+### Case A — Broad Bullish Participation
+KOSPI: `ADV=600, DEC=300`
+`B_K=+0.3333`, `N_K=+0.6667`
+KOSDAQ: `ADV=1000, DEC=600`
+`B_Q=+0.25`, `N_Q=+0.50`
+
+`C3 = 0.70*0.6667 + 0.30*0.50 ≈ +0.6167`
+Expected: positive C3, no conflict.
+
+### Case B — Broad Bearish Participation
+KOSPI: `ADV=250, DEC=650`
+`B_K=-0.4444`, `N_K=-0.8889`
+KOSDAQ: `ADV=500, DEC=1100`
+`B_Q=-0.375`, `N_Q=-0.75`
+
+`C3 ≈ -0.8472`
+Expected: strong negative C3, no conflict.
+
+### Case C — KOSPI / KOSDAQ Conflict
+`N_K=+0.60`, `N_Q=-0.50`
+
+`C3=+0.27`
+Expected: `C3 Conflict: ACTIVE`; do not interpret +0.27 as clean broad participation.
+
+### Case D — KOSDAQ Missing
+`N_K=-0.55`, KOSDAQ unavailable.
+
+`C3=-0.55`
+Status: `PARTIAL`.
+
+### Case E — KOSPI Missing
+KOSPI breadth unavailable, KOSDAQ valid.
+Expected: `SAI-C3 = DATA UNAVAILABLE`.
+
+### Case F — Index Up / Breadth Weak
+KOSPI daily return positive and `N_K=-0.45`.
+Expected: calculate C3 normally + `C3 Divergence: ACTIVE`.
+
+### Case G — Extreme Breadth Collapse
+`B_K <= -0.75`.
+Expected:
+- `N_K=-1.00`
+- `C3 Shock: ACTIVE`
+- pass to Change Detection / Transition analysis
+- no automatic global SAI or Regime change.
+
+### Case H — Many Unchanged Issues
+If unchanged issues are numerous but `ADV_K + DEC_K > 0`, active breadth is still calculated from advancing/declining issues and unchanged count is disclosed/contextualized when material.
+Expected: no artificial directional point from unchanged issues.
+
+## 51. SAI-C3 Adaptive / Anti-Circularity Boundary
+Required separation:
+
+`Raw HTS Breadth Data → C3 Calculation`
+
+and independently:
+
+`Raw HTS + other Evidence → Preliminary Regime → Transition / Conflict → Regime Re-validation`
+
+C3 may inform later strategy once the global SAI formula exists, but C3 must not:
+1. choose a Regime,
+2. use that Regime to alter itself,
+3. use the altered C3 as the sole reason to reconfirm the same Regime.
+
+Any future Conditional Numeric Weight must be separately defined in this SCORING_RULE and must not be inferred from E3 VH/H/M/L priority.
+
+## 52. Current Component / Global SAI Status After C3
+- `SAI-C1 Smart Money`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C2 Program Flow`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `SAI-C3 Breadth / Market Internal`: FORMULA DEFINED / COMPONENT-LEVEL USE ONLY
+- `Strategy Action Index`: DATA UNAVAILABLE
+- `AI Master Score`: DATA UNAVAILABLE
+
+The global SAI remains unavailable until remaining components, global aggregation, global missing/partial handling, output range/Action Bands and required validation are complete.
+
+## 53. C3 Final Principle
+Breadth measures participation, not headline index direction.
+KOSPI breadth is the structural core; KOSDAQ breadth is supplementary confirmation.
+Raw ADL without comparable history is context, not a numeric score.
+Index/Breadth divergence is information, not a reason to distort the formula.
 No complete global formula = no global Strategy Action Index.
