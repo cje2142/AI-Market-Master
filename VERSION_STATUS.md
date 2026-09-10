@@ -86,7 +86,27 @@ C3 full internal weighting is 70% KOSPI breadth / 30% KOSDAQ breadth. KOSDAQ mis
 
 C3 preserves explicit Cross-Market Conflict, Index/Breadth Divergence and extreme Breadth Shock flags without changing Market Regime or numeric weights automatically.
 
-C1, C2 and C3 remain component-level formulas only and do not activate the global Strategy Action Index.
+### SAI-C4 Sector / Leadership
+Uses a fixed eight-benchmark universe:
+- KRX Semiconductor Index
+- KRX Automobile Index
+- KRX Secondary Battery TOP 10 Index
+- KOSPI 200 Financial Index
+- iSelect Shipbuilding TOP10 Index (PR)
+- iSelect Defense TOP10 Index (Price Return)
+- KRX-Akros AI Power Infrastructure Index
+- KRX Bio TOP 10 Index
+
+C4 calculates:
+- Sector Direction Breadth `SD`
+- KOSPI-relative Leadership Breadth `RL`
+- `SAI-C4 = 0.60*SD + 0.40*RL`
+
+C4 uses an explicit 75% completeness gate: 8/8 is eligible for `VERIFIED`, 6-7/8 uses the predefined `PARTIAL` calculation, fewer than 6/8 or an invalid/asynchronous KOSPI comparator makes C4 `DATA UNAVAILABLE`.
+
+Leadership Concentration remains qualitative/contextual under E4 and is not an independent numeric C4 term. C4 Conflict/Shock flags feed Change Detection / Transition only and do not automatically alter Market Regime, portfolio action or Base Weight.
+
+C1, C2, C3 and C4 remain component-level formulas only and do not activate the global Strategy Action Index.
 VH/H/M/L qualitative Evidence Priority is never converted into numeric component weight.
 
 ## Restore / Design References
@@ -96,6 +116,7 @@ Non-authoritative backup references:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C1_SMART_MONEY_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_PREPATCH_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_PREPATCH_BACKUP_2026-09-10.md`
+- `Backup/AI_MARKET_MASTER_3.2_SAI_C4_SECTOR_LEADERSHIP_PREPATCH_BACKUP_2026-09-10.md`
 
 ## Final Backup Checkpoint
 Verified final checkpoints:
@@ -104,7 +125,7 @@ Verified final checkpoints:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C2_PROGRAM_FLOW_FINAL_BACKUP_2026-09-10.md`
 - `Backup/AI_MARKET_MASTER_3.2_SAI_C3_BREADTH_INTERNAL_FINAL_BACKUP_2026-09-10.md`
 
-The C3 final checkpoint records the post-integration authority snapshot, active-breadth formula, ADL/unchanged boundary, anti-double-counting, conflict/divergence/shock safeguards, real-HTS sanity check and cross-validation state.
+C4 final checkpoint is registered only after post-integration cross-validation and final-backup creation pass.
 
 ## Previous Stable
 **AI Market Master Dashboard 3.1 — Stable Legacy / Previous Stable**
