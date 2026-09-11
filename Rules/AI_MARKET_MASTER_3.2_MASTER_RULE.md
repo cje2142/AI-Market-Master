@@ -70,6 +70,7 @@ ADAPTIVE_VALIDATION_RULE is a cross-engine decision framework operating mainly t
 
 ## 5. Standard Full Execution Chain
 Trigger
+→ Dashboard Presentation Initialization when the exact Full Dashboard trigger is used
 → Preflight
 → Data Validation
 → Binance Latest Re-query when required
@@ -87,11 +88,14 @@ Trigger
 → Final AI Decision
 → Portfolio Response Framework
 → Strategy
-→ 8-Category Dashboard
-→ Completion Validation
+→ Map validated results into the reserved 8-Category Dashboard
+→ Completion Validation / Dashboard Hard Gate
+
+Dashboard Presentation Initialization means reserving the exact 8-category presentation skeleton only. It does not alter analytical ownership, calculation order or evidence priority. SCORING, ADAPTIVE, TECHNICAL and BINANCE rules execute in their existing authoritative sequence; their validated outputs are mapped into the reserved Dashboard structure afterward.
 
 Binance freshness windows, fallback eligibility, Data Mode and Confidence downgrade are defined only in `AI_MARKET_MASTER_3.2_BINANCE_RULE.md` and must not be redefined here.
 Market Regime, Evidence Priority and adaptive conflict rules are defined only in `AI_MARKET_MASTER_3.2_ADAPTIVE_VALIDATION_RULE.md`.
+Dashboard initialization, fixed category order and completion layout checks are defined only in `AI_MARKET_MASTER_3.2_DASHBOARD_RULE.md`.
 
 ## 6. Intraday Rule
 If intraday HTS data is provided without the exact Full Dashboard trigger, default execution is:
@@ -189,21 +193,24 @@ Binance `LIVE / FALLBACK / STALE` are Data Modes defined by BINANCE_RULE and mus
 ## 15. Preflight Gate
 Before Full Dashboard output validate:
 1. Exact trigger
-2. Required HTS input availability/readability
-3. Mandatory engines
-4. Binance requirement/status
-5. If Binance is required, latest re-query attempt status and applicable freshness/fallback status
-6. Official scoring inputs/status
-7. Technical required data
-8. Portfolio data when portfolio action is produced
-9. Adaptive Regime input sufficiency
-10. Evidence Group anti-double-counting boundary
+2. Dashboard presentation skeleton initialized under DASHBOARD_RULE
+3. Required HTS input availability/readability
+4. Mandatory engines
+5. Binance requirement/status
+6. If Binance is required, latest re-query attempt status and applicable freshness/fallback status
+7. Official scoring inputs/status
+8. Technical required data
+9. Portfolio data when portfolio action is produced
+10. Adaptive Regime input sufficiency
+11. Evidence Group anti-double-counting boundary
 
 If a mandatory element fails, do not claim normal completion.
 
 ## 16. Score Anti-Hallucination
 SCORING_RULE is the only authority for numeric AI Master Score and Strategy Action Index.
 Numeric output requires: official formula + mandatory inputs + actual calculation + validation. Otherwise output DATA UNAVAILABLE. Never create analyst-invented weights, percentages or scores.
+
+Until SCORING_RULE formally activates a reproducible AI Master Score formula, Dashboard output must show `AI Master Score: DATA UNAVAILABLE — 공식 산식 미정의`.
 
 VH/H/M/L Evidence Priority, qualitative Strategy posture and Market Regime labels must never be mathematically converted into unofficial numeric scoring.
 
@@ -241,7 +248,10 @@ Exact rules are owned by ADAPTIVE_VALIDATION_RULE.
 
 ## 21. Completion Gate
 Normal completion requires:
-- 8 Dashboard categories present
+- Dashboard presentation initialization completed for the exact Full Dashboard trigger
+- reserved 8-category skeleton preserved through final mapping
+- 8 Dashboard categories present in the official order
+- summary table complete under DASHBOARD_RULE
 - required 24-engine functions executed or correctly mapped
 - HTS validated
 - Binance status validated when required
@@ -251,6 +261,8 @@ Normal completion requires:
 - stale Binance data is not used as the primary basis for aggressive current portfolio action
 - technical rules applied
 - scoring status validated
+- AI Master Score remains DATA UNAVAILABLE unless SCORING_RULE formally activates it
+- Strategy Action Index status/numeric output follows SCORING_RULE runtime gates
 - adaptive Regime status validated or explicitly marked unavailable/partial
 - Evidence Priority treated qualitatively, not numerically
 - anti-double-counting checked
@@ -258,11 +270,12 @@ Normal completion requires:
 - Regime re-validation completed for Full Dashboard adaptive judgment
 - confidence shown where applicable
 - missing data explicitly marked
+- final portfolio action shown when supported or explicitly blocked/unavailable when inputs are insufficient
 - final action evidence-backed
 - no unresolved rule conflict
 - output layout compliant
 
-Otherwise use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED as applicable.
+Otherwise use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED as applicable. The Full Dashboard must not declare normal completion when any mandatory Dashboard Hard Gate item fails.
 
 ## 22. Legacy Compatibility
 3.2 does not delete validated analytical functions from 3.0/3.1. It consolidates output and restores rules that became weakly specified during 3.2 evolution, including:
@@ -283,6 +296,6 @@ The 8 Market Regimes, E1-E8 Evidence Groups, VH/H/M/L Evidence Priority Matrix, 
 They are not historical numeric formulas and must remain separate from SCORING_RULE until a future reproducible formula is formally adopted.
 
 ## 24. Final Principle
-Observe → Validate Data → Analyze Evidence → Detect Regime → Prioritize Relevant Evidence → Detect Change/Transition → Resolve Conflict → Re-validate → Revise → Decide → Execute → Monitor.
+Observe → Validate Data → Analyze Evidence → Detect Regime → Prioritize Relevant Evidence → Detect Change/Transition → Resolve Conflict → Re-validate → Revise → Decide → Execute → Map → Validate Completion → Monitor.
 
-HTS/KRX Final Confirmation + Evidence Based Decision + Regime-Relevant Multi Engine Consensus + Portfolio Risk Discipline + Validation First + Reliability > Speed.
+HTS/KRX Final Confirmation + Evidence Based Decision + Regime-Relevant Multi Engine Consensus + Portfolio Risk Discipline + Fixed Dashboard Layout + Validation First + Reliability > Speed.
