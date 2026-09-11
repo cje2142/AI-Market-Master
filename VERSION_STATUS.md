@@ -18,9 +18,14 @@ Current patched authority snapshot:
 
 Pre-patch checkpoint:
 - `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_PREPATCH_BACKUP_2026-09-11.md`
+- blob SHA `69d0e899fec8b48042500a002c31da71289150ef`
 - creation commit `dc81ca6558c0ccf36e227deb89a29bc3bd08f992`
 
-Final backup/seal: PENDING at this registration step.
+Final checkpoint:
+- `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_FINAL_BACKUP_2026-09-11.md`
+- blob SHA `8f7371c21fa9b525d3725ec874c6384561ae3daa`
+- creation commit `8f44df2b574a6dd05ae925e194b7af5572d69ca4`
+- final status: `SEALED / CROSS-RULE REGRESSION PASS`
 
 ## Canonical Authority
 Authority remains split across exactly six official files under `Rules/`:
@@ -120,6 +125,10 @@ HTS-Operational v2 = `VERIFIED BY RULE DESIGN` after formula, activity-guard, Mi
 Not empirically optimized: normalization thresholds, Shock thresholds, internal weights, Global Base Weights, Action Bands and C1 cash-activity saturation.
 
 ## Recovery / Backup
+Dashboard Execution Priority final checkpoint:
+- `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_FINAL_BACKUP_2026-09-11.md`
+- blob SHA `8f7371c21fa9b525d3725ec874c6384561ae3daa`
+
 Pre-patch checkpoint:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_HTS_V2_PREPATCH_BACKUP_2026-09-10.md`
 - blob SHA `173e86d3d1af1c52130f2abbdf7f191da5319429`
