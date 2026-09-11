@@ -3,6 +3,25 @@
 ## Current Version
 **AI Market Master 3.2 — Unified Stable / SAI HTS-Operational v2**
 
+## 2026-09-11 Execution Priority Hard Gate
+- Full Dashboard exact trigger now initializes the fixed 8-category presentation skeleton before analytical execution.
+- Presentation Initialization is layout reservation only; it does not change SCORING, ADAPTIVE, TECHNICAL or BINANCE calculation/validation order.
+- Validated outputs are mapped into the reserved 8-category structure only after the authoritative analysis chain executes.
+- Normal completion is blocked unless the Dashboard Completion Hard Gate passes.
+- `AI Master Score` remains `DATA UNAVAILABLE — 공식 산식 미정의` until SCORING_RULE formally activates a reproducible formula.
+- `Strategy Action Index` remains FORMULA ACTIVATED / RUNTIME DATA-DEPENDENT under HTS-Operational v2.
+- No new Authority file, 25th engine or ninth Dashboard category was created.
+
+Current patched authority snapshot:
+- MASTER_RULE: `2c601ed6c5beb0c4937bf85f5b265f5f4b68957f`
+- DASHBOARD_RULE: `c8a88f6046a975d2ec48757e89d0ee14333ae89b`
+
+Pre-patch checkpoint:
+- `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_PREPATCH_BACKUP_2026-09-11.md`
+- creation commit `dc81ca6558c0ccf36e227deb89a29bc3bd08f992`
+
+Final backup/seal: PENDING at this registration step.
+
 ## Canonical Authority
 Authority remains split across exactly six official files under `Rules/`:
 1. `AI_MARKET_MASTER_3.2_MASTER_RULE.md` — architecture/integration authority
@@ -113,4 +132,4 @@ Previous Global SAI v1 final checkpoint remains preserved:
 - `Backup/AI_MARKET_MASTER_3.2_SAI_GLOBAL_ACTIVATION_FINAL_BACKUP_2026-09-10.md`
 - blob SHA `c8316a0fbc746c7ca5867073f39aacf6ef9f7878`
 
-Date: 2026-09-10
+Date: 2026-09-11
