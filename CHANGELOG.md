@@ -29,8 +29,9 @@
 ### Patch snapshot
 - MASTER_RULE blob: `2c601ed6c5beb0c4937bf85f5b265f5f4b68957f`
 - DASHBOARD_RULE blob: `c8a88f6046a975d2ec48757e89d0ee14333ae89b`
-- Pre-patch backup creation commit: `dc81ca6558c0ccf36e227deb89a29bc3bd08f992`
-- Final backup/seal: PENDING at this changelog registration step.
+- Pre-patch backup: `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_PREPATCH_BACKUP_2026-09-11.md` / blob `69d0e899fec8b48042500a002c31da71289150ef` / commit `dc81ca6558c0ccf36e227deb89a29bc3bd08f992`.
+- Final backup: `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_FINAL_BACKUP_2026-09-11.md` / blob `8f7371c21fa9b525d3725ec874c6384561ae3daa` / commit `8f44df2b574a6dd05ae925e194b7af5572d69ca4`.
+- Final seal status: `SEALED / CROSS-RULE REGRESSION PASS`.
 
 ## 2026-09-10 — SAI HTS-Operational v2 Redesign
 
