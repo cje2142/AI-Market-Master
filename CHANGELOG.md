@@ -1,5 +1,37 @@
 # AI Market Master Change Log
 
+## 2026-09-11 — Dashboard Execution Priority Hard Gate
+
+### Why
+- Prevent Full Dashboard runs from drifting into a scoring-first/free-form response when analytical complexity increases.
+- Preserve the exact 8-category Dashboard layout before detailed calculations without changing any analytical authority or formula order.
+
+### Changes
+- DASHBOARD_RULE now initializes a fixed 8-category presentation skeleton immediately after the exact Full Dashboard trigger is recognized.
+- Presentation Initialization is explicitly layout reservation only; it does not move SCORING, ADAPTIVE, TECHNICAL or BINANCE calculations ahead of their owning-rule sequence.
+- MASTER_RULE Full Execution Chain now references Dashboard Presentation Initialization before Preflight, then maps validated results into the reserved Dashboard structure after Strategy.
+- Added a Completion Hard Gate: normal completion is prohibited when required Dashboard structure, scoring status, Regime/Transition status, Binance disclosure, Strategy fields or final action validation fail.
+- `AI Master Score` display is explicitly fixed to `DATA UNAVAILABLE — 공식 산식 미정의` until SCORING_RULE formally activates a reproducible formula.
+- `Strategy Action Index` remains HTS-Operational v2 / runtime data-dependent.
+
+### Validation
+- Cross-authority regression: PASS.
+- 6 official Authority files preserved.
+- 24 internal Analysis Engines preserved.
+- 8 Dashboard categories preserved.
+- C1-C8 / Global SAI formulas and weights unchanged.
+- ADAPTIVE Regime/Transition/conflict sequence unchanged.
+- BINANCE Latest Re-query/Fallback/Freshness rules unchanged.
+- TECHNICAL calculation authority unchanged.
+- Intraday `24 → 16 → 17` path unchanged.
+- No 25th engine or ninth Dashboard category created.
+
+### Patch snapshot
+- MASTER_RULE blob: `2c601ed6c5beb0c4937bf85f5b265f5f4b68957f`
+- DASHBOARD_RULE blob: `c8a88f6046a975d2ec48757e89d0ee14333ae89b`
+- Pre-patch backup creation commit: `dc81ca6558c0ccf36e227deb89a29bc3bd08f992`
+- Final backup/seal: PENDING at this changelog registration step.
+
 ## 2026-09-10 — SAI HTS-Operational v2 Redesign
 
 ### Why
