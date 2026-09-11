@@ -11,6 +11,20 @@ Full Dashboard: `AI Market Master 3.2 Dashboard 실행`
 Binance Engine: `AI Market Master 3.2 Binance Engine 실행`
 Similar or abbreviated phrases must not silently trigger the full workflows.
 
+## 2A. Full Dashboard Execution Priority Hard Gate
+When the exact Full Dashboard trigger is recognized, initialize the presentation structure before analytical execution.
+
+Required sequence:
+1. Confirm the exact Full Dashboard trigger.
+2. Reserve the fixed 8-category Dashboard skeleton in the required order.
+3. Execute the existing MASTER_RULE analytical chain without changing its calculation or validation order.
+4. Map validated C1-C8/Strategy Action Index, Market Regime/Transition/Conflict, technical, Binance and portfolio results into the reserved categories.
+5. Run the Completion Hard Gate before declaring completion.
+
+`Reserve the Dashboard skeleton` means presentation initialization only. It does not mean outputting conclusions before analysis, and it must not move SCORING, ADAPTIVE, TECHNICAL or BINANCE calculations ahead of their owning-rule sequence.
+
+Once initialized, the Full Dashboard may not switch to a free-form scoring-first response. Detailed calculations may be shown only after the mandatory summary table and fixed category structure are preserved.
+
 ## 3. Fixed 8 Dashboard Categories
 Every Full Dashboard must output exactly, in this order:
 1. Observation (시장 관찰)
@@ -80,6 +94,8 @@ Use an official score only when SCORING_RULE permits it. Otherwise show verified
 
 Never invent 83 points, 72%, 8.4/10 or similar unofficial numbers.
 VH/H/M/L Evidence Priority is allowed as a qualitative Indicator only and must not be displayed as a numeric weight or score.
+
+`AI Master Score` must remain `DATA UNAVAILABLE — 공식 산식 미정의` until SCORING_RULE formally activates a reproducible formula. It must not be inferred from Strategy Action Index, Market Regime, signal counts, VH/H/M/L or qualitative Strategy posture.
 
 ## 11. Confidence
 Use:
@@ -188,12 +204,15 @@ Large HTS input does not change the 8-category structure. Remove duplicated raw 
 
 Adaptive presentation should normally show only Primary Regime, material Transition, highest-priority evidence and unresolved conflict rather than all internal calculations.
 
-## 20. Completion Declaration
-Only declare `AI Market Master 3.2 Dashboard 실행 완료` after confirming:
-- 8 categories complete
-- summary table complete
+## 20. Completion Declaration / Hard Gate
+Only declare `AI Market Master 3.2 Dashboard 실행 완료` after confirming all of the following:
+- presentation initialization preserved the fixed 8-category skeleton
+- summary table contains all 8 categories in the official order
+- all 8 detailed categories are present; none are omitted, merged, replaced or promoted to a ninth category
 - canonical signal applied
-- score/indicator shown
+- score/indicator status shown
+- `AI Master Score` is shown as `DATA UNAVAILABLE — 공식 산식 미정의` unless SCORING_RULE is formally changed
+- Strategy Action Index status is shown and numeric output appears only when SCORING_RULE runtime gates permit it
 - confidence shown where applicable
 - missing data marked
 - Strategy mandatory fields checked
@@ -204,9 +223,12 @@ Only declare `AI Market Master 3.2 Dashboard 실행 완료` after confirming:
 - material high-priority conflicts were disclosed/resolved
 - Regime re-validation completed when Full adaptive analysis is used
 - when Binance is required, its Data Mode/freshness disclosure is consistent with BINANCE_RULE
+- final portfolio action is present when supported, or explicitly blocked/unavailable when required inputs are insufficient
 - final action evidence-backed
 
-Otherwise use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED.
+If any required item fails, do not declare normal completion. Use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED as applicable and identify the failed gate.
 
 ## 21. Dashboard Master Principle
-Table First → 8 Fixed Categories → English + Korean → Canonical Signal → Score/Indicator → Confidence → Evidence → Market Regime / Transition → Judgment → Action.
+Exact Trigger → Presentation Initialization → Table First → 8 Fixed Categories → Official Analysis/Validation Chain → Category Mapping → Completion Hard Gate.
+
+Within the completed Dashboard presentation: English + Korean → Canonical Signal → Score/Indicator → Confidence → Evidence → Market Regime / Transition → Judgment → Action.
