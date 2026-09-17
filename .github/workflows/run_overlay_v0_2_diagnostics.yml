@@ -1,0 +1,32 @@
+name: Run Compounding Overlay v0.2 Diagnostics
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run_overlay_v0_2_diagnostics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run v0.2 diagnostics
+        run: python Research/analyze_overlay_v0_2.py
+      - name: Commit diagnostics
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/results/compounding_overlay_v0_2_diagnostics.md
+          if git diff --cached --quiet; then
+            echo 'No diagnostic changes'
+          else
+            git commit -m 'research: analyze Compounding Overlay v0.2 diagnostics'
+            git push
+          fi
