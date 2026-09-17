@@ -1,0 +1,733 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "study": "Full Evidence Validation Set v0.1 event study",
+  "data_sources": "FinanceData/fdr_krx_data_cache KRX-derived public cache",
+  "events": [
+    {
+      "date": "2026-07-15",
+      "dashboard_state": "Strong Bull / Recovery",
+      "historical_posture": "HOLD / avoid chasing / partial profit management",
+      "evidence_quality": "REGIME+HTS",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 7284.41,
+          "available_future_sessions": 44,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-16",
+            "forward_return": -0.06367159454231697,
+            "mae_close": -0.06367159454231697,
+            "mfe_close": -0.06367159454231697
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-23",
+            "forward_return": -0.025742647654374173,
+            "mae_close": -0.10544985798438022,
+            "mfe_close": -0.025742647654374173
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-13",
+            "forward_return": -0.0646682435502669,
+            "mae_close": -0.23211900483361037,
+            "mfe_close": -0.025742647654374173
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1163.9,
+          "available_future_sessions": 44,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-16",
+            "forward_return": -0.07177592576681857,
+            "mae_close": -0.07177592576681857,
+            "mfe_close": -0.07177592576681857
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-23",
+            "forward_return": -0.032279405447203535,
+            "mae_close": -0.11287911332588718,
+            "mfe_close": -0.032279405447203535
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-13",
+            "forward_return": -0.07961165048543695,
+            "mae_close": -0.25037374344874996,
+            "mfe_close": -0.032279405447203535
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 829.43,
+          "available_future_sessions": 44,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-16",
+            "forward_return": -0.04532028019242118,
+            "mae_close": -0.04532028019242118,
+            "mfe_close": -0.04532028019242118
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-23",
+            "forward_return": -0.04720108990511551,
+            "mae_close": -0.09619859421530441,
+            "mfe_close": -0.04532028019242118
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-13",
+            "forward_return": 0.038508373220163206,
+            "mae_close": -0.2226227650314071,
+            "mfe_close": 0.038508373220163206
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-07-16",
+      "dashboard_state": "Panic / Capitulation",
+      "historical_posture": "NO CHASE-SELL / leverage reduction on rebound",
+      "evidence_quality": "REGIME+HTS",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 6820.6,
+          "available_future_sessions": 43,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-20",
+            "forward_return": -0.044619241708940605,
+            "mae_close": -0.044619241708940605,
+            "mfe_close": -0.044619241708940605
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-24",
+            "forward_return": -0.019056974459724985,
+            "mae_close": -0.044619241708940605,
+            "mfe_close": 0.040508166436970416
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-14",
+            "forward_return": 0.023068351757909777,
+            "mae_close": -0.17990206140222265,
+            "mfe_close": 0.040508166436970416
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1080.36,
+          "available_future_sessions": 43,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-20",
+            "forward_return": -0.04428153578436811,
+            "mae_close": -0.04428153578436811,
+            "mfe_close": -0.04428153578436811
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-24",
+            "forward_return": -0.022936798844829465,
+            "mae_close": -0.04428153578436811,
+            "mfe_close": 0.04255063127105774
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-14",
+            "forward_return": 0.016494501832722497,
+            "mae_close": -0.19240808619349092,
+            "mfe_close": 0.04255063127105774
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 791.84,
+          "available_future_sessions": 43,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-20",
+            "forward_return": -0.05329359466558903,
+            "mae_close": -0.05329359466558903,
+            "mfe_close": -0.05329359466558903
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-24",
+            "forward_return": -0.05508688623964442,
+            "mae_close": -0.05508688623964442,
+            "mfe_close": -0.0019700949686806135
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-14",
+            "forward_return": 0.09195039401899363,
+            "mae_close": -0.18571933723984646,
+            "mfe_close": 0.09195039401899363
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "dashboard_state": "Selective strength / weak internals",
+      "historical_posture": "HOLD / SELECTIVE BUY",
+      "evidence_quality": "REGIME+HTS",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 6747.95,
+          "available_future_sessions": 41,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-22",
+            "forward_return": 0.007372609459169066,
+            "mae_close": 0.007372609459169066,
+            "mfe_close": 0.007372609459169066
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-28",
+            "forward_return": -0.10733482020465479,
+            "mae_close": -0.10733482020465479,
+            "mfe_close": 0.05171051949110472
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-19",
+            "forward_return": -0.041016901429322905,
+            "mae_close": -0.1710726961521647,
+            "mfe_close": 0.05171051949110472
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1073.39,
+          "available_future_sessions": 41,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-22",
+            "forward_return": 0.006363018101528839,
+            "mae_close": 0.006363018101528839,
+            "mfe_close": 0.006363018101528839
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-28",
+            "forward_return": -0.11896887431408909,
+            "mae_close": -0.11896887431408909,
+            "mfe_close": 0.04932037749559792
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-19",
+            "forward_return": -0.05662433970877323,
+            "mae_close": -0.18716403171261153,
+            "mfe_close": 0.04932037749559792
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 753.34,
+          "available_future_sessions": 41,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-22",
+            "forward_return": -0.0029866992327501896,
+            "mae_close": -0.0029866992327501896,
+            "mfe_close": -0.0029866992327501896
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-28",
+            "forward_return": -0.06303926513924651,
+            "mae_close": -0.06303926513924651,
+            "mfe_close": 0.049034964292351324
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-19",
+            "forward_return": 0.0944062441925293,
+            "mae_close": -0.14410491942549186,
+            "mfe_close": 0.14775532959885296
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-07-24",
+      "dashboard_state": "Risk-Off Correction",
+      "historical_posture": "NO AGGRESSIVE BUY",
+      "evidence_quality": "REGIME+HTS",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 6690.62,
+          "available_future_sessions": 38,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-27",
+            "forward_return": 0.009734523855786215,
+            "mae_close": 0.009734523855786215,
+            "mfe_close": 0.009734523855786215
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-31",
+            "forward_return": -0.014224391760404909,
+            "mae_close": -0.16396985630629146,
+            "mfe_close": 0.009734523855786215
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-24",
+            "forward_return": 0.0009475952901225604,
+            "mae_close": -0.16396985630629146,
+            "mfe_close": 0.04294370327413599
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1055.58,
+          "available_future_sessions": 38,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-27",
+            "forward_return": 0.012921806021334303,
+            "mae_close": 0.012921806021334303,
+            "mfe_close": 0.012921806021334303
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-31",
+            "forward_return": -0.008308228651547012,
+            "mae_close": -0.17344966748138457,
+            "mfe_close": 0.012921806021334303
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-24",
+            "forward_return": -0.0014873339775288708,
+            "mae_close": -0.17344966748138457,
+            "mfe_close": 0.04035696015460699
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 748.22,
+          "available_future_sessions": 38,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-27",
+            "forward_return": 0.022239448290609642,
+            "mae_close": 0.022239448290609642,
+            "mfe_close": 0.022239448290609642
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-31",
+            "forward_return": -0.03803694100665589,
+            "mae_close": -0.13824810884499217,
+            "mfe_close": 0.022239448290609642
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-24",
+            "forward_return": 0.08701986046884613,
+            "mae_close": -0.13824810884499217,
+            "mfe_close": 0.15560931276897172
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-07-30",
+      "dashboard_state": "Risk / Oversold conflict",
+      "historical_posture": "MANAGE LEVERAGE / WAIT RECOVERY",
+      "evidence_quality": "REGIME+HTS",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 5593.56,
+          "available_future_sessions": 34,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-31",
+            "forward_return": 0.17911491071875507,
+            "mae_close": 0.17911491071875507,
+            "mfe_close": 0.17911491071875507
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-06",
+            "forward_return": 0.1256480667052824,
+            "mae_close": 0.11868827723310371,
+            "mfe_close": 0.17961727415098783
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-28",
+            "forward_return": 0.21369575011262953,
+            "mae_close": 0.11868827723310371,
+            "mfe_close": 0.2474953339197219
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 872.49,
+          "available_future_sessions": 34,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-31",
+            "forward_return": 0.19979598620041483,
+            "mae_close": 0.19979598620041483,
+            "mfe_close": 0.19979598620041483
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-06",
+            "forward_return": 0.1265687858886635,
+            "mae_close": 0.1265687858886635,
+            "mfe_close": 0.19979598620041483
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-28",
+            "forward_return": 0.2214466641451478,
+            "mae_close": 0.11718185881786614,
+            "mfe_close": 0.25867345184472024
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 644.78,
+          "available_future_sessions": 34,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-07-31",
+            "forward_return": 0.11628772604609328,
+            "mae_close": 0.11628772604609328,
+            "mfe_close": 0.11628772604609328
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-06",
+            "forward_return": 0.24332330407270697,
+            "mae_close": 0.11628772604609328,
+            "mfe_close": 0.24332330407270697
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-28",
+            "forward_return": 0.3003039796519744,
+            "mae_close": 0.11628772604609328,
+            "mfe_close": 0.3410000310183319
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-08-04",
+      "dashboard_state": "Bullish Rebound + high volatility",
+      "historical_posture": "CONFIRMATION BUY",
+      "evidence_quality": "REGIME+HTS",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 6358.95,
+          "available_future_sessions": 31,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-05",
+            "forward_return": 0.037633571580213854,
+            "mae_close": 0.037633571580213854,
+            "mfe_close": 0.037633571580213854
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-11",
+            "forward_return": -0.002110411310043303,
+            "mae_close": -0.015754173251873227,
+            "mfe_close": 0.037633571580213854
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-02",
+            "forward_return": 0.032044598557938064,
+            "mae_close": -0.015754173251873227,
+            "mfe_close": 0.09734154223574643
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1000.03,
+          "available_future_sessions": 31,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-05",
+            "forward_return": 0.03855884323470282,
+            "mae_close": 0.03855884323470282,
+            "mfe_close": 0.03855884323470282
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-11",
+            "forward_return": -0.012629621111366673,
+            "mae_close": -0.02529924102276926,
+            "mfe_close": 0.03855884323470282
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-02",
+            "forward_return": 0.031499055028349154,
+            "mae_close": -0.02529924102276926,
+            "mfe_close": 0.09814705558833237
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 780.72,
+          "available_future_sessions": 31,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-05",
+            "forward_return": 0.024169996925914594,
+            "mae_close": 0.024169996925914594,
+            "mfe_close": 0.024169996925914594
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-08-11",
+            "forward_return": 0.09878061276770156,
+            "mae_close": 0.02317091915155234,
+            "mfe_close": 0.09878061276770156
+          },
+          "h20": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-02",
+            "forward_return": 0.02979301157905523,
+            "mae_close": 0.02317091915155234,
+            "mfe_close": 0.10750333025924785
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "dashboard_state": "Leadership Bull -> Distribution confirmation",
+      "historical_posture": "CORE HOLD / NO NEW LEVERAGE",
+      "evidence_quality": "REGIME",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 6954.52,
+          "available_future_sessions": 7,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-09",
+            "forward_return": 0.013965018434054288,
+            "mae_close": 0.013965018434054288,
+            "mfe_close": 0.013965018434054288
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-15",
+            "forward_return": -0.04705716569943008,
+            "mae_close": -0.04705716569943008,
+            "mfe_close": 0.013965018434054288
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1100.08,
+          "available_future_sessions": 7,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-09",
+            "forward_return": 0.013208130317795108,
+            "mae_close": 0.013208130317795108,
+            "mfe_close": 0.013208130317795108
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-15",
+            "forward_return": -0.05237800887208188,
+            "mae_close": -0.05237800887208188,
+            "mfe_close": 0.013208130317795108
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 811.88,
+          "available_future_sessions": 7,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-09",
+            "forward_return": 0.022774301620929194,
+            "mae_close": 0.022774301620929194,
+            "mfe_close": 0.022774301620929194
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-15",
+            "forward_return": 0.0006528058333743481,
+            "mae_close": -0.006269399418633359,
+            "mfe_close": 0.030841996354140866
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "dashboard_state": "R2 maintained / R4 watch",
+      "historical_posture": "HOLD",
+      "evidence_quality": "C1-C8 PARTIAL",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 7033.92,
+          "available_future_sessions": 5,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-11",
+            "forward_return": -0.017630282971657363,
+            "mae_close": -0.017630282971657363,
+            "mfe_close": -0.017630282971657363
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-17",
+            "forward_return": -0.04401244256403258,
+            "mae_close": -0.05781413493471632,
+            "mfe_close": -0.017630282971657363
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1112.13,
+          "available_future_sessions": 5,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-11",
+            "forward_return": -0.019700934243298995,
+            "mae_close": -0.019700934243298995,
+            "mfe_close": -0.019700934243298995
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-17",
+            "forward_return": -0.04736856302770365,
+            "mae_close": -0.06264555402695737,
+            "mfe_close": -0.019700934243298995
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 836.92,
+          "available_future_sessions": 5,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-11",
+            "forward_return": -0.019452277398078643,
+            "mae_close": -0.019452277398078643,
+            "mfe_close": -0.019452277398078643
+          },
+          "h5": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-17",
+            "forward_return": -0.018221574344023272,
+            "mae_close": -0.03600105147445398,
+            "mfe_close": -0.018221574344023272
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "dashboard_state": "R4 Distribution / R5 watch",
+      "historical_posture": "RISK REDUCTION WATCH / TECHNICAL CONFLICT",
+      "evidence_quality": "C1-C8 FULL",
+      "markets": {
+        "KOSPI": {
+          "status": "OK",
+          "signal_close": 6909.91,
+          "available_future_sessions": 4,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-14",
+            "forward_return": -0.032640077801302736,
+            "mae_close": -0.032640077801302736,
+            "mfe_close": -0.032640077801302736
+          },
+          "h5": {
+            "status": "PENDING"
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        },
+        "KOSPI200": {
+          "status": "OK",
+          "signal_close": 1090.22,
+          "available_future_sessions": 4,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-14",
+            "forward_return": -0.036130322320265695,
+            "mae_close": -0.036130322320265695,
+            "mfe_close": -0.036130322320265695
+          },
+          "h5": {
+            "status": "PENDING"
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        },
+        "KOSDAQ": {
+          "status": "OK",
+          "signal_close": 820.64,
+          "available_future_sessions": 4,
+          "h1": {
+            "status": "COMPLETE",
+            "end_date": "2026-09-14",
+            "forward_return": -0.016877071553909162,
+            "mae_close": -0.016877071553909162,
+            "mfe_close": -0.016877071553909162
+          },
+          "h5": {
+            "status": "PENDING"
+          },
+          "h20": {
+            "status": "PENDING"
+          }
+        }
+      }
+    }
+  ]
+}
