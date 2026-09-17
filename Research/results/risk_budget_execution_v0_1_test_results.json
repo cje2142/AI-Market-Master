@@ -1,0 +1,237 @@
+{
+  "version": "Risk Budget Execution v0.1",
+  "status": "DETERMINISTIC TEST",
+  "official_3_2_authority": false,
+  "tests_passed": 10,
+  "tests_total": 10,
+  "results": [
+    {
+      "name": "T1 100->95 sufficient leverage",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 10,
+        "leverage": 10
+      },
+      "after": {
+        "core": 80,
+        "tactical": 10.0,
+        "leverage": 5
+      },
+      "before_total": 100,
+      "after_total": 95.0,
+      "target": 95,
+      "status": "EXECUTABLE",
+      "actions": [
+        "Reduce Leverage 5.00"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T2 100->90 sufficient non-core",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 10,
+        "leverage": 10
+      },
+      "after": {
+        "core": 80,
+        "tactical": 10.0,
+        "leverage": 0
+      },
+      "before_total": 100,
+      "after_total": 90.0,
+      "target": 90,
+      "status": "EXECUTABLE",
+      "actions": [
+        "Reduce Leverage 10.00"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T3 100->80 sufficient non-core",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 10,
+        "leverage": 10
+      },
+      "after": {
+        "core": 80,
+        "tactical": 0,
+        "leverage": 0
+      },
+      "before_total": 100,
+      "after_total": 80,
+      "target": 80,
+      "status": "EXECUTABLE",
+      "actions": [
+        "Reduce Leverage 10.00",
+        "Reduce Tactical 10.00"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T4 Core Preservation Gate",
+      "result": "PASS",
+      "before": {
+        "core": 90,
+        "tactical": 5,
+        "leverage": 5
+      },
+      "after": {
+        "core": 90,
+        "tactical": 0,
+        "leverage": 0
+      },
+      "before_total": 100,
+      "after_total": 90,
+      "target": 80,
+      "status": "PARTIAL EXECUTION / CORE PROTECTED",
+      "actions": [
+        "Reduce Leverage 5.00",
+        "Reduce Tactical 5.00",
+        "Unfilled reduction 10.00: Core authority absent or insufficient"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T5 80->100 recovery order",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 0,
+        "leverage": 0
+      },
+      "after": {
+        "core": 90,
+        "tactical": 5,
+        "leverage": 5
+      },
+      "before_total": 80,
+      "after_total": 100,
+      "target": 100,
+      "status": "EXECUTABLE",
+      "actions": [
+        "Restore Core 10.00",
+        "Restore Tactical 5.00",
+        "Restore Leverage 5.00"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T6 Missing risk multipliers",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 10,
+        "leverage": 10
+      },
+      "after": {
+        "core": 80,
+        "tactical": 10.0,
+        "leverage": 5
+      },
+      "before_total": 100,
+      "after_total": 95.0,
+      "target": 95,
+      "status": "DATA PARTIAL",
+      "actions": [
+        "Reduce Leverage 5.00",
+        "Exact risk-unit translation unavailable; nominal sleeve mapping only"
+      ],
+      "data_quality": "PARTIAL"
+    },
+    {
+      "name": "T7 Portfolio composition independence",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 10,
+        "leverage": 10
+      },
+      "after": {
+        "core": 80,
+        "tactical": 10.0,
+        "leverage": 0
+      },
+      "before_total": 100,
+      "after_total": 90.0,
+      "target": 90,
+      "status": "EXECUTABLE",
+      "actions": [
+        "Reduce Leverage 10.00"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T7B Alternate portfolio mapping",
+      "result": "PASS",
+      "before": {
+        "core": 70,
+        "tactical": 30,
+        "leverage": 0
+      },
+      "after": {
+        "core": 70,
+        "tactical": 20,
+        "leverage": 0
+      },
+      "before_total": 100,
+      "after_total": 90,
+      "target": 90,
+      "status": "EXECUTABLE",
+      "actions": [
+        "Reduce Tactical 10.00"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "T8 Panic without Full Evidence permission",
+      "result": "PASS",
+      "before": {
+        "core": 90,
+        "tactical": 5,
+        "leverage": 5
+      },
+      "after": {
+        "core": 90,
+        "tactical": 5,
+        "leverage": 5
+      },
+      "before_total": 100,
+      "after_total": 100,
+      "target": 80,
+      "status": "HOLD / CONFLICT",
+      "actions": [
+        "No reduction: Full Evidence execution permission absent"
+      ],
+      "data_quality": "FULL"
+    },
+    {
+      "name": "Guard leverage restore authorization",
+      "result": "PASS",
+      "before": {
+        "core": 80,
+        "tactical": 0,
+        "leverage": 0
+      },
+      "after": {
+        "core": 90,
+        "tactical": 5,
+        "leverage": 0
+      },
+      "before_total": 80,
+      "after_total": 95,
+      "target": 100,
+      "status": "LEVERAGE RESTORE BLOCKED",
+      "actions": [
+        "Restore Core 10.00",
+        "Restore Tactical 5.00",
+        "Unfilled restoration 5.00: leverage authorization absent"
+      ],
+      "data_quality": "FULL"
+    }
+  ]
+}
