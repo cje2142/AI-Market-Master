@@ -1,0 +1,32 @@
+name: Run Risk Budget Execution v0.1 Tests
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run_risk_budget_execution_v0_1_tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run deterministic execution tests
+        run: python Research/risk_budget_execution_v0_1_tests.py
+      - name: Commit reproducible results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/results/risk_budget_execution_v0_1_test_results.json Research/results/risk_budget_execution_v0_1_test_results.md
+          if git diff --cached --quiet; then
+            echo 'No result changes'
+          else
+            git commit -m 'research: validate Risk Budget Execution v0.1'
+            git push
+          fi
