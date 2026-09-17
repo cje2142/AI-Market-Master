@@ -1,0 +1,50 @@
+{
+  "version": "Dashboard Runtime Logger Adapter v0.1",
+  "status": "DETERMINISTIC TEST",
+  "official_3_2_authority": false,
+  "tests_passed": 10,
+  "tests_total": 10,
+  "results": [
+    {
+      "name": "T1 FULL snapshot builds valid Runtime sample",
+      "result": "PASS"
+    },
+    {
+      "name": "T2 duplicate snapshot stable-id rejection",
+      "result": "PASS"
+    },
+    {
+      "name": "T3 new signal timestamp creates new sample_id",
+      "result": "PASS"
+    },
+    {
+      "name": "T4 PARTIAL explicit missing preserved",
+      "result": "PASS"
+    },
+    {
+      "name": "T5 FULL snapshot cannot hide missing category",
+      "result": "PASS"
+    },
+    {
+      "name": "T6 reduction maps Leverage first",
+      "result": "PASS"
+    },
+    {
+      "name": "T7 Panic without Full Evidence authority cannot sell",
+      "result": "PASS"
+    },
+    {
+      "name": "T8 HOLD without portfolio remains loggable",
+      "result": "PASS"
+    },
+    {
+      "name": "T9 portfolio changes mapping but not market sample_id",
+      "result": "PASS"
+    },
+    {
+      "name": "T10 CSV projection matches canonical append",
+      "result": "PASS"
+    }
+  ],
+  "production_runtime_sample_created": false
+}
