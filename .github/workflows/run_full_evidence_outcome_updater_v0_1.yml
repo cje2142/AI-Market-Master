@@ -1,0 +1,41 @@
+name: Run Full Evidence Outcome Updater v0.1
+
+on:
+  schedule:
+    # 18:30 Korea time on weekdays; if source data is not updated yet the run is a safe no-op.
+    - cron: '30 9 * * 1-5'
+  push:
+    paths:
+      - 'Research/full_evidence_outcome_updater_v0_1.py'
+      - '.github/workflows/run_full_evidence_outcome_updater_v0_1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Share the same lock as Dashboard ingestion so JSONL append operations cannot race.
+concurrency:
+  group: full-evidence-runtime-log-v0-1
+  cancel-in-progress: false
+
+jobs:
+  mature-outcomes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Mature eligible KOSPI outcomes
+        run: python Research/full_evidence_outcome_updater_v0_1.py
+      - name: Commit append-only OUTCOME events and CSV projection
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/runtime/full_evidence_runtime_log_v0_1.jsonl Research/runtime/full_evidence_runtime_log_v0_1.csv
+          if git diff --cached --quiet; then
+            echo 'No newly matured outcome; pending horizons remain unchanged'
+          else
+            git commit -m 'runtime: mature Full Evidence prospective outcomes'
+            git push
+          fi
