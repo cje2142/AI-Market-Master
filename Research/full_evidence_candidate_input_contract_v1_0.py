@@ -28,6 +28,18 @@ ALLOWED_PREVIOUS_ACTIONS = frozenset({"NONE", "HOLD", "REDUCE", "RESTORE", "BLOC
 ALLOWED_COST_GATE = frozenset({"PASS", "FAIL", "UNAVAILABLE", "EMERGENCY_BYPASS"})
 
 
+def _strict_bool(value: Any, name: str) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        token = value.strip().upper()
+        if token in {"TRUE", "YES", "Y", "1"}:
+            return True
+        if token in {"FALSE", "NO", "N", "0"}:
+            return False
+    raise ValueError(f"{name} must be boolean or an explicit YES/NO value")
+
+
 @dataclass(frozen=True)
 class PreviousOverlayState:
     """State carried from the immediately preceding Candidate evaluation.
@@ -45,7 +57,7 @@ class PreviousOverlayState:
     trading_sessions_since_last_restoration: Optional[int] = None
 
     def validate(self) -> None:
-        if self.current_target_risk_budget not in ALLOWED_RISK_BUDGETS:
+        if isinstance(self.current_target_risk_budget, bool) or self.current_target_risk_budget not in ALLOWED_RISK_BUDGETS:
             raise ValueError(
                 "current_target_risk_budget must be one of "
                 f"{sorted(ALLOWED_RISK_BUDGETS)}"
@@ -70,7 +82,7 @@ class PreviousOverlayState:
             "trading_sessions_since_last_restoration",
         ):
             value = getattr(self, name)
-            if value is not None and (not isinstance(value, int) or value < 0):
+            if value is not None and (isinstance(value, bool) or not isinstance(value, int) or value < 0):
                 raise ValueError(f"{name} must be a non-negative integer or null")
 
 
@@ -97,9 +109,9 @@ class CostGateContext:
 
         edge = self.expected_edge_bps
         cost = self.estimated_total_cost_bps
-        if edge is not None and not isinstance(edge, (int, float)):
+        if edge is not None and (isinstance(edge, bool) or not isinstance(edge, (int, float))):
             raise ValueError("expected_edge_bps must be numeric or null")
-        if cost is not None and not isinstance(cost, (int, float)):
+        if cost is not None and (isinstance(cost, bool) or not isinstance(cost, (int, float))):
             raise ValueError("estimated_total_cost_bps must be numeric or null")
         if cost is not None and cost < 0:
             raise ValueError("estimated_total_cost_bps must be >= 0")
@@ -169,6 +181,8 @@ class CandidateInput:
             obj = self.categories[name]
             if not isinstance(obj, CategoryEvidence):
                 raise ValueError(f"{name}: must be CategoryEvidence")
+            if not str(obj.status).strip():
+                raise ValueError(f"{name}: status is required")
             obj.validate(name)
 
         if quality == "FULL" and any(self.categories[c].value is None for c in CATEGORIES):
@@ -226,6 +240,20 @@ def _require_mapping(obj: Any, name: str) -> Mapping[str, Any]:
     return obj
 
 
+def _parse_risk_budget(value: Any) -> int:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError("previous.current_target_risk_budget must be numeric")
+    if float(value) != int(value):
+        raise ValueError("previous.current_target_risk_budget must be an allowed discrete state")
+    parsed = int(value)
+    if parsed not in ALLOWED_RISK_BUDGETS:
+        raise ValueError(
+            "previous.current_target_risk_budget must be one of "
+            f"{sorted(ALLOWED_RISK_BUDGETS)}"
+        )
+    return parsed
+
+
 def candidate_input_from_dict(payload: Mapping[str, Any]) -> CandidateInput:
     """Parse a JSON-compatible mapping into the frozen Candidate v1.0 contract."""
 
@@ -254,13 +282,16 @@ def candidate_input_from_dict(payload: Mapping[str, Any]) -> CandidateInput:
         )
 
     raw_flags = _require_mapping(payload["flags"], "flags")
-    flags = CandidateFlags(**{k: bool(raw_flags.get(k, False)) for k in CandidateFlags.__dataclass_fields__})
+    parsed_flags = {}
+    for name in CandidateFlags.__dataclass_fields__:
+        parsed_flags[name] = _strict_bool(raw_flags.get(name, False), f"flags.{name}")
+    flags = CandidateFlags(**parsed_flags)
 
     raw_prev = _require_mapping(payload["previous"], "previous")
     if "current_target_risk_budget" not in raw_prev:
         raise ValueError("previous.current_target_risk_budget is required")
     previous = PreviousOverlayState(
-        current_target_risk_budget=int(raw_prev["current_target_risk_budget"]),
+        current_target_risk_budget=_parse_risk_budget(raw_prev["current_target_risk_budget"]),
         previous_action_direction=raw_prev.get("previous_action_direction", "NONE"),
         previous_validated_regime=raw_prev.get("previous_validated_regime"),
         previous_market_date=raw_prev.get("previous_market_date"),
