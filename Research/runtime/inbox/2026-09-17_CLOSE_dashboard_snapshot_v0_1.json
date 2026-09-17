@@ -1,0 +1,43 @@
+{
+  "market_date": "2026-09-17",
+  "timestamp": "2026-09-17T15:30:00+09:00",
+  "session_checkpoint": "CLOSE",
+  "data_mode": "HTS CLOSE / BINANCE LIVE",
+  "validation_status": "VERIFIED",
+  "quality": "FULL",
+  "C1": {"status": "VERIFIED", "value": -0.29},
+  "C2": {"status": "VERIFIED / SHOCK", "value": -0.60},
+  "C3": {"status": "VERIFIED", "value": 0.41},
+  "C4": {"status": "VERIFIED", "value": 0.16},
+  "C5": {"status": "VERIFIED", "value": -0.43},
+  "C6": {"status": "VERIFIED", "value": -0.10},
+  "C7": {"status": "VERIFIED", "value": 0.41},
+  "C8": {"status": "VERIFIED", "value": 0.41},
+  "preliminary_regime": "R7 Deep Correction / Support Test",
+  "validated_regime": "R7 Deep Correction / Support Test",
+  "transition_state": "R8 Recovery / Accumulation WATCH; R5 re-transition risk not confirmed",
+  "material_conflicts": [
+    "C2 Shock ACTIVE",
+    "C2 internal conflict: arbitrage positive vs non-arbitrage strongly negative",
+    "negative C1/C2/C5/C6 vs positive C3/C4/C7/C8"
+  ],
+  "evidence_gate_result": "HOLD",
+  "gate_reached": "NONE",
+  "target_risk_budget": null,
+  "action_direction": "HOLD",
+  "allowed_step_size": 0,
+  "reason_codes": [
+    "SAI_BALANCED_HOLD_-0.07",
+    "R7_SUPPORT_TEST",
+    "R8_NOT_CONFIRMED",
+    "C2_SHOCK_ACTIVE",
+    "C3_POSITIVE_BREADTH",
+    "C5_NEGATIVE_TECHNICAL",
+    "NO_ADDITIONAL_BUY",
+    "NO_ADDITIONAL_SELL"
+  ],
+  "unresolved_constraints": [
+    "normalized Core/Tactical/Leverage risk units were not supplied in the Dashboard result",
+    "exact portfolio risk multipliers unavailable for this snapshot"
+  ]
+}
