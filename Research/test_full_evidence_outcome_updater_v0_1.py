@@ -45,7 +45,14 @@ def base_signal(sample_id, market_date):
 
 def sessions_from_closes(start, closes):
     d = date.fromisoformat(start)
-    return [{"date": d + timedelta(days=i), "close": c} for i, c in enumerate(closes)]
+    out = []
+    i = 0
+    while i < len(closes):
+        if d.weekday() < 5:
+            out.append({"date": d, "close": closes[i]})
+            i += 1
+        d += timedelta(days=1)
+    return out
 
 
 def projection(log):
