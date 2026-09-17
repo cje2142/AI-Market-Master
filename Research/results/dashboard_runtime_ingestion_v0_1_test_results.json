@@ -1,0 +1,24 @@
+{
+  "version": "Dashboard Runtime Ingestion v0.1",
+  "tests_passed": 4,
+  "tests_total": 4,
+  "production_runtime_sample_created": false,
+  "results": [
+    {
+      "name": "T1 valid inbox snapshot appended",
+      "result": "PASS"
+    },
+    {
+      "name": "T2 retained inbox duplicate safely skipped",
+      "result": "PASS"
+    },
+    {
+      "name": "T3 new signal timestamp appended as new sample",
+      "result": "PASS"
+    },
+    {
+      "name": "T4 invalid snapshot fails closed",
+      "result": "PASS"
+    }
+  ]
+}
