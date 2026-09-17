@@ -1,0 +1,46 @@
+{
+  "passed": 10,
+  "total": 10,
+  "tests": [
+    [
+      "T1 valid signal append",
+      "PASS"
+    ],
+    [
+      "T2 duplicate sample rejection",
+      "PASS"
+    ],
+    [
+      "T3 missing-state handling",
+      "PASS"
+    ],
+    [
+      "T4 future outcomes remain PENDING",
+      "PASS"
+    ],
+    [
+      "T5 horizon maturation isolation",
+      "PASS"
+    ],
+    [
+      "T6 outcome cannot rewrite signal",
+      "PASS"
+    ],
+    [
+      "T7 append-only correction audit",
+      "PASS"
+    ],
+    [
+      "T8 correction boundary",
+      "PASS"
+    ],
+    [
+      "T9 blocked observations retained",
+      "PASS"
+    ],
+    [
+      "T10 deterministic CSV projection",
+      "PASS"
+    ]
+  ]
+}
