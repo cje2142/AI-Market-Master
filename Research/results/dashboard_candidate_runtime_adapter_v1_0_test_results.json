@@ -1,0 +1,54 @@
+{
+  "passed": 12,
+  "total": 12,
+  "tests": [
+    [
+      "T1 Dashboard to Candidate HOLD runtime sample",
+      "PASS"
+    ],
+    [
+      "T2 reduction auto maps Leverage first",
+      "PASS"
+    ],
+    [
+      "T3 conflict HOLD cannot become portfolio trade",
+      "PASS"
+    ],
+    [
+      "T4 BLOCKED remains no-execution",
+      "PASS"
+    ],
+    [
+      "T5 explicit evidence labels required",
+      "PASS"
+    ],
+    [
+      "T6 explicit complete structural flags required",
+      "PASS"
+    ],
+    [
+      "T7 sample identity independent of portfolio",
+      "PASS"
+    ],
+    [
+      "T8 restoration auto maps Core first",
+      "PASS"
+    ],
+    [
+      "T9 leverage restore authority remains separate",
+      "PASS"
+    ],
+    [
+      "T10 missing risk coefficients remain DATA PARTIAL",
+      "PASS"
+    ],
+    [
+      "T11 end-to-end inbox to Runtime Log projection",
+      "PASS"
+    ],
+    [
+      "T12 duplicate checkpoint cannot silently rewrite signal",
+      "PASS"
+    ]
+  ]
+}
