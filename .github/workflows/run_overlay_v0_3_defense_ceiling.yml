@@ -1,0 +1,36 @@
+name: Run Compounding Overlay v0.3 Defense Ceiling
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run_overlay_v0_3_defense_ceiling.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install numpy pandas
+      - name: Run v0.3 defense ceiling diagnostic
+        run: |
+          cd Research
+          python compounding_overlay_v0_3_defense_ceiling.py
+      - name: Commit diagnostic results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/results/compounding_overlay_v0_3_defense_ceiling.json Research/results/compounding_overlay_v0_3_defense_ceiling.md
+          if git diff --cached --quiet; then
+            echo 'No result changes'
+          else
+            git commit -m 'research: run v0.3 defense ceiling diagnostic'
+            git push
+          fi
