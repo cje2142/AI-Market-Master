@@ -1,0 +1,38 @@
+{
+  "passed": 8,
+  "total": 8,
+  "tests": [
+    [
+      "T1 empty dataset safe",
+      "PASS"
+    ],
+    [
+      "T2 Stage1 explicit gate",
+      "PASS"
+    ],
+    [
+      "T3 Stage2A time gate enforced",
+      "PASS"
+    ],
+    [
+      "T4 provisional review never auto-adopts",
+      "PASS"
+    ],
+    [
+      "T5 three-month checkpoint calendar logic",
+      "PASS"
+    ],
+    [
+      "T6 no hidden observation classifier",
+      "PASS"
+    ],
+    [
+      "T7 canonical correction and maturity counts",
+      "PASS"
+    ],
+    [
+      "T8 report boundary",
+      "PASS"
+    ]
+  ]
+}
