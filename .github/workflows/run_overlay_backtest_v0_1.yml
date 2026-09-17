@@ -1,0 +1,39 @@
+name: Run Compounding Overlay v0.1 Backtest
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run_overlay_backtest_v0_1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install numpy pandas
+      - name: Run frozen v0.1 historical proxy backtest
+        run: |
+          cd Research
+          python compounding_overlay_v0_1_backtest.py
+      - name: Commit reproducible results
+        run: |
+          mkdir -p Research/results
+          mv Research/compounding_overlay_v0_1_results.json Research/results/
+          mv Research/compounding_overlay_v0_1_results.md Research/results/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/results/
+          if git diff --cached --quiet; then
+            echo 'No result changes'
+          else
+            git commit -m 'research: run Compounding Overlay v0.1 historical proxy backtest'
+            git push
+          fi
