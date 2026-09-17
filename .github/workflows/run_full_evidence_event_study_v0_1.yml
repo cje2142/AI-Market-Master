@@ -1,0 +1,36 @@
+name: Run Full Evidence Event Study v0.1
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run_full_evidence_event_study_v0_1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pandas
+      - name: Run Full Evidence event study
+        run: |
+          cd Research
+          python full_evidence_event_study_v0_1.py
+      - name: Commit reproducible results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/results/full_evidence_event_study_v0_1.json Research/results/full_evidence_event_study_v0_1.md
+          if git diff --cached --quiet; then
+            echo 'No result changes'
+          else
+            git commit -m 'research: run Full Evidence event study v0.1'
+            git push
+          fi
