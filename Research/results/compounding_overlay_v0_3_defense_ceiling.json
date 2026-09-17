@@ -1,0 +1,67 @@
+{
+  "status": "Structural feasibility diagnostic only; perfect-foresight ceilings are not tradable strategies",
+  "target_relative_mdd_improvement": 0.15,
+  "historical_proxy_floor": 0.8,
+  "episodes": [
+    {
+      "peak_date": "2007-10-11",
+      "trough_date": "2008-10-24",
+      "hold_mdd_close_to_close": -0.5291803529142161,
+      "actual_v03_episode_improvement": 0.0879489501958172,
+      "perfect_90_from_peak_improvement": 0.07448158978197482,
+      "perfect_80_from_peak_improvement": 0.154003794875571,
+      "constant_exposure_required_for_15pct_improvement": 0.8048831652581543,
+      "actual_first_80_fraction_final_dd_realized": 0.42093107181522915
+    },
+    {
+      "peak_date": "2017-11-03",
+      "trough_date": "2020-03-19",
+      "hold_mdd_close_to_close": -0.41185845409202204,
+      "actual_v03_episode_improvement": 0.09963548630372973,
+      "perfect_90_from_peak_improvement": 0.0824112244757774,
+      "perfect_80_from_peak_improvement": 0.1684932340630664,
+      "constant_exposure_required_for_15pct_improvement": 0.8211226226496997,
+      "actual_first_80_fraction_final_dd_realized": 0.17506270154066658
+    },
+    {
+      "peak_date": "2021-06-25",
+      "trough_date": "2022-09-30",
+      "hold_mdd_close_to_close": -0.3611262488646688,
+      "actual_v03_episode_improvement": 0.024090103900285785,
+      "perfect_90_from_peak_improvement": 0.0842606852714571,
+      "perfect_80_from_peak_improvement": 0.17178866329806947,
+      "constant_exposure_required_for_15pct_improvement": 0.8245423900866199,
+      "actual_first_80_fraction_final_dd_realized": 0.4871730382293761
+    },
+    {
+      "peak_date": "2011-05-02",
+      "trough_date": "2011-09-26",
+      "hold_mdd_close_to_close": -0.2748264770611142,
+      "actual_v03_episode_improvement": 0.021719545193530223,
+      "perfect_90_from_peak_improvement": 0.09101986449075672,
+      "perfect_80_from_peak_improvement": 0.1840538586334039,
+      "constant_exposure_required_for_15pct_improvement": 0.8363533551892169,
+      "actual_first_80_fraction_final_dd_realized": 0.7653073795737345
+    },
+    {
+      "peak_date": "2006-05-11",
+      "trough_date": "2006-06-13",
+      "hold_mdd_close_to_close": -0.18280757097791778,
+      "actual_v03_episode_improvement": 0.08985951072909906,
+      "perfect_90_from_peak_improvement": 0.09277216780135679,
+      "perfect_80_from_peak_improvement": 0.18710003946291398,
+      "constant_exposure_required_for_15pct_improvement": 0.8391332541558687,
+      "actual_first_80_fraction_final_dd_realized": 0.922922059246477
+    },
+    {
+      "peak_date": "2007-07-25",
+      "trough_date": "2007-08-17",
+      "hold_mdd_close_to_close": -0.1786319064309062,
+      "actual_v03_episode_improvement": 0.03992436779159702,
+      "perfect_90_from_peak_improvement": 0.09416315140168866,
+      "perfect_80_from_peak_improvement": 0.18960862550299415,
+      "constant_exposure_required_for_15pct_improvement": 0.8413354034966352,
+      "actual_first_80_fraction_final_dd_realized": null
+    }
+  ]
+}
