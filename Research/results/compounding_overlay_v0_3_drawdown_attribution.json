@@ -1,0 +1,708 @@
+{
+  "status": "Historical Proxy diagnostic only; no strategy thresholds changed",
+  "period": [
+    "2006-01-02",
+    "2025-12-30"
+  ],
+  "cost_bp_side": 5,
+  "top_drawdowns": [
+    {
+      "peak_date": "2007-10-11",
+      "peak_price": 261.82,
+      "trough_date": "2008-10-24",
+      "trough_price": 123.27,
+      "hold_price_drawdown": -0.5291803529142158,
+      "recovery_date": "2010-12-09",
+      "hold_equity_mdd_in_episode": -0.5291803529142165,
+      "overlay_equity_mdd_in_episode": -0.4826394964111591,
+      "overlay_mdd_relative_improvement": 0.0879489501958172,
+      "first_R5": {
+        "date": "2007-11-21",
+        "market_drawdown_from_peak": -0.1259644030249789,
+        "fraction_of_final_drawdown_realized": 0.2380368098159508,
+        "trading_days_from_peak": 29
+      },
+      "first_StrongR5": {
+        "date": "2008-01-29",
+        "market_drawdown_from_peak": -0.20250553815598493,
+        "fraction_of_final_drawdown_realized": 0.382677733670155,
+        "trading_days_from_peak": 74
+      },
+      "first_R6": {
+        "date": "2008-09-16",
+        "market_drawdown_from_peak": -0.3163241921931097,
+        "fraction_of_final_drawdown_realized": 0.5977625405990616,
+        "trading_days_from_peak": 229
+      },
+      "first_exposure_95": {
+        "date": "2007-10-23",
+        "market_drawdown_from_peak": -0.06462455121839428,
+        "fraction_of_final_drawdown_realized": 0.12212197762540593,
+        "trading_days_from_peak": 8
+      },
+      "first_exposure_90": {
+        "date": "2007-11-22",
+        "market_drawdown_from_peak": -0.12879077228630353,
+        "fraction_of_final_drawdown_realized": 0.2433778419343197,
+        "trading_days_from_peak": 30
+      },
+      "first_exposure_80": {
+        "date": "2008-01-30",
+        "market_drawdown_from_peak": -0.2227484531357421,
+        "fraction_of_final_drawdown_realized": 0.42093107181522915,
+        "trading_days_from_peak": 75
+      },
+      "first_R8_after_trough": {
+        "date": "2008-12-22",
+        "market_drawdown_from_peak": -0.41188602856924605,
+        "fraction_of_final_drawdown_realized": 0.778347167087694,
+        "trading_days_from_peak": 297
+      },
+      "first_full_exposure_after_trough": {
+        "date": "2008-12-23",
+        "market_drawdown_from_peak": -0.4311740890688258,
+        "fraction_of_final_drawdown_realized": 0.8147961024900756,
+        "trading_days_from_peak": 298
+      },
+      "min_exposure_before_trough": 0.8
+    },
+    {
+      "peak_date": "2017-11-03",
+      "peak_price": 338.83,
+      "trough_date": "2020-03-19",
+      "trough_price": 199.28,
+      "hold_price_drawdown": -0.4118584540920225,
+      "recovery_date": "2020-11-16",
+      "hold_equity_mdd_in_episode": -0.41185845409202393,
+      "overlay_equity_mdd_in_episode": -0.3708227367302628,
+      "overlay_mdd_relative_improvement": 0.09963548630372973,
+      "first_R5": {
+        "date": "2017-12-21",
+        "market_drawdown_from_peak": -0.05639996458400953,
+        "fraction_of_final_drawdown_realized": 0.136940164815478,
+        "trading_days_from_peak": 34
+      },
+      "first_StrongR5": {
+        "date": "2018-02-07",
+        "market_drawdown_from_peak": -0.0836702771301242,
+        "fraction_of_final_drawdown_realized": 0.203152991759226,
+        "trading_days_from_peak": 65
+      },
+      "first_R6": {
+        "date": "2018-10-11",
+        "market_drawdown_from_peak": -0.18794085529616622,
+        "fraction_of_final_drawdown_realized": 0.45632389824435693,
+        "trading_days_from_peak": 227
+      },
+      "first_exposure_95": {
+        "date": "2017-12-22",
+        "market_drawdown_from_peak": -0.05200247911932243,
+        "fraction_of_final_drawdown_realized": 0.12626298817628107,
+        "trading_days_from_peak": 35
+      },
+      "first_exposure_90": {
+        "date": "2017-12-27",
+        "market_drawdown_from_peak": -0.05483575834489263,
+        "fraction_of_final_drawdown_realized": 0.13314224292368307,
+        "trading_days_from_peak": 37
+      },
+      "first_exposure_80": {
+        "date": "2018-02-14",
+        "market_drawdown_from_peak": -0.07210105362571206,
+        "fraction_of_final_drawdown_realized": 0.17506270154066658,
+        "trading_days_from_peak": 70
+      },
+      "first_R8_after_trough": {
+        "date": "2020-04-23",
+        "market_drawdown_from_peak": -0.2511288846914381,
+        "fraction_of_final_drawdown_realized": 0.6097456108921533,
+        "trading_days_from_peak": 606
+      },
+      "first_full_exposure_after_trough": {
+        "date": "2020-04-24",
+        "market_drawdown_from_peak": -0.2613404952335979,
+        "fraction_of_final_drawdown_realized": 0.6345395915442493,
+        "trading_days_from_peak": 607
+      },
+      "min_exposure_before_trough": 0.8
+    },
+    {
+      "peak_date": "2021-06-25",
+      "peak_price": 440.4,
+      "trough_date": "2022-09-30",
+      "trough_price": 281.36,
+      "hold_price_drawdown": -0.3611262488646684,
+      "recovery_date": "2025-09-09",
+      "hold_equity_mdd_in_episode": -0.3611262488646684,
+      "overlay_equity_mdd_in_episode": -0.35242668000839805,
+      "overlay_mdd_relative_improvement": 0.024090103900285785,
+      "first_R5": {
+        "date": "2021-08-17",
+        "market_drawdown_from_peak": -0.06605358764759306,
+        "fraction_of_final_drawdown_realized": 0.18290995975855126,
+        "trading_days_from_peak": 36
+      },
+      "first_StrongR5": {
+        "date": "2022-02-04",
+        "market_drawdown_from_peak": -0.16816530426884657,
+        "fraction_of_final_drawdown_realized": 0.4656690140845074,
+        "trading_days_from_peak": 150
+      },
+      "first_R6": {
+        "date": "2022-01-27",
+        "market_drawdown_from_peak": -0.20849227974568574,
+        "fraction_of_final_drawdown_realized": 0.5773390342052316,
+        "trading_days_from_peak": 147
+      },
+      "first_exposure_95": {
+        "date": "2021-08-18",
+        "market_drawdown_from_peak": -0.06139872842870109,
+        "fraction_of_final_drawdown_realized": 0.17002012072434586,
+        "trading_days_from_peak": 37
+      },
+      "first_exposure_90": {
+        "date": "2021-08-24",
+        "market_drawdown_from_peak": -0.06339691189827423,
+        "fraction_of_final_drawdown_realized": 0.17555331991951698,
+        "trading_days_from_peak": 41
+      },
+      "first_exposure_80": {
+        "date": "2022-02-07",
+        "market_drawdown_from_peak": -0.17593097184377826,
+        "fraction_of_final_drawdown_realized": 0.4871730382293761,
+        "trading_days_from_peak": 151
+      },
+      "first_R8_after_trough": {
+        "date": "2022-10-26",
+        "market_drawdown_from_peak": -0.33276566757493176,
+        "fraction_of_final_drawdown_realized": 0.9214662977867203,
+        "trading_days_from_peak": 328
+      },
+      "first_full_exposure_after_trough": {
+        "date": "2022-10-27",
+        "market_drawdown_from_peak": -0.321480472297911,
+        "fraction_of_final_drawdown_realized": 0.8902162977867206,
+        "trading_days_from_peak": 329
+      },
+      "min_exposure_before_trough": 0.8
+    },
+    {
+      "peak_date": "2011-05-02",
+      "peak_price": 295.35,
+      "trough_date": "2011-09-26",
+      "trough_price": 214.18,
+      "hold_price_drawdown": -0.27482647706111396,
+      "recovery_date": "2017-05-08",
+      "hold_equity_mdd_in_episode": -0.2748264770611134,
+      "overlay_equity_mdd_in_episode": -0.26885737097220586,
+      "overlay_mdd_relative_improvement": 0.021719545193530223,
+      "first_R5": {
+        "date": "2011-05-23",
+        "market_drawdown_from_peak": -0.0818012527509735,
+        "fraction_of_final_drawdown_realized": 0.2976469138844403,
+        "trading_days_from_peak": 13
+      },
+      "first_StrongR5": {
+        "date": "2011-08-04",
+        "market_drawdown_from_peak": -0.11447435246317927,
+        "fraction_of_final_drawdown_realized": 0.41653320192189225,
+        "trading_days_from_peak": 65
+      },
+      "first_R6": {
+        "date": "2011-08-08",
+        "market_drawdown_from_peak": -0.1791095310648384,
+        "fraction_of_final_drawdown_realized": 0.6517186152519405,
+        "trading_days_from_peak": 67
+      },
+      "first_exposure_95": {
+        "date": "2011-05-02",
+        "market_drawdown_from_peak": 0.0,
+        "fraction_of_final_drawdown_realized": 0.0,
+        "trading_days_from_peak": 0
+      },
+      "first_exposure_90": {
+        "date": "2011-05-24",
+        "market_drawdown_from_peak": -0.07980362282038278,
+        "fraction_of_final_drawdown_realized": 0.2903782185536535,
+        "trading_days_from_peak": 14
+      },
+      "first_exposure_80": {
+        "date": "2011-08-10",
+        "market_drawdown_from_peak": -0.21032673099712218,
+        "fraction_of_final_drawdown_realized": 0.7653073795737345,
+        "trading_days_from_peak": 69
+      },
+      "first_R8_after_trough": {
+        "date": "2011-10-17",
+        "market_drawdown_from_peak": -0.17558828508549185,
+        "fraction_of_final_drawdown_realized": 0.6389059997536037,
+        "trading_days_from_peak": 113
+      },
+      "first_full_exposure_after_trough": {
+        "date": "2011-10-18",
+        "market_drawdown_from_peak": -0.18777721347553755,
+        "fraction_of_final_drawdown_realized": 0.6832573610940004,
+        "trading_days_from_peak": 114
+      },
+      "min_exposure_before_trough": 0.8
+    },
+    {
+      "peak_date": "2006-05-11",
+      "peak_price": 190.2,
+      "trough_date": "2006-06-13",
+      "trough_price": 155.43,
+      "hold_price_drawdown": -0.1828075709779179,
+      "recovery_date": "2007-04-04",
+      "hold_equity_mdd_in_episode": -0.18280757097791844,
+      "overlay_equity_mdd_in_episode": -0.16638057209226764,
+      "overlay_mdd_relative_improvement": 0.08985951072909906,
+      "first_R5": {
+        "date": "2006-05-18",
+        "market_drawdown_from_peak": -0.06845425867507882,
+        "fraction_of_final_drawdown_realized": 0.37446074201898183,
+        "trading_days_from_peak": 5
+      },
+      "first_StrongR5": {
+        "date": "2006-06-07",
+        "market_drawdown_from_peak": -0.1368559411146162,
+        "fraction_of_final_drawdown_realized": 0.7486338797814212,
+        "trading_days_from_peak": 17
+      },
+      "first_R6": {
+        "date": null,
+        "market_drawdown_from_peak": null,
+        "fraction_of_final_drawdown_realized": null,
+        "trading_days_from_peak": null
+      },
+      "first_exposure_95": {
+        "date": "2006-05-16",
+        "market_drawdown_from_peak": -0.05888538380651942,
+        "fraction_of_final_drawdown_realized": 0.3221167673281564,
+        "trading_days_from_peak": 3
+      },
+      "first_exposure_90": {
+        "date": "2006-05-19",
+        "market_drawdown_from_peak": -0.06445846477392214,
+        "fraction_of_final_drawdown_realized": 0.35260281852171405,
+        "trading_days_from_peak": 6
+      },
+      "first_exposure_80": {
+        "date": "2006-06-08",
+        "market_drawdown_from_peak": -0.16871713985278647,
+        "fraction_of_final_drawdown_realized": 0.922922059246477,
+        "trading_days_from_peak": 18
+      },
+      "first_R8_after_trough": {
+        "date": "2006-07-06",
+        "market_drawdown_from_peak": -0.14053627760252363,
+        "fraction_of_final_drawdown_realized": 0.7687661777394308,
+        "trading_days_from_peak": 38
+      },
+      "first_full_exposure_after_trough": {
+        "date": "2006-07-07",
+        "market_drawdown_from_peak": -0.13406940063091488,
+        "fraction_of_final_drawdown_realized": 0.7333908541846426,
+        "trading_days_from_peak": 39
+      },
+      "min_exposure_before_trough": 0.8
+    },
+    {
+      "peak_date": "2007-07-25",
+      "peak_price": 253.93,
+      "trough_date": "2007-08-17",
+      "trough_price": 208.57,
+      "hold_price_drawdown": -0.1786319064309062,
+      "recovery_date": "2007-10-02",
+      "hold_equity_mdd_in_episode": -0.17863190643090632,
+      "overlay_equity_mdd_in_episode": -0.17150014049924467,
+      "overlay_mdd_relative_improvement": 0.03992436779159702,
+      "first_R5": {
+        "date": null,
+        "market_drawdown_from_peak": null,
+        "fraction_of_final_drawdown_realized": null,
+        "trading_days_from_peak": null
+      },
+      "first_StrongR5": {
+        "date": null,
+        "market_drawdown_from_peak": null,
+        "fraction_of_final_drawdown_realized": null,
+        "trading_days_from_peak": null
+      },
+      "first_R6": {
+        "date": "2007-08-16",
+        "market_drawdown_from_peak": -0.15067144488638606,
+        "fraction_of_final_drawdown_realized": 0.8434744268077602,
+        "trading_days_from_peak": 15
+      },
+      "first_exposure_95": {
+        "date": "2007-07-30",
+        "market_drawdown_from_peak": -0.04938368841806806,
+        "fraction_of_final_drawdown_realized": 0.2764550264550269,
+        "trading_days_from_peak": 3
+      },
+      "first_exposure_90": {
+        "date": "2007-08-17",
+        "market_drawdown_from_peak": -0.1786319064309062,
+        "fraction_of_final_drawdown_realized": 1.0,
+        "trading_days_from_peak": 16
+      },
+      "first_exposure_80": {
+        "date": null,
+        "market_drawdown_from_peak": null,
+        "fraction_of_final_drawdown_realized": null,
+        "trading_days_from_peak": null
+      },
+      "first_R8_after_trough": {
+        "date": "2007-09-17",
+        "market_drawdown_from_peak": -0.06777458354664678,
+        "fraction_of_final_drawdown_realized": 0.37940917107583805,
+        "trading_days_from_peak": 37
+      },
+      "first_full_exposure_after_trough": {
+        "date": "2007-09-18",
+        "market_drawdown_from_peak": -0.0847083842003703,
+        "fraction_of_final_drawdown_realized": 0.47420634920634974,
+        "trading_days_from_peak": 38
+      },
+      "min_exposure_before_trough": 0.9
+    }
+  ],
+  "strong_r5_diagnostics": {
+    "episodes": [
+      {
+        "start": "2006-06-07",
+        "end": "2006-06-28",
+        "signal_days": 13,
+        "min_forward_20d": -0.053237497715782345,
+        "min_forward_60d": -0.053237497715782345,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2006-07-18",
+        "end": "2006-07-19",
+        "signal_days": 2,
+        "min_forward_20d": 0.00043834930177211184,
+        "min_forward_60d": 0.00043834930177211184,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2008-01-29",
+        "end": "2008-02-12",
+        "signal_days": 8,
+        "min_forward_20d": -0.025383141762452155,
+        "min_forward_60d": -0.04367816091954024,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2008-08-25",
+        "end": "2008-09-19",
+        "signal_days": 16,
+        "min_forward_20d": -0.07249080263226082,
+        "min_forward_60d": -0.36126224156692066,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2008-10-01",
+        "end": "2008-10-20",
+        "signal_days": 7,
+        "min_forward_20d": -0.3355433376455369,
+        "min_forward_60d": -0.3355433376455369,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2008-10-30",
+        "end": "2008-11-17",
+        "signal_days": 7,
+        "min_forward_20d": -0.14457831325301196,
+        "min_forward_60d": -0.14457831325301196,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2008-11-25",
+        "end": "2008-11-25",
+        "signal_days": 1,
+        "min_forward_20d": 0.026716662760722043,
+        "min_forward_60d": 0.026716662760722043,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2008-12-04",
+        "end": "2008-12-05",
+        "signal_days": 2,
+        "min_forward_20d": 0.022064977554591803,
+        "min_forward_60d": 0.007912957467853587,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2010-05-27",
+        "end": "2010-06-01",
+        "signal_days": 3,
+        "min_forward_20d": 0.010818281465948543,
+        "min_forward_60d": 0.010818281465948543,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2011-08-04",
+        "end": "2011-08-29",
+        "signal_days": 11,
+        "min_forward_20d": -0.16207845836200963,
+        "min_forward_60d": -0.18108128775713084,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2011-09-06",
+        "end": "2011-09-15",
+        "signal_days": 3,
+        "min_forward_20d": -0.055018751378777875,
+        "min_forward_60d": -0.055018751378777875,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2011-09-27",
+        "end": "2011-10-05",
+        "signal_days": 4,
+        "min_forward_20d": -0.035287851213990806,
+        "min_forward_60d": -0.035287851213990806,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2013-06-25",
+        "end": "2013-07-10",
+        "signal_days": 12,
+        "min_forward_20d": -0.0009924487594390463,
+        "min_forward_60d": -0.0009924487594390463,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2015-01-06",
+        "end": "2015-01-08",
+        "signal_days": 3,
+        "min_forward_20d": 0.0025007293794023777,
+        "min_forward_60d": 0.0025007293794023777,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2015-08-18",
+        "end": "2015-09-08",
+        "signal_days": 14,
+        "min_forward_20d": -0.05812074829931968,
+        "min_forward_60d": -0.05812074829931968,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2015-12-04",
+        "end": "2015-12-07",
+        "signal_days": 2,
+        "min_forward_20d": -0.031179021267809248,
+        "min_forward_60d": -0.07573817881478428,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2016-01-15",
+        "end": "2016-01-27",
+        "signal_days": 7,
+        "min_forward_20d": -0.021723926916688563,
+        "min_forward_60d": -0.021723926916688563,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2016-02-11",
+        "end": "2016-02-12",
+        "signal_days": 2,
+        "min_forward_20d": -0.007587119541243914,
+        "min_forward_60d": -0.007587119541243914,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2018-02-07",
+        "end": "2018-02-13",
+        "signal_days": 4,
+        "min_forward_20d": -0.01900283432105143,
+        "min_forward_60d": -0.01900283432105143,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2018-03-02",
+        "end": "2018-03-07",
+        "signal_days": 4,
+        "min_forward_20d": -0.012226366142370826,
+        "min_forward_60d": -0.012226366142370826,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2018-07-24",
+        "end": "2018-07-25",
+        "signal_days": 2,
+        "min_forward_20d": -0.024535517276388363,
+        "min_forward_60d": -0.08166096991437943,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2018-08-13",
+        "end": "2018-08-16",
+        "signal_days": 3,
+        "min_forward_20d": -0.0055545972054511505,
+        "min_forward_60d": -0.10232879075383827,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2018-10-12",
+        "end": "2018-11-06",
+        "signal_days": 18,
+        "min_forward_20d": -0.0686544725632674,
+        "min_forward_60d": -0.08447578480151763,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2018-12-17",
+        "end": "2018-12-18",
+        "signal_days": 2,
+        "min_forward_20d": -0.039650058198475446,
+        "min_forward_60d": -0.039650058198475446,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2019-07-08",
+        "end": "2019-07-08",
+        "signal_days": 1,
+        "min_forward_20d": -0.042301247439955336,
+        "min_forward_60d": -0.06162725749394904,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2019-08-08",
+        "end": "2019-08-13",
+        "signal_days": 4,
+        "min_forward_20d": -0.000832012678288474,
+        "min_forward_60d": -0.000832012678288474,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2019-08-26",
+        "end": "2019-08-26",
+        "signal_days": 1,
+        "min_forward_20d": 0.005194496213172695,
+        "min_forward_60d": 0.005194496213172695,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2020-02-24",
+        "end": "2020-03-11",
+        "signal_days": 11,
+        "min_forward_20d": -0.29086897729698946,
+        "min_forward_60d": -0.29086897729698946,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2020-03-24",
+        "end": "2020-04-02",
+        "signal_days": 7,
+        "min_forward_20d": 0.02727602795679407,
+        "min_forward_60d": 0.02727602795679407,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2022-02-04",
+        "end": "2022-02-04",
+        "signal_days": 1,
+        "min_forward_20d": -0.03633236883769175,
+        "min_forward_60d": -0.05494895452312054,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2022-02-16",
+        "end": "2022-03-16",
+        "signal_days": 13,
+        "min_forward_20d": -0.04878845630274986,
+        "min_forward_60d": -0.07993465831745172,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2022-06-14",
+        "end": "2022-07-15",
+        "signal_days": 20,
+        "min_forward_20d": -0.07906041495292948,
+        "min_forward_60d": -0.07906041495292948,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2022-09-05",
+        "end": "2022-09-05",
+        "signal_days": 1,
+        "min_forward_20d": -0.09956155790955934,
+        "min_forward_60d": -0.09956155790955934,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2022-10-04",
+        "end": "2022-10-13",
+        "signal_days": 6,
+        "min_forward_20d": -0.01977312935789355,
+        "min_forward_60d": -0.01977312935789355,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2023-10-05",
+        "end": "2023-11-03",
+        "signal_days": 14,
+        "min_forward_20d": -0.04086885554648745,
+        "min_forward_60d": -0.04086885554648745,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2024-08-06",
+        "end": "2024-08-09",
+        "signal_days": 4,
+        "min_forward_20d": 0.01442659409475322,
+        "min_forward_60d": -0.01779182395458412,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2024-09-06",
+        "end": "2024-09-20",
+        "signal_days": 8,
+        "min_forward_20d": -0.019627887957472945,
+        "min_forward_60d": -0.08362298098548349,
+        "meaningful_follow_through": true
+      },
+      {
+        "start": "2024-11-14",
+        "end": "2024-11-20",
+        "signal_days": 2,
+        "min_forward_20d": -0.012464589235127388,
+        "min_forward_60d": -0.012464589235127388,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2024-12-02",
+        "end": "2024-12-09",
+        "signal_days": 4,
+        "min_forward_20d": -0.03565500706952718,
+        "min_forward_60d": -0.03565500706952718,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2024-12-19",
+        "end": "2025-01-02",
+        "signal_days": 8,
+        "min_forward_20d": -0.014299894534400392,
+        "min_forward_60d": -0.014299894534400392,
+        "meaningful_follow_through": false
+      },
+      {
+        "start": "2025-04-08",
+        "end": "2025-04-17",
+        "signal_days": 5,
+        "min_forward_20d": -0.017740218688514053,
+        "min_forward_60d": -0.017740218688514053,
+        "meaningful_follow_through": false
+      }
+    ],
+    "summary": {
+      "episode_count": 41,
+      "meaningful_follow_through_count": 14,
+      "meaningful_follow_through_ratio": 0.34146341463414637,
+      "diagnostic_definition": "meaningful if next-20d minimum <= -5% OR next-60d minimum <= -8%; diagnostic only, not a trading rule"
+    }
+  }
+}
