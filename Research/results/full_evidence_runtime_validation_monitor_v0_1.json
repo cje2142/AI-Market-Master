@@ -1,0 +1,101 @@
+{
+  "action_counts": {
+    "HOLD": 1
+  },
+  "as_of": "2026-09-17",
+  "correction_count": 1,
+  "distinct_classified_regime_families": 1,
+  "elapsed_days": 0,
+  "execution_mapping": {
+    "core_reductions": 0,
+    "fully_observable_reduce_mappings": 0,
+    "mapped_samples": 0,
+    "noncore_only_reduction_rate": null,
+    "noncore_only_reductions": 0
+  },
+  "first_sample_date": "2026-09-17",
+  "mapper_status_counts": {
+    "NOT MAPPED": 1
+  },
+  "milestones": {
+    "six_month_date": "2027-03-17",
+    "three_month_date": "2026-12-17",
+    "two_month_date": "2026-11-17"
+  },
+  "outcome_maturity": {
+    "1d": {
+      "count": 0,
+      "coverage": 0.0
+    },
+    "20d": {
+      "count": 0,
+      "coverage": 0.0
+    },
+    "5d": {
+      "count": 0,
+      "coverage": 0.0
+    }
+  },
+  "protocol": "Full Evidence Runtime Validation Protocol v0.2",
+  "quality_counts": {
+    "FULL": 1
+  },
+  "regime_family_counts": {
+    "R7": 1
+  },
+  "session_checkpoint_counts": {
+    "CLOSE": 1
+  },
+  "stage1": {
+    "checks": {
+      "regime_families_2": false,
+      "samples_20": false
+    },
+    "status": "NOT MET"
+  },
+  "stage2a_provisional": {
+    "explicit_checks": {
+      "regime_families_3": false,
+      "samples_30": false,
+      "two_months_elapsed": false
+    },
+    "manual_checks_required": [
+      "at least 8 deterioration/risk-control observations",
+      "at least 8 recovery/restoration observations",
+      "substantial majority of eligible +5d outcomes matured",
+      "enough +20d outcomes matured to inspect path quality",
+      "false-positive/recovery-lag/Core-sale/turnover/failure-pattern review"
+    ],
+    "status": "NOT YET ELIGIBLE"
+  },
+  "stage2b_three_month_checkpoint": {
+    "due": false,
+    "note": "Action counts shown here are tracking proxies only; final Protocol observation classification remains a documented review step.",
+    "preferred_tracking_checks": {
+      "reduce_actions_10_tracking_only": false,
+      "regime_families_3": false,
+      "restore_actions_10_tracking_only": false,
+      "samples_40": false
+    }
+  },
+  "stage3_official_integration": {
+    "explicit_checks": {
+      "regime_families_adequate_manual": false,
+      "samples_60": false,
+      "six_months_elapsed": false
+    },
+    "manual_checks_required": [
+      "mature +20d outcomes for a substantial majority",
+      "adequate regime diversity",
+      "architecture/evidence/execution/regression formal review"
+    ],
+    "status": "NOT YET ELIGIBLE"
+  },
+  "status": "MONITORING ONLY / NO HIDDEN SCORE / NOT OFFICIAL 3.2 AUTHORITY",
+  "total_samples": 1,
+  "tracking_proxies_not_protocol_equivalents": {
+    "note": "REDUCE/RESTORE action counts are operational tracking only. They are not automatically equivalent to Protocol v0.2's broader deterioration/risk-control and recovery/restoration observation counts.",
+    "reduce_actions": 0,
+    "restore_actions": 0
+  }
+}
