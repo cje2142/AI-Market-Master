@@ -1,0 +1,36 @@
+name: Run Full Evidence Runtime Validation Monitor v0.1 Tests
+
+on:
+  push:
+    paths:
+      - 'Research/full_evidence_runtime_validation_monitor_v0_1.py'
+      - 'Research/test_full_evidence_runtime_validation_monitor_v0_1.py'
+      - '.github/workflows/run_full_evidence_runtime_validation_monitor_v0_1_tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run deterministic monitor tests
+        run: |
+          cd Research
+          python test_full_evidence_runtime_validation_monitor_v0_1.py
+      - name: Commit reproducible test results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/results/full_evidence_runtime_validation_monitor_v0_1_test_results.md Research/results/full_evidence_runtime_validation_monitor_v0_1_test_results.json
+          if git diff --cached --quiet; then
+            echo 'No result changes'
+          else
+            git commit -m 'research: run runtime validation monitor v0.1 tests'
+            git push
+          fi
