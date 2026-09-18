@@ -228,6 +228,34 @@ Only declare `AI Market Master 3.2 Dashboard 실행 완료` after confirming all
 
 If any required item fails, do not declare normal completion. Use PARTIAL DATA, PARTIAL CONSENSUS or EXECUTION BLOCKED as applicable and identify the failed gate.
 
+
+## 20A. Data Efficiency Prospective Runtime Sidecar
+When the exact Full Dashboard trigger is executed and the Data Efficiency research sidecar is available, the completed Dashboard result should also emit one machine-readable research snapshot to the Data Efficiency runtime ingestion path.
+
+This sidecar is operational telemetry only. It is not a seventh Authority file, ninth Dashboard category, 25th engine, scoring override, Regime override or portfolio-action override.
+
+Required boundaries:
+- Official C1-C8, official Strategy Action Index, Regime/Transition and portfolio decision are finalized first under their owning rules.
+- The sidecar runs only after the Official Dashboard result exists.
+- It must never modify the user-facing 8-category Dashboard.
+- Sidecar failure, missing GitHub write access or missing Candidate-only inputs must not alter Official Dashboard completion status.
+- Missing Candidate inputs remain PARTIAL / DATA UNAVAILABLE; never infer or estimate them.
+- Data Efficiency Candidate v0.1 remains research-only and must not feed back into Official 3.2 decisions during prospective validation.
+- If a valid prospective snapshot is available, write it to `Research/runtime/de_inbox/*.json`; the repository ingestion workflow appends the comparison to `Research/runtime/data_efficiency_runtime_comparator_v0_3.jsonl`.
+- Duplicate sample identities are skipped rather than silently rewritten.
+- Corrections to logged research samples must remain append-only and documented.
+
+Minimum sidecar payload:
+- market_date / timestamp / session_checkpoint
+- Official C1-C8 status/value
+- Official Strategy Action Index
+- Official validated Regime/Transition label
+- Candidate raw inputs when available: KOSPI, KOSDAQ, KOSPI200, KRX100, USD/KRW returns and KTB3Y bp change
+- optional C8 shadow/context effect
+- source/validation notes when material
+
+The sidecar is intentionally non-blocking so the Official Dashboard remains usable even when research logging infrastructure is unavailable.
+
 ## 21. Dashboard Master Principle
 Exact Trigger → Presentation Initialization → Table First → 8 Fixed Categories → Official Analysis/Validation Chain → Category Mapping → Completion Hard Gate.
 
