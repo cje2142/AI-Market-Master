@@ -1,0 +1,27 @@
+{
+  "market_date": "2026-09-18",
+  "timestamp": "2026-09-18T15:15:00+09:00",
+  "session_checkpoint": "15:15",
+  "correction_of": "Research/runtime/de_inbox/2026-09-18_1515.json",
+  "reason": "15:15 is intraday; C5 official timeframe is closing-confirmed daily. Reclassify C5 from VERIFIED to PREVIEW/PARTIAL and global SAI from VERIFIED to PARTIAL.",
+  "official": {
+    "C5": {
+      "status": "PARTIAL",
+      "mode": "PREVIEW",
+      "value": 0.3091
+    },
+    "strategy_action_index": {
+      "status": "PARTIAL",
+      "value": 0.083
+    },
+    "regime": {
+      "status": "PARTIAL",
+      "primary": "R7",
+      "transition": "R8 Recovery/Accumulation"
+    }
+  },
+  "notes": [
+    "Append-only correction per Data Efficiency sidecar rule.",
+    "No change to numeric preview values; only validation status corrected."
+  ]
+}
