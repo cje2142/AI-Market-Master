@@ -1,0 +1,71 @@
+{
+  "market_date": "2026-09-18",
+  "timestamp": "2026-09-18T15:06:00+09:00",
+  "session_checkpoint": "15:06",
+  "official": {
+    "C1": {
+      "status": "VERIFIED",
+      "value": 0.3
+    },
+    "C2": {
+      "status": "VERIFIED",
+      "value": 0.33
+    },
+    "C3": {
+      "status": "VERIFIED",
+      "value": -0.08
+    },
+    "C4": {
+      "status": "VERIFIED",
+      "value": -0.54
+    },
+    "C5": {
+      "status": "DATA UNAVAILABLE",
+      "value": null,
+      "note": "Technical block timestamp is 2026-08-21, not current session 2026-09-18."
+    },
+    "C6": {
+      "status": "VERIFIED",
+      "value": -0.33
+    },
+    "C7": {
+      "status": "VERIFIED",
+      "value": -0.32
+    },
+    "C8": {
+      "status": "VERIFIED",
+      "value": 0.64
+    },
+    "strategy_action_index": {
+      "status": "DATA UNAVAILABLE",
+      "value": null,
+      "note": "Global SAI requires usable C5."
+    },
+    "regime": {
+      "status": "PARTIAL",
+      "primary": "R7",
+      "transition": "R8 Recovery/Accumulation Watch"
+    }
+  },
+  "candidate_raw_inputs": {
+    "KOSPI_return_pct": 2.49,
+    "KOSDAQ_return_pct": 0.58,
+    "KOSPI200_return_pct": 2.87,
+    "KRX100_return_pct": 2.52,
+    "USDKRW_return_pct": -0.04,
+    "KTB3Y_change_bp": 1
+  },
+  "c8_shadow_context": {
+    "mini_sp500_return_pct": 0.25,
+    "mini_nasdaq_return_pct": 0.33,
+    "sox_prior_return_pct": 3.14,
+    "nikkei_return_pct": 1.41,
+    "shanghai_return_pct": 0.83,
+    "shenzhen_return_pct": 1.32,
+    "hang_seng_return_pct": 0.86
+  },
+  "notes": [
+    "Official Dashboard sidecar only; no feedback into official 3.2 decision.",
+    "Current-session technical block invalid because source date is 2026-08-21."
+  ]
+}
