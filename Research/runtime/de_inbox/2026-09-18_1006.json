@@ -1,0 +1,54 @@
+{
+  "sample_id": "AMM32-DE-20260918-1006",
+  "market_date": "2026-09-18",
+  "timestamp": "2026-09-18T10:06:00+09:00",
+  "session_checkpoint": "10:06 INTRADAY PREVIEW",
+  "official": {
+    "C1": {
+      "status": "VERIFIED",
+      "value": 0.27
+    },
+    "C2": {
+      "status": "VERIFIED",
+      "value": 0.79
+    },
+    "C3": {
+      "status": "VERIFIED",
+      "value": 0.32
+    },
+    "C4": {
+      "status": "VERIFIED",
+      "value": -0.56
+    },
+    "C5": {
+      "status": "PARTIAL",
+      "value": 0.21
+    },
+    "C6": {
+      "status": "VERIFIED",
+      "value": -0.23
+    },
+    "C7": {
+      "status": "PARTIAL",
+      "value": -0.17
+    },
+    "C8": {
+      "status": "VERIFIED",
+      "value": 0.34
+    },
+    "SAI": 0.1646
+  },
+  "official_regime": "R7 Deep Correction / Support Test; R8 Recovery / Accumulation strong transition watch",
+  "de_raw": {
+    "r_kospi": 0.0215,
+    "r_kosdaq": 0.0071,
+    "r_kospi200": 0.024,
+    "r_krx100": null,
+    "r_usdkrw": 0.0009,
+    "d_ktb3y_bp": null
+  },
+  "C8_effect": "POSITIVE_SHADOW_SUPPORT",
+  "notes": [
+    "Auto-log ingestion smoke test uses existing 10:06 sample_id; expected behavior is SKIP DUPLICATE with no journal rewrite."
+  ]
+}
