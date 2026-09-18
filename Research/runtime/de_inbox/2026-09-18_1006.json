@@ -49,6 +49,7 @@
   },
   "C8_effect": "POSITIVE_SHADOW_SUPPORT",
   "notes": [
-    "Auto-log ingestion smoke test uses existing 10:06 sample_id; expected behavior is SKIP DUPLICATE with no journal rewrite."
+    "Auto-log ingestion smoke test uses existing 10:06 sample_id; expected behavior is SKIP DUPLICATE with no journal rewrite.",
+    "Re-triggered after repairing legacy JSONL line terminator formatting."
   ]
 }
