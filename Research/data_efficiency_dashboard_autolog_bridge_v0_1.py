@@ -2,14 +2,9 @@
 
 Non-authoritative research sidecar.
 
-Input:
-- one normalized Official Dashboard snapshot
-- optional Candidate-specific raw fields
-
-Output:
-- append-only Data Efficiency comparison journal entry
-
-This bridge never changes Official 3.2 calculations, Regime, Dashboard layout, or portfolio action.
+The canonical input schema is defined by DASHBOARD_RULE section 20A.
+A defensive legacy-normalization layer is retained so historical sidecars do not
+break runtime ingestion. New Dashboard executions must emit canonical schema.
 """
 
 from __future__ import annotations
@@ -17,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -51,9 +47,97 @@ def _sample_id(snapshot: Mapping[str, Any]) -> str:
     return f"AMM32-DE-{day}-{checkpoint}-{digest}"
 
 
-def validate_autolog_snapshot(snapshot: Mapping[str, Any]) -> None:
+def _legacy_pct(raw: Mapping[str, Any], key: str) -> float | None:
+    value = raw.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        raise ValueError(f"legacy raw {key} must be numeric or null")
+    return float(value) / 100.0
+
+
+def _legacy_regime(regime: Any) -> str:
+    if isinstance(regime, str):
+        return regime
+    if isinstance(regime, Mapping):
+        primary = regime.get("primary")
+        transition = regime.get("transition")
+        parts = [str(x) for x in (primary, transition) if x not in (None, "")]
+        if parts:
+            return "; ".join(parts)
+    raise ValueError("legacy regime cannot be normalized")
+
+
+def normalize_autolog_snapshot(snapshot: Mapping[str, Any]) -> dict:
+    """Return canonical 20A schema while preserving Official values.
+
+    Canonical schema is passed through. Historical aliases are converted only for
+    ingestion compatibility. Correction payloads are not prospective samples.
+    """
     snapshot = _mapping(snapshot, "snapshot")
+    if "correction_of" in snapshot:
+        raise ValueError("non-sample correction payload")
+
+    official_src = _mapping(snapshot.get("official"), "official")
+    canonical_ready = (
+        "SAI" in official_src
+        and "official_regime" in snapshot
+        and "de_raw" in snapshot
+    )
+    if canonical_ready:
+        out = deepcopy(dict(snapshot))
+        out.setdefault("sample_id", _sample_id(out))
+        return out
+
+    official = deepcopy(dict(official_src))
+    legacy_sai = official.pop("strategy_action_index", None)
+    if "SAI" not in official:
+        if isinstance(legacy_sai, Mapping):
+            official["SAI"] = legacy_sai.get("value")
+        elif legacy_sai is not None:
+            official["SAI"] = legacy_sai
+
+    regime = snapshot.get("official_regime")
+    if regime is None:
+        regime = official.pop("regime", None)
+    official_regime = _legacy_regime(regime)
+
+    raw_src = snapshot.get("de_raw")
+    if raw_src is None:
+        raw_src = _mapping(snapshot.get("candidate_raw_inputs", {}), "candidate_raw_inputs")
+        de_raw = {
+            "r_kospi": _legacy_pct(raw_src, "KOSPI_return_pct"),
+            "r_kosdaq": _legacy_pct(raw_src, "KOSDAQ_return_pct"),
+            "r_kospi200": _legacy_pct(raw_src, "KOSPI200_return_pct"),
+            "r_krx100": _legacy_pct(raw_src, "KRX100_return_pct"),
+            "r_usdkrw": _legacy_pct(raw_src, "USDKRW_return_pct"),
+            "d_ktb3y_bp": raw_src.get("KTB3Y_change_bp"),
+        }
+    else:
+        de_raw = deepcopy(dict(_mapping(raw_src, "de_raw")))
+
+    out = {
+        "sample_id": snapshot.get("sample_id"),
+        "market_date": snapshot.get("market_date"),
+        "timestamp": snapshot.get("timestamp"),
+        "session_checkpoint": snapshot.get("session_checkpoint"),
+        "official": official,
+        "official_regime": official_regime,
+        "de_raw": de_raw,
+        "C8_effect": snapshot.get("C8_effect"),
+        "missing_data_effect": snapshot.get("missing_data_effect"),
+        "notes": list(snapshot.get("notes", [])) + [
+            "LEGACY_SCHEMA_NORMALIZED_BY_DE_BRIDGE"
+        ],
+    }
+    out["sample_id"] = out.get("sample_id") or _sample_id(out)
+    return out
+
+
+def validate_autolog_snapshot(snapshot: Mapping[str, Any]) -> dict:
+    snapshot = normalize_autolog_snapshot(snapshot)
     required = {
+        "sample_id",
         "market_date",
         "timestamp",
         "session_checkpoint",
@@ -61,7 +145,7 @@ def validate_autolog_snapshot(snapshot: Mapping[str, Any]) -> None:
         "official_regime",
         "de_raw",
     }
-    missing = sorted(required - set(snapshot))
+    missing = sorted(k for k in required if snapshot.get(k) in (None, ""))
     if missing:
         raise ValueError(f"missing auto-log fields: {missing}")
 
@@ -72,11 +156,19 @@ def validate_autolog_snapshot(snapshot: Mapping[str, Any]) -> None:
     if "SAI" not in official:
         raise ValueError("official missing SAI")
 
-    _mapping(snapshot["de_raw"], "de_raw")
+    raw = _mapping(snapshot["de_raw"], "de_raw")
+    allowed_raw = {
+        "r_kospi", "r_kosdaq", "r_kospi200", "r_krx100",
+        "r_usdkrw", "d_ktb3y_bp",
+    }
+    unknown = sorted(set(raw) - allowed_raw)
+    if unknown:
+        raise ValueError(f"unknown de_raw fields: {unknown}")
+    return snapshot
 
 
 def build_comparator_snapshot(snapshot: Mapping[str, Any]) -> dict:
-    validate_autolog_snapshot(snapshot)
+    snapshot = validate_autolog_snapshot(snapshot)
     official = snapshot["official"]
 
     base_dashboard = {
@@ -90,7 +182,6 @@ def build_comparator_snapshot(snapshot: Mapping[str, Any]) -> dict:
 
     candidate_regime = snapshot.get("candidate_regime")
     if candidate_regime is None:
-        # Candidate does not own a separate Regime Engine.
         candidate_regime = snapshot["official_regime"]
 
     return {

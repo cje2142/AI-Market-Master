@@ -25,11 +25,20 @@ def process_inbox(inbox_dir, log_path):
                 "action_band_agreement": event["payload"]["comparison"]["action_band_agreement"],
             })
         except ValueError as exc:
-            if "duplicate comparator sample_id" in str(exc):
+            msg = str(exc)
+            if "duplicate comparator sample_id" in msg:
+                normalized = bridge.normalize_autolog_snapshot(snapshot)
                 results.append({
                     "file": str(path),
-                    "sample_id": bridge._sample_id(snapshot),
+                    "sample_id": bridge._sample_id(normalized),
                     "status": "SKIP DUPLICATE",
+                })
+                continue
+            if "non-sample correction payload" in msg:
+                results.append({
+                    "file": str(path),
+                    "sample_id": None,
+                    "status": "SKIP NON-SAMPLE",
                 })
                 continue
             raise

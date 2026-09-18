@@ -243,16 +243,60 @@ Required boundaries:
 - Data Efficiency Candidate v0.1 remains research-only and must not feed back into Official 3.2 decisions during prospective validation.
 - If a valid prospective snapshot is available, write it to `Research/runtime/de_inbox/*.json`; the repository ingestion workflow appends the comparison to `Research/runtime/data_efficiency_runtime_comparator_v0_3.jsonl`.
 - Duplicate sample identities are skipped rather than silently rewritten.
-- Corrections to logged research samples must remain append-only and documented.
+- Correction or metadata-only payloads are not prospective samples and must not be written as ordinary inbox snapshots.
 
-Minimum sidecar payload:
-- market_date / timestamp / session_checkpoint
-- Official C1-C8 status/value
-- Official Strategy Action Index
-- Official validated Regime/Transition label
-- Candidate raw inputs when available: KOSPI, KOSDAQ, KOSPI200, KRX100, USD/KRW returns and KTB3Y bp change
-- optional C8 shadow/context effect
-- source/validation notes when material
+### 20A-1. Canonical Sidecar Schema — REQUIRED
+New Full Dashboard sidecars MUST use these exact top-level field names:
+
+```json
+{
+  "sample_id": "AMM32-DE-YYYYMMDD-CHECKPOINT",
+  "market_date": "YYYY-MM-DD",
+  "timestamp": "ISO-8601 with timezone",
+  "session_checkpoint": "checkpoint label",
+  "official": {
+    "C1": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C2": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C3": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C4": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C5": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C6": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C7": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "C8": {"status": "VERIFIED|PARTIAL|DATA UNAVAILABLE", "value": 0.0},
+    "SAI": 0.0
+  },
+  "official_regime": "validated Regime / Transition label",
+  "de_raw": {
+    "r_kospi": 0.0,
+    "r_kosdaq": 0.0,
+    "r_kospi200": 0.0,
+    "r_krx100": 0.0,
+    "r_usdkrw": 0.0,
+    "d_ktb3y_bp": 0.0
+  },
+  "C8_effect": null,
+  "notes": []
+}
+```
+
+Canonical unit rules:
+- `r_kospi`, `r_kosdaq`, `r_kospi200`, `r_krx100`, `r_usdkrw` are decimal returns, not percent numbers. Example: +2.66% → `0.0266`.
+- `d_ktb3y_bp` remains basis points. Example: +1 bp → `1.0`.
+- Missing raw values must be `null`; never estimated.
+- Intraday C5 must preserve `PARTIAL`/Preview semantics when closing confirmation is unavailable.
+- Post-close C5 may be `VERIFIED` only after the closing technical inputs are validated.
+- `official.SAI` stores the numeric Official value only; Official validation/execution meaning remains determined by the C1-C8 statuses and SCORING_RULE gates.
+
+The following legacy aliases MUST NOT be emitted by new Dashboard sidecars:
+- `strategy_action_index` in place of `official.SAI`
+- `regime` in place of `official_regime`
+- `candidate_raw_inputs` in place of `de_raw`
+- percent-valued raw keys such as `KOSPI_return_pct`, `USDKRW_return_pct`
+
+### 20A-2. Compatibility / Ingestion Safety
+The DE bridge may normalize historical legacy aliases into the canonical schema for backward compatibility. This compatibility layer is defensive only and does not authorize new Dashboard executions to emit the legacy schema.
+
+If an inbox JSON contains `correction_of` or is otherwise a correction/metadata-only payload, the inbox processor must skip it as a non-sample rather than aborting ingestion.
 
 The sidecar is intentionally non-blocking so the Official Dashboard remains usable even when research logging infrastructure is unavailable.
 

@@ -41,6 +41,38 @@ def snapshot(sample_id="AUTO-1"):
     }
 
 
+def legacy_snapshot():
+    return {
+        "market_date": "2026-09-18",
+        "timestamp": "2026-09-18T15:15:00+09:00",
+        "session_checkpoint": "15:15",
+        "official": {
+            "C1": comp("VERIFIED", 0.2835),
+            "C2": comp("VERIFIED", 0.2945),
+            "C3": comp("VERIFIED", -0.0629),
+            "C4": comp("VERIFIED", -0.592),
+            "C5": comp("PARTIAL", 0.3091),
+            "C6": comp("VERIFIED", -0.1987),
+            "C7": comp("VERIFIED", -0.2887),
+            "C8": comp("VERIFIED", 0.6628),
+            "strategy_action_index": {"status": "PARTIAL", "value": 0.082985},
+            "regime": {
+                "status": "PARTIAL",
+                "primary": "R7 Deep Correction / Support Test",
+                "transition": "R8 Recovery / Accumulation Watch",
+            },
+        },
+        "candidate_raw_inputs": {
+            "KOSPI_return_pct": 2.54,
+            "KOSDAQ_return_pct": 0.57,
+            "KOSPI200_return_pct": 2.85,
+            "KRX100_return_pct": 2.50,
+            "USDKRW_return_pct": 0.01,
+            "KTB3Y_change_bp": 1,
+        },
+    }
+
+
 class AutoLogBridgeTests(unittest.TestCase):
     def test_bridge_builds_candidate_automatically(self):
         out = bridge.build_comparator_snapshot(snapshot())
@@ -76,6 +108,37 @@ class AutoLogBridgeTests(unittest.TestCase):
         del s["de_raw"]
         with self.assertRaises(ValueError):
             bridge.build_comparator_snapshot(s)
+
+    def test_legacy_schema_is_normalized(self):
+        normalized = bridge.normalize_autolog_snapshot(legacy_snapshot())
+        self.assertIn("SAI", normalized["official"])
+        self.assertNotIn("strategy_action_index", normalized["official"])
+        self.assertAlmostEqual(normalized["official"]["SAI"], 0.082985)
+        self.assertAlmostEqual(normalized["de_raw"]["r_kospi"], 0.0254)
+        self.assertAlmostEqual(normalized["de_raw"]["r_usdkrw"], 0.0001)
+        self.assertEqual(normalized["de_raw"]["d_ktb3y_bp"], 1)
+        out = bridge.build_comparator_snapshot(legacy_snapshot())
+        self.assertEqual(out["candidate"]["C5"]["status"], "PARTIAL")
+
+    def test_processor_skips_correction_payload(self):
+        with tempfile.TemporaryDirectory() as d:
+            inbox = Path(d) / "inbox"
+            inbox.mkdir()
+            log = Path(d) / "runtime.jsonl"
+            correction = {
+                "market_date": "2026-09-18",
+                "timestamp": "2026-09-18T15:15:00+09:00",
+                "session_checkpoint": "15:15",
+                "correction_of": "old.json",
+                "official": {"C5": comp("PARTIAL", 0.3091)},
+            }
+            (inbox / "correction.json").write_text(
+                json.dumps(correction, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            result = processor.process_inbox(inbox, log)
+            self.assertEqual(result[0]["status"], "SKIP NON-SAMPLE")
+            self.assertFalse(log.exists())
 
 
 if __name__ == "__main__":
