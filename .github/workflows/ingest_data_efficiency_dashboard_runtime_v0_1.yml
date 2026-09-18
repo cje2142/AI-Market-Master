@@ -1,0 +1,35 @@
+name: Ingest Data Efficiency Dashboard Runtime v0.1
+
+on:
+  push:
+    paths:
+      - 'Research/runtime/de_inbox/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-efficiency-runtime-comparator-v0-3
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Process Dashboard DE auto-log inbox
+        run: python Research/process_data_efficiency_dashboard_inbox_v0_1.py
+      - name: Commit canonical DE comparator journal
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Research/runtime/data_efficiency_runtime_comparator_v0_3.jsonl
+          if git diff --cached --quiet; then
+            echo 'No new DE prospective sample (duplicate or no-op)'
+          else
+            git commit -m 'runtime: append Data Efficiency prospective Dashboard sample'
+            git push
+          fi
