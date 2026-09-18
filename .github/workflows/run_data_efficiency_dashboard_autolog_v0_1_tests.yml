@@ -1,0 +1,27 @@
+name: Run Data Efficiency Dashboard Auto-Log v0.1 Tests
+
+on:
+  push:
+    paths:
+      - 'Research/data_efficiency_dashboard_autolog_bridge_v0_1.py'
+      - 'Research/process_data_efficiency_dashboard_inbox_v0_1.py'
+      - 'Research/test_data_efficiency_dashboard_autolog_bridge_v0_1.py'
+      - 'Research/data_efficiency_dashboard_input_adapter_v0_1.py'
+      - 'Research/data_efficiency_runtime_comparator_v0_3.py'
+      - '.github/workflows/run_data_efficiency_dashboard_autolog_v0_1_tests.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run deterministic DE auto-log tests
+        run: |
+          cd Research
+          python -m unittest -v test_data_efficiency_dashboard_autolog_bridge_v0_1.py
+          python -m unittest -v test_data_efficiency_dashboard_input_adapter_v0_1.py
+          python -m unittest -v test_data_efficiency_runtime_comparator_v0_3.py
