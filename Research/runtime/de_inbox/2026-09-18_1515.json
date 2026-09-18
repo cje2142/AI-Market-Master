@@ -1,0 +1,60 @@
+{
+  "market_date": "2026-09-18",
+  "timestamp": "2026-09-18T15:15:00+09:00",
+  "session_checkpoint": "15:15",
+  "official": {
+    "C1": {
+      "status": "VERIFIED",
+      "value": 0.2835
+    },
+    "C2": {
+      "status": "VERIFIED",
+      "value": 0.2945
+    },
+    "C3": {
+      "status": "VERIFIED",
+      "value": -0.0629
+    },
+    "C4": {
+      "status": "VERIFIED",
+      "value": -0.592
+    },
+    "C5": {
+      "status": "VERIFIED",
+      "value": 0.3091
+    },
+    "C6": {
+      "status": "VERIFIED",
+      "value": -0.1987
+    },
+    "C7": {
+      "status": "VERIFIED",
+      "value": -0.2887
+    },
+    "C8": {
+      "status": "VERIFIED",
+      "value": 0.6628
+    },
+    "strategy_action_index": {
+      "status": "VERIFIED",
+      "value": 0.083
+    },
+    "regime": {
+      "status": "VERIFIED",
+      "primary": "R7",
+      "transition": "R8 Recovery/Accumulation"
+    }
+  },
+  "candidate_raw_inputs": {
+    "KOSPI_return_pct": 2.54,
+    "KOSDAQ_return_pct": 0.57,
+    "KOSPI200_return_pct": 2.85,
+    "KRX100_return_pct": 2.5,
+    "USDKRW_return_pct": 0.01,
+    "KTB3Y_change_bp": 1
+  },
+  "notes": [
+    "Official Dashboard sidecar only; no feedback into official 3.2 decision.",
+    "Current-session technical block validated for 2026-09-18."
+  ]
+}
