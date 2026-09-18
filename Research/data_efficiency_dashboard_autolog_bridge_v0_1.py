@@ -84,7 +84,14 @@ def normalize_autolog_snapshot(snapshot: Mapping[str, Any]) -> dict:
         and "official_regime" in snapshot
         and "de_raw" in snapshot
     )
-    if canonical_ready:
+    canonical_markers = (
+        "SAI" in official_src
+        or "official_regime" in snapshot
+        or "de_raw" in snapshot
+    )
+    if canonical_markers:
+        # A partially canonical payload must fail validation instead of being
+        # silently reinterpreted as legacy and defaulting missing raw inputs.
         out = deepcopy(dict(snapshot))
         out.setdefault("sample_id", _sample_id(out))
         return out
