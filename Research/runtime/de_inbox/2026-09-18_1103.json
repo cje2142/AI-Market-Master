@@ -1,0 +1,34 @@
+{
+  "sample_id": "AMM32-DE-20260918-1103",
+  "market_date": "2026-09-18",
+  "timestamp": "2026-09-18T11:03:00+09:00",
+  "session_checkpoint": "11:03 INTRADAY PREVIEW",
+  "official": {
+    "C1": {"status": "VERIFIED", "value": 0.30},
+    "C2": {"status": "VERIFIED", "value": 0.57},
+    "C3": {"status": "VERIFIED", "value": 0.27},
+    "C4": {"status": "VERIFIED", "value": -0.58},
+    "C5": {"status": "PARTIAL", "value": 0.23},
+    "C6": {"status": "VERIFIED", "value": -0.33},
+    "C7": {"status": "PARTIAL", "value": -0.16},
+    "C8": {"status": "VERIFIED", "value": 0.40},
+    "SAI": 0.1331
+  },
+  "official_regime": "R7 Deep Correction / Support Test; R8 Recovery / Accumulation strong transition",
+  "de_raw": {
+    "r_kospi": 0.0203,
+    "r_kosdaq": 0.0064,
+    "r_kospi200": 0.0226,
+    "r_krx100": null,
+    "r_usdkrw": 0.0032,
+    "d_ktb3y_bp": null
+  },
+  "C8_effect": "POSITIVE_SHADOW_SUPPORT",
+  "notes": [
+    "Source is the user-supplied 2026-09-18 11:03 Dashboard.",
+    "Official SAI stored as exact base-weight arithmetic from the supplied C1-C8 values: +0.1331.",
+    "KRX100 return and KTB3Y bp change were not supplied; they remain null and must not be estimated.",
+    "C5 is intraday Preview/PARTIAL; C7 is PARTIAL.",
+    "This sample is being backfilled after confirming the 11:03 Dashboard was generated before the latest 20A sidecar rule was loaded."
+  ]
+}
