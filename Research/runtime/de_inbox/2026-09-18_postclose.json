@@ -1,0 +1,61 @@
+{
+  "market_date": "2026-09-18",
+  "timestamp": "2026-09-18T15:52:00+09:00",
+  "session_checkpoint": "POST_CLOSE",
+  "official": {
+    "C1": {
+      "status": "VERIFIED",
+      "value": 0.2988
+    },
+    "C2": {
+      "status": "VERIFIED",
+      "value": 0.3053
+    },
+    "C3": {
+      "status": "VERIFIED",
+      "value": -0.0143
+    },
+    "C4": {
+      "status": "VERIFIED",
+      "value": -0.612
+    },
+    "C5": {
+      "status": "VERIFIED",
+      "value": 0.3268
+    },
+    "C6": {
+      "status": "VERIFIED",
+      "value": -0.2468
+    },
+    "C7": {
+      "status": "VERIFIED",
+      "value": -0.2262
+    },
+    "C8": {
+      "status": "VERIFIED",
+      "value": 0.7153
+    },
+    "strategy_action_index": {
+      "status": "VERIFIED",
+      "value": 0.0997
+    },
+    "regime": {
+      "status": "VERIFIED",
+      "primary": "R7 Deep Correction / Support Test",
+      "transition": "R8 Recovery / Accumulation Watch"
+    }
+  },
+  "candidate_raw_inputs": {
+    "KOSPI_return_pct": 2.66,
+    "KOSDAQ_return_pct": 0.6,
+    "KOSPI200_return_pct": 3.02,
+    "KRX100_return_pct": 2.6,
+    "USDKRW_return_pct": 0.12,
+    "KTB3Y_change_bp": 1
+  },
+  "notes": [
+    "Official Dashboard sidecar only; no feedback into official 3.2 decision.",
+    "C5 closing-confirmed for 2026-09-18.",
+    "Fresh Binance re-query attempt failed; prior 15:15 LIVE result remains within post-close fallback window and is used as FALLBACK context only."
+  ]
+}
