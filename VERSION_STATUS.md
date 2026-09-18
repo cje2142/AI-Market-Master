@@ -3,6 +3,20 @@
 ## Current Version
 **AI Market Master 3.2 — Unified Stable / SAI HTS-Operational v2**
 
+## 2026-09-18 Data Efficiency Auto-Log Canonical Hardening
+- Dashboard Rule 20A now defines the exact canonical DE sidecar schema and raw-data units.
+- New Dashboard executions must emit `official.SAI`, `official_regime`, and `de_raw`; legacy aliases are prohibited for new samples.
+- DE bridge retains defensive backward compatibility for historical `strategy_action_index`, `regime`, and `candidate_raw_inputs` payloads.
+- Percent-valued historical raw inputs are normalized to decimal returns at ingestion; KTB3Y remains in bp.
+- Partially canonical payloads fail validation instead of silently defaulting missing fields.
+- Correction/metadata-only inbox JSON with `correction_of` is safely returned as `SKIP NON-SAMPLE` rather than aborting ingestion.
+- Official 3.2 scoring, Regime, portfolio decisions and the six-file Authority boundary are unchanged.
+- Validation workflow: `Run Data Efficiency Dashboard Auto-Log v0.1 Tests`
+- Final CI Run ID: `35318700235` — SUCCESS
+- Core patch commit: `8ec82f6329d286a9344ef6a7f4564dd41d8e9810`
+- Boundary-fix commit: `7898e629da6c9ea4f12086dea1703b7dfebc3d7d`
+- DASHBOARD_RULE blob SHA: `2d60ff77948b1bb4a18fc2d42a244a9238b09aee`
+
 ## 2026-09-11 Execution Priority Hard Gate
 - Full Dashboard exact trigger now initializes the fixed 8-category presentation skeleton before analytical execution.
 - Presentation Initialization is layout reservation only; it does not change SCORING, ADAPTIVE, TECHNICAL or BINANCE calculation/validation order.
@@ -14,7 +28,7 @@
 
 Current patched authority snapshot:
 - MASTER_RULE: `2c601ed6c5beb0c4937bf85f5b265f5f4b68957f`
-- DASHBOARD_RULE: `c8a88f6046a975d2ec48757e89d0ee14333ae89b`
+- DASHBOARD_RULE: `2d60ff77948b1bb4a18fc2d42a244a9238b09aee`
 
 Pre-patch checkpoint:
 - `Backup/AI_MARKET_MASTER_3.2_DASHBOARD_EXECUTION_PRIORITY_PREPATCH_BACKUP_2026-09-11.md`
